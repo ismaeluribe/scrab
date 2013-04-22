@@ -1,5 +1,16 @@
+<?php 
+session_start();
+require("php/UserDAO.php");
+$bd = new UserDAO();
+if(!isset($_SESSION['user'])){
+  header ("location: index.php");
+}
+if(isset($_GET['cerrar'])){
+  $bd->cerrarSesion();
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="img/scrab.png" type="image/png" />
@@ -29,6 +40,9 @@ function scrollUp() {
     scrollTop: 0
   }, 250);
 }
+function cerrar(){
+
+}
 </script>
 
 <!--/Scripts -->
@@ -42,7 +56,7 @@ function scrollUp() {
    <header class="navbar navbar-fixed-top">
     <nav class="navbar-inner" style="margin:auto;">
       <div class="container fluid">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse">
         </a>
         <a class="brand" href="index.php">Scrab</a>
         <div class="nav-collapse">
@@ -69,7 +83,7 @@ function scrollUp() {
                 <li><a href="#">Ayuda</a></li>
                 <li><a href="#">Configuración</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Cerrar sesión</a></li>
+                <li><a href="inicio.php?cerrar=1" name="cerrar">Cerrar sesión</a></li>
               </ul>
             </li>
           </ul>
