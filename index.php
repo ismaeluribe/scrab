@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <?php 
+
+
 session_start();
-require("php/UserDAO.php");
+
+
+
+require_once ("php/modelo/UserDAO.php");
+
   if(isset($_SESSION['user'])){
     header ("location: inicio.php");
   }
