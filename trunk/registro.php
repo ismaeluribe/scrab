@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php 
 session_start();
-require("php/UserDAO.php");
+
+require_once("php/modelo/UserDAO.php");
+
   if(isset($_SESSION['user'])){
     header ("location: inicio.php");
   }
@@ -52,7 +54,7 @@ require("php/UserDAO.php");
   </header>
   <article>
 
-    <form class="formulario" action="index.php" method="POST">
+    <form class="formulario" action="registro.php" method="POST">
       <input type="text" placeholder="Nombre" name="nom" />
       </br>
       <input type="text" placeholder="Primer Apellido" name="ape1" />

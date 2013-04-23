@@ -1,6 +1,12 @@
 <?php 
+
+
+
 session_start();
-require("php/UserDAO.php");
+
+require_once("php/modelo/UserDAO.php");
+
+
 $bd = new UserDAO();
 if(!isset($_SESSION['user'])){
   header ("location: index.php");
