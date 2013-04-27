@@ -81,7 +81,7 @@ if (isset($_GET['cerrar'])) {
                             </li>
 
                             <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="fperfil" src="img/cosas (37).jpg">&nbsp;&nbsp;Lisma19</a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="fperfil" src="img/cosas.jpg">&nbsp;&nbsp;<?php echo $_SESSION['user']; ?></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Ayuda</a></li>
                                     <li><a href="#">Configuración</a></li>
