@@ -8,11 +8,6 @@ $base_dir = realpath(dirname(__FILE__) .'/..');
 require_once("{$base_dir}/clasesImportantes/bd.php");
 
 class UserDAO {
-    //definimos las tablas con las que intercambian datos los usuarios como constantes
-
-    const tablaPersonas = "personas";
-    const tablaUsuarios = "usuarios";
-
     //definimos las propiedades
     private $db;
 
@@ -21,7 +16,7 @@ class UserDAO {
         $this->db = $obj->getDB();
         $this->userpass = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ? AND pass = ?");
         $this->registroPersonas = $this->db->prepare("INSERT INTO personas VALUES(?,?,?,?,?,?,?,?,?,0)");
-        $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios VALUES (?,?,?,'".date("Y-m-d")."',?,0,?)");
+        $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios VALUES (?,?,?,'".date("Y-m-d")."','',0,?)");
         $this->userName = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ?");
         $this->email = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE email = ?");
     }
@@ -40,6 +35,7 @@ class UserDAO {
     }
 
     function registroUsuario() { // Hace el registro primero de persona y despues de usuario
+        $tipo = "user";
         $nombre = $_POST['nom'];
         $ape1 = $_POST['ape1'];
         $ape2 = $_POST['ape2'];
@@ -53,33 +49,21 @@ class UserDAO {
         //para hacer el registro primero tenemos que comprobar que no existe un campo
         //con el mismo nombre de usuario ni el mismo correo en la bd
         if ($this->emailUser($email) && $this->nombreUser($nombreUser)) {
-            //no eciste el email ni el nombre de usuario
             $query1 = "SELECT MAX(idpersonas) AS \"mayor\" FROM personas";
             $result1 = $this->db->query($query1);
             $mayor = $result1->fetch_assoc();
             $mayor1 = $mayor['mayor'] + 1;
             //insertamos datos en personas
-            $query2 = "INSERT INTO " . self::tablaPersonas . " VALUES($mayor1,'user','$nombre','$ape1','$ape2','$nac','$sexo','$foto','$formato',0)";
-            if (!$this->db->query($query2)) {
-                //echo $this->db->errno;
-                throw die("eror introduciendo los datos en la tabla personas");
-            }
-
+            $this->registroPersonas->bind_param("issssssbs",$mayor1,$tipo,$nombre,$ape1,$ape2,$nac,$sexo,$foto,$formato);
+            $this->registroPersonas->execute();
             //migramos los datos de personas a aqui
-            $query3 = "INSERT INTO " . self::tablaUsuarios . " VALUES ($mayor1,'$nombreUser','$email','" . date("Y-m-d") . "','',0,'$pass')";
-            if (!$this->db->query($query3)) {
-                //echo $this->db->errno;
-                throw die("error introduciendo los datos en la tabla usuarios");
-            }
-        } else {
-            throw die("el e-mail o el nombre de usuario introducido no son validos");
-        }
-
-        //obtenemos el ultimos usuario
-
-
+            $this->registroUsuario->bind_param("isss",$mayor1,$nombreUser,$email,$pass);
+            $this->registroUsuario->execute();
         header("location: index.php");
         $_SESSION['user'] = $_POST['user'];
+    }else{
+        echo("Usuario o email ya existe.<br/>");
+    }
     }
 
     function cerrarSesion() {
@@ -94,7 +78,7 @@ class UserDAO {
         // Se dice donde guardar el resultado de cada una de los elementos de la consulta.
         $this->userName->bind_result($result); // Si se pidieran varios elementos habría que poner mas variables aqui.
         $this->userName->fetch();// Fetch para rellenar la variable.
-        if (isset($result)) {
+        if (!isset($result)) {
             return TRUE;
         } else {
             return FALSE;
@@ -105,13 +89,14 @@ class UserDAO {
         $this->email->bind_param("s",$email);
         $this->email->execute();
         $this->email->bind_result($result);
-        $this->emails->fetch();
-        if (isset($result)) {
+        $this->email->fetch();
+        if (!isset($result)) {
             return TRUE;
         } else {
             return FALSE;
         }
     }
+
 
 }
 
