@@ -1,0 +1,356 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"UTF",
+				"utf8_general_ci"
+			],
+			[
+				"qu",
+				"query2"
+			],
+			[
+				"nombre",
+				"nombreUser"
+			],
+			[
+				"nom",
+				"nombre"
+			],
+			[
+				"sel",
+				"selected	option"
+			],
+			[
+				"user",
+				"UserDAO.php"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"me",
+				"method	form"
+			],
+			[
+				"met",
+				"method	form"
+			],
+			[
+				"pass",
+				"pass"
+			],
+			[
+				"margin",
+				"margin-top"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+			[
+				"",
+				"Bookmarks: Toggle"
+			],
+			[
+				"proje",
+				"Project: Save As"
+			]
+		],
+		"width": 498.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/xampp/htdocs/Scrab/css/style.css",
+		"/C/xampp/htdocs/Scrab/css/bootstrap.css",
+		"/C/xampp/htdocs/Scrab/php/UserDAO.php",
+		"/C/xampp/htdocs/Scrab/registro.php",
+		"/C/xampp/htdocs/Scrab/inicio.php",
+		"/C/xampp/htdocs/Scrab/index.php",
+		"/C/xampp/htdocs/Scrab/php/cerrar.php",
+		"/C/xampp/htdocs/Scrab/php/bd.php",
+		"/C/Users/Ismael/Google Drive/proyecto/proyecto/relacional/bd.sql",
+		"/D/Datos/Informatica/DAI/2_BD/VillaresCastillo_Maria/Proyecto/ejecucion/alta_autorizada_admin.php",
+		"/C/xampp/htdocs/interfazv2/user.html",
+		"/C/xampp/htdocs/discline/Cliente/baja_cliente_confirmacion.php",
+		"/C/xampp/htdocs/discline/menuinicio.php",
+		"/I/practicas/dpto/Web_dpto_0.61_2013-04-19/admin/principal.php",
+		"/I/practicas/dpto/Web_dpto_0.61_2013-04-19/admin/index.php",
+		"/I/practicas/dpto/Web_dpto_0.61_2013-04-19/admin/bd.php",
+		"/C/xampp/htdocs/Scrab/index.html",
+		"/C/xampp/htdocs/Scrab/correos.php",
+		"/C/xampp/htdocs/Scrab/php/DAO/UserDAO.php",
+		"/C/xampp/htdocs/Scrab/php/bd2.php",
+		"/C/xampp/phpmyadmin/config.inc.php",
+		"/C/Users/Ismael/Documents/scrab.sql",
+		"/D/Datos/Informatica/DAI/2_BD/VillaresCastillo_Maria/Proyecto/ejecucion/Compra/compra_fisica_finalizada.php",
+		"/C/xampp/htdocs/Scrab/php/class.phpmailer.php",
+		"/C/xampp/tomcat/bin/bootstrap.jar",
+		"/C/xampp/mysql/data/scrab/a_moderar.frm",
+		"/C/Users/Ismael/Google Drive/proyecto/proyecto/interfaz/Isma/pruebas0.6/correos.php",
+		"/C/Users/Ismael/Google Drive/proyecto/proyecto/interfaz/Isma/pruebas0.6/scrab.sublime-workspace",
+		"/C/Users/Ismael/Google Drive/proyecto/proyecto/interfaz/Isma/pruebas0.6/index.php",
+		"/C/Users/Ismael/Google Drive/proyecto/proyecto/interfaz/nico/mio/index.html",
+		"/C/xampp/htdocs/Scrab/css/bootstrap.min.css",
+		"/C/xampp/php/php.ini",
+		"/C/xampp/htdocs/Scrab/php/class.smtp.php",
+		"/C/Users/Ismael/Desktop/PHPMailer-master/PHPMailer-master/class.pop3.php",
+		"/C/Users/Ismael/Desktop/PHPMailer-master/PHPMailer-master/class.phpmailer.php",
+		"/C/Users/Ismael/Desktop/PHPMailer-master/PHPMailer-master/composer.json",
+		"/D/Datos/Informatica/DAI/2_BD/X_B_Proyecto_Final/PHPMailerMODIFICADO/class.smtp.php",
+		"/D/Datos/Informatica/DAI/2_BD/X_B_Proyecto_Final/PHPMailerMODIFICADO/class.phpmailer.php",
+		"/D/Datos/Informatica/DAI/2_BD/VillaresCastillo_Maria/Proyecto/ejecucion/Clase_phpmailer/class.phpmailer.php",
+		"/D/Datos/Informatica/DAI/2_BD/VillaresCastillo_Maria/Proyecto/ejecucion/Clase_phpmailer/class.smtp.php",
+		"/D/Datos/Informatica/DAI/2_BD/X_B_Proyecto_Final/PHPMailerMODIFICADO/test.php",
+		"/C/xampp/mysql/bin/my.ini",
+		"/C/Users/Ismael/Downloads/mydb.sql",
+		"/C/xampp/htdocs/Scrab/scrab.sublime-workspace",
+		"/C/xampp/htdocs/dpto2/desplegarFinal.php",
+		"/C/xampp/htdocs/dpto2/login.php",
+		"/C/xampp/htdocs/dpto2/validar_usuario.php",
+		"/C/xampp/htdocs/dpto2/emails/emails.html",
+		"/C/xampp/htdocs/dpto2/emails/emails.php",
+		"/C/xampp/htdocs/dpto2/controladorEventos.php",
+		"/C/xampp/htdocs/dpto2/configuration.php",
+		"/C/xampp/htdocs/dpto2/emails/index.html",
+		"/C/xampp/htdocs/dpto2/emails/error.html",
+		"/C/xampp/htdocs/dpto2/actualizarEventosNoticias.php",
+		"/F/portada-.xsl",
+		"/C/xampp/htdocs/dpto2/xslt/portada.xsl",
+		"/E/portada.xsl",
+		"/C/Users/red/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/red/Downloads/google5e74cfe0ef4d05e2.html",
+		"/C/xampp/htdocs/dpto2/nueva/css/estilo.css",
+		"/C/xampp/htdocs/dpto2/nueva/css/estilomenu.css",
+		"/C/xampp/htdocs/dpto2/xslt/eventos.xsl",
+		"/C/xampp/htdocs/dpto2/xml/121.xml",
+		"/C/xampp/htdocs/dpto2/nueva/css/style.css",
+		"/C/Users/red/dpto2/nueva/css/style.css",
+		"/C/Users/red/dpto2/nueva/css/estilomenu.css",
+		"/C/Users/red/dpto2/nueva/css/estilo.css",
+		"/C/Users/red/dpto2/nueva/portada.html",
+		"/C/Users/red/dpto2/nueva/index.html",
+		"/C/Users/red/dpto2/nueva/css/conferencia-xsl.pdf",
+		"/C/Users/red/dpto2/xslt/portada.xsl",
+		"/C/xampp/htdocs/dpto2/xml/11.xml",
+		"/C/xampp/htdocs/dpto2/css/estilomenu.css",
+		"/C/Users/red/dpto2/css/estilo.css",
+		"/C/Users/red/dpto2/xml/10.xml",
+		"/C/Users/red/dpto2/prueba.xsl",
+		"/C/xampp/htdocs/dpto2/xslt/ubicacion.xsl",
+		"/C/xampp/htdocs/dpto2/xml/pdf/class.pdf.php",
+		"/C/xampp/htdocs/dpto2/xml/calendario.xml",
+		"/C/xampp/htdocs/dpto2/xml/13.xml",
+		"/C/xampp/htdocs/dpto2/xslt/calendario.xsl",
+		"/C/xampp/htdocs/dpto2/xml/cargos.xml",
+		"/C/xampp/htdocs/dpto2/xml/pdf/pdf03.php",
+		"/C/xampp/htdocs/dpto2/xml/pdf/pdf02.php",
+		"/C/xampp/htdocs/dpto2/xml/pdf/pdf.php",
+		"/C/Users/red/dpto2/administracion/publicacionesContenido.php",
+		"/C/xampp/phpMyAdmin/config.inc.php",
+		"/C/Users/red/dpto2/administracion/publicaciones.php",
+		"/C/Users/red/dpto2/administracion/ar.xml",
+		"/C/Users/red/dpto2/administracion/scriptsBBDD/Ubicacion/insertarubicacionenBBDD.php",
+		"/C/Users/red/dpto2/administracion/ac.xml",
+		"/C/Users/red/dpto2/database/ccdb.sql",
+		"/C/Users/red/dpto2/login.xml",
+		"/C/Users/red/dpto2/objects/class.xml.php",
+		"/C/Users/red/dpto2/objects/class.database.php",
+		"/C/Users/red/dpto2/administracion/scriptsBBDD/Categoria/insertarcategoriasenBBDD.php",
+		"/C/Users/red/dpto2/Administrador/Profesor.php",
+		"/C/Users/red/dpto2/administracion/scriptsBBDD/Funcion/insertarfuncionenBBDD.php",
+		"/C/Users/red/dpto2/emails/emails.php",
+		"/E/dpto2/xslt/portada.xsl",
+		"/C/Users/red/Ciudad 2020/Matlab/página Ciudad2020/js/validarAlumbrado.js",
+		"/C/Users/red/Desktop/dpto2/database/ccdb.sql",
+		"/C/xampp/htdocs/dpto2/index.php",
+		"/C/xampp/htdocs/dpto2/xml/portada.xml",
+		"/C/Users/red/Desktop/cosa rara.html",
+		"/C/Users/red/Desktop/cosa rara1.html",
+		"/C/Users/red/Desktop/dpto2/database/modelo.dm2",
+		"/E/Matlab/página Ciudad2020/index.html",
+		"/E/Matlab/página Ciudad2020/edificios_ciudad.php",
+		"/E/Matlab/página Ciudad2020/alumbrado_nuevofarola.php",
+		"/E/Matlab/página Ciudad2020/js/flotr2.min.js",
+		"/C/Users/red/Ciudad 2020/Matlab/página Ciudad2020/js/modernizr.js",
+		"/E/Matlab/página Ciudad2020/js/modernizr.js",
+		"/E/Matlab/página Ciudad2020/js/validarEdificios.js",
+		"/E/Matlab/página Ciudad2020/js/validarAlumbrado.js",
+		"/E/Matlab/página Ciudad2020/js/validar.js",
+		"/E/Matlab/página Ciudad2020/estilo/style.css",
+		"/E/Matlab/página Ciudad2020/alumbrado.html",
+		"/E/Matlab/página Ciudad2020/alumbrado_ciudad.html",
+		"/E/Matlab/página Ciudad2020/alumbrado_ciudad.php",
+		"/E/Matlab/página Ciudad2020/alumbradoEsquema.html",
+		"/E/Matlab/página Ciudad2020/alumbrado_nuevocm.html",
+		"/E/Matlab/página Ciudad2020/contacto.html",
+		"/E/Matlab/página Ciudad2020/alumbrado_nuevo2.php",
+		"/E/Matlab/página Ciudad2020/alumbrado_nuevacalle.php",
+		"/E/Matlab/página Ciudad2020/edificios.html",
+		"/E/Matlab/página Ciudad2020/alumbrado_nuevo.html",
+		"/E/Matlab/página Ciudad2020/edificios_nuevo.html"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"navbar",
+			"mydb",
+			"(); ",
+			"Email",
+			"mydb",
+			"send()",
+			"php",
+			"gmail",
+			"$mysqli",
+			"mydb",
+			"..",
+			"a{",
+			"{",
+			"a",
+			"a{",
+			"a ",
+			"a {",
+			"a ",
+			".f",
+			"a\n",
+			"a \n",
+			";\n",
+			".flt",
+			"121.xml",
+			"                <",
+			".flt",
+			"img",
+			"columna",
+			"i",
+			"izqu",
+			"columna",
+			"columna+"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 34.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"index2.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/C/xampp/htdocs/dpto2/dpto2.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 384.0,
+	"status_bar_visible": true
+}
