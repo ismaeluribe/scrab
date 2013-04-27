@@ -3,11 +3,10 @@
 //debido a un problema con el sistema de ruta de window al estar en una maquina virtual
 //hemos de tener que hacer a mano las rutas de la aplicacion 
 //la otra opcion es cambiar el path de php.ini
-
 $ds = "/"; //variable con el separador
-$base_dir = realpath(dirname(__FILE__) . $ds . '..') . $ds;
+$base_dir = realpath(dirname(__FILE__) .$ds.'..') . $ds;
 //definimos como directorio base el directorio en el que estamos en este caso es /php
-require_once("{$base_dir}clasesImportantes{$ds}bd.php");
+require_once("{$base_dir}clasesImportantes/bd.php");
 
 class UserDAO {
     //definimos las tablas con las que intercambian datos los usuarios como constantes
@@ -21,6 +20,9 @@ class UserDAO {
     public function __construct() {// Constructor de la clase
         $obj = new bd();
         $this->db = $obj->getDB();
+        $this->userpass = $this->db->prepare("SELECT * FROM usuarios WHERE nombreUser = '?' AND pass = '?'");
+        $this->registroPersonas = $this->db->prepare("INSERT INTO personas VALUES(?,'?','?','?','?','?','?','?','?',0)");
+        $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios VALUES (?,'?','?','".date("Y-m-d")."','?',0,'?')");
     }
 
     function userpass() {// Comprueba si el usuario y la contraseña introducidos son correctos
@@ -60,13 +62,13 @@ class UserDAO {
             }
 
             //migramos los datos de personas a aqui
-            $query3 = "INSERT INTO " . self::tablaUsuarios . " VALUES ($mayor1,'$nombreUser','$email','" . time() . "','',0,'$pass')";
+            $query3 = "INSERT INTO " . self::tablaUsuarios . " VALUES ($mayor1,'$nombreUser','$email','" . date("Y-m-d") . "','',0,'$pass')";
             if (!$this->db->query($query3)) {
                 //echo $this->db->errno;
                 throw die("error introduciendo los datos en la tabla usuarios");
             }
         } else {
-            throw die("el eemail o el nombre de usuario introducido no son validos");
+            throw die("el e-mail o el nombre de usuario introducido no son validos");
         }
 
         //obtenemos el ultimos usuario
