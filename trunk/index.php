@@ -45,17 +45,17 @@ if (isset($_POST['pass'])) {
         <title>Scrab</title>
     </head>
     <body>
-        <div class="container" id="wrapper1">
+        <div class="container">
             <header class="navbar navbar-fixed-top">
                 <nav class="navbar-inner" style="margin:auto;">
                     <div class="container fluid">
                         <a class="brand" href="index.php">Scrab</a>
-                    </div>
+                </div>
                 </nav>
             </header>
             <article>
-
-                <form class="formulario" action="index.php" method="POST">
+                <form class="formulario modal" action="index.php" method="POST">
+                    <br/><br/>
                     <?php
                     if (!isset($_SESSION['user']) && isset($_POST['user'])) {
                         echo "<h5>Contraseña incorrecta</h5>";
@@ -63,7 +63,7 @@ if (isset($_POST['pass'])) {
                     ?>
                     <input type="text" placeholder="Usuario" name="user" required="required"/>
                     <input type="password" placeholder="Contraseña" name="pass" required="required" />
-                    </br>
+                    <br/>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                     <a href="registro.php" class="btn btn-primary">Registro</a>
                 </form>

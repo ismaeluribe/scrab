@@ -39,7 +39,7 @@ if (isset($_SESSION['user'])) {
         <title>Scrab</title>
     </head>
     <body>
-        <div class="container" id="wrapper1">
+        <div class="container">
             <header class="navbar navbar-fixed-top">
                 <nav class="navbar-inner" style="margin:auto;">
                     <div class="container fluid">
@@ -49,7 +49,8 @@ if (isset($_SESSION['user'])) {
             </header>
             <article>
                 
-                <form class="formulario" action="registro.php" method="POST">
+                <form class="formularioReg modal" action="registro.php" method="POST">
+                    </br></br>
                     <?php 
                 if (isset($_POST['submit'])) {
                 $bd = new UserDAO();

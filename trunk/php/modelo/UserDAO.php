@@ -96,8 +96,6 @@ class UserDAO {
             return FALSE;
         }
     }
-
-
 }
 
 ?>
