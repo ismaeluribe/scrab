@@ -7,10 +7,6 @@ require_once("php/modelo/UserDAO.php");
 if (isset($_SESSION['user'])) {
     header("location: inicio.php");
 }
-if (isset($_POST['submit'])) {
-    $bd = new UserDAO();
-    $bd->registroUsuario();
-}
 ?>
 <html>
 
@@ -52,8 +48,14 @@ if (isset($_POST['submit'])) {
                 </nav>
             </header>
             <article>
-
+                
                 <form class="formulario" action="registro.php" method="POST">
+                    <?php 
+                if (isset($_POST['submit'])) {
+                $bd = new UserDAO();
+                $bd->registroUsuario();
+                }
+                ?>
                     <input type="text" placeholder="Nombre" name="nom" />
                     </br>
                     <input type="text" placeholder="Primer Apellido" name="ape1" />
