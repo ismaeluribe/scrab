@@ -53,4 +53,12 @@ body{
     text-align: center;
     position:relative;
     top:15em;
+    height:140px;
+}
+
+.formularioReg{
+    text-align: center;
+    position:relative;
+    top:10em;
+    height:500px;
 }

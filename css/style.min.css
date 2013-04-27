@@ -1,4 +1,4 @@
 #wrapper{width:1000px;overflow:hidden;margin-top:0;background-color:#fff}#wrapper1{width:1000px;height:700px;overflow:hidden;margin-top:0;background-color:#fff}
 body{background-color:#f7e4c7}.todoInicio{width:1000px;overflow:hidden}.listaInicio{padding-left:5px;padding-top:5px;width:200px;height:800px;text-align:right}
 .centroInicio{margin-left:240px;margin-top:20px}.caja{position:relative;float:left;height:300px;width:200px;background-color:#f7e4c7;margin:20px}#fperfil{height:17px;width:17px}
-.formulario{text-align:center;position:relative;top:15em}
+.formulario{text-align:center;position:relative;top:15em;height:140px}.formularioReg{text-align:center;position:relative;top:10em;height:500px}
