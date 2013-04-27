@@ -3,10 +3,9 @@
 //debido a un problema con el sistema de ruta de window al estar en una maquina virtual
 //hemos de tener que hacer a mano las rutas de la aplicacion 
 //la otra opcion es cambiar el path de php.ini
-$ds = "/"; //variable con el separador
-$base_dir = realpath(dirname(__FILE__) .$ds.'..') . $ds;
+$base_dir = realpath(dirname(__FILE__) .'/..');
 //definimos como directorio base el directorio en el que estamos en este caso es /php
-require_once("{$base_dir}clasesImportantes/bd.php");
+require_once("{$base_dir}/clasesImportantes/bd.php");
 
 class UserDAO {
     //definimos las tablas con las que intercambian datos los usuarios como constantes
@@ -20,16 +19,21 @@ class UserDAO {
     public function __construct() {// Constructor de la clase
         $obj = new bd();
         $this->db = $obj->getDB();
-        $this->userpass = $this->db->prepare("SELECT * FROM usuarios WHERE nombreUser = '?' AND pass = '?'");
-        $this->registroPersonas = $this->db->prepare("INSERT INTO personas VALUES(?,'?','?','?','?','?','?','?','?',0)");
-        $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios VALUES (?,'?','?','".date("Y-m-d")."','?',0,'?')");
+        $this->userpass = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ? AND pass = ?");
+        $this->registroPersonas = $this->db->prepare("INSERT INTO personas VALUES(?,?,?,?,?,?,?,?,?,0)");
+        $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios VALUES (?,?,?,'".date("Y-m-d")."',?,0,?)");
+        $this->userName = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ?");
+        $this->email = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE email = ?");
     }
 
     function userpass() {// Comprueba si el usuario y la contraseña introducidos son correctos
         $user = $_POST['user'];
         $pass = hash("sha512", $_POST['pass']);
-        $result = $this->db->query("SELECT * FROM " . self::tablaUsuarios . " WHERE nombreUser = '$user' AND pass = '$pass'");
-        if ($result->num_rows != 0) {
+        $this->userpass->bind_param("ss", $user, $pass);
+        $this->userpass->execute();
+        $this->userpass->bind_result($result);
+        $this->userpass->fetch();
+        if (isset($result)) {
             $_SESSION['user'] = $_POST['user'];
             header("location: inicio.php");
         }
@@ -84,9 +88,13 @@ class UserDAO {
     }
 
     private function nombreUser($user) {// Comprueba si el nombre de usuario está libre
-        //$user = $_POST['user'];
-        $result = $this->db->query("SELECT nombreUser FROM " . self::tablaUsuarios . " WHERE nombreUser = '$user'");
-        if ($result->num_rows == 0) {
+        // Se inicializan las ? con los parametros dependiendo s - string, b - blob, i - int, etc...
+        $this->userName->bind_param("s",$user); 
+        $this->userName->execute(); // Se ejecuta la consulta.
+        // Se dice donde guardar el resultado de cada una de los elementos de la consulta.
+        $this->userName->bind_result($result); // Si se pidieran varios elementos habría que poner mas variables aqui.
+        $this->userName->fetch();// Fetch para rellenar la variable.
+        if (isset($result)) {
             return TRUE;
         } else {
             return FALSE;
@@ -94,8 +102,11 @@ class UserDAO {
     }
 
     private function emailUser($email) {
-        $result = $this->db->query("SELECT nombreUser FROM " . self::tablaUsuarios . " WHERE email = '$email'");
-        if ($result->num_rows == 0) {
+        $this->email->bind_param("s",$email);
+        $this->email->execute();
+        $this->email->bind_result($result);
+        $this->emails->fetch();
+        if (isset($result)) {
             return TRUE;
         } else {
             return FALSE;
