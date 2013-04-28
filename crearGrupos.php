@@ -45,10 +45,10 @@ session_start();
         </style>
     </head>
     <body>
-        <form action="php/controlador/GruposController.php" method="POST">
+        
             <!-- id/propietario/nombre/fecha/descripcion/privacidad-->
-            <input type="text" name="nombreGrupo" placeholder="Nombre del grupo">
-            <textarea  name="descripcion">
+            <input type="text" id="groupName" name="nombreGrupo" placeholder="Nombre del grupo">
+            <textarea id="description" name="descripcion">
                 Descripcion
             </textarea>
 
@@ -59,14 +59,14 @@ session_start();
             <button type="reset">reset</button>
 
 
-        </form>
+      
         <img src="" alt="">
         <div id="not-drop-files">
             <div id="drop-files"> 
                 Arrastra una imagen
             </div>
         </div>
-        
+        <div id="response"></div>
         <script>
             //funcion que impide el arrastre en el cuadro interno
             function notDrop(e) {
@@ -143,15 +143,30 @@ session_start();
           // document.getElementById("drop-files").ondragend=notDrop;
           // col.addEventListener('dragend', notDrop, false);
             $("#btnSubmit").click(function (){
+                var val1=$("#groupName").val();
+                var val2=$("#description").val();
+                //alert (val1);
+               // alert (val2);
+                
                 $.ajax({
-                url: '/ruta/hasta/pagina.php',
+                url: 'php/controlador/GruposController.php',
                 type: 'POST',
                 async: true,
-                data: 'parametro1=valor1&parametro2=valor2',
-                success: procesaRespuesta,
-                error: muestraError
+                data: 'name='+val1+'&description='+val2,
+                success: successfulAjax,
+                error: errorAjax
                 });
             });
+            function successfulAjax(e){
+                $("#response").html(e);
+                //alert ("la respuesta es good");
+            }
+            function errorAjax(e){
+                $("#response").html(e);
+                //alert ("ha habido un error");
+            }
+            
+            
         </script>
 
 
