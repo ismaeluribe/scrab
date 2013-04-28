@@ -17,11 +17,12 @@ class UserDAO {
         $this->userpass = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ? AND pass = ?");
         $this->registroPersonas = $this->db->prepare("INSERT INTO personas VALUES(?,?,?,?,?,?,?,?,?,0)");
         $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios VALUES (?,?,?,'".date("Y-m-d")."','',0,?)");
-        $this->userName = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ?");
+        $this->userName = $this->db->prepare("SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?");
         $this->email = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE email = ?");
         $this->image = $this->db->prepare("SELECT foto FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
         $this->dropPersona = $this->db->prepare("DELETE FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
         $this->dropUsuario = $this->db->prepare("DELETE FROM usuarios WHERE nombreUser = ?");
+        $this->conexion = $this->db->prepare("INSERT INTO conexiones (usuarios_personas_idpersonas,navegador,sistema,ip,fecha) VALUES(?,?,?,?,?)");
     }
 
     function userpass() {// Comprueba si el usuario y la contraseña introducidos son correctos
@@ -32,8 +33,10 @@ class UserDAO {
         $this->userpass->bind_result($result);
         $this->userpass->fetch();
         if (isset($result)) {
+            $this->conexion($user);
             $_SESSION['user'] = $_POST['user'];
             header("location: inicio.php");
+
         }
     }
 
@@ -88,6 +91,15 @@ class UserDAO {
         }
     }
 
+    private function conexion($user){
+        $this->userName->bind_param("s",$user);
+        $this->userName->execute();
+        $this->userName->bind_result($result);
+        $this->userName->fetch();
+        $datos = getDatos();
+        $this->conexion->bind_param("issss",$result,$datos[2],$datos[1],$datos[0]);
+    }
+
     private function emailUser($email) {
         $this->email->bind_param("s",$email);
         $this->email->execute();
@@ -115,6 +127,32 @@ class UserDAO {
         $this->dropUsuario->bind_param("s",$user);
         $this->dropUsuario->execute();
         $this->dropPersona->execute();
+    }
+
+    function getDatos(){
+        $temp=array();
+        $ip=$_SERVER['REMOTE_ADDR'];
+        $datos=$_SERVER['HTTP_USER_AGENT'];
+        array_push($temp,$ip);
+        if(strpos($datos,"Windows")!==false)
+            array_push($temp,"Windows");
+        elseif(strpos($datos,"Mac")!==false)
+            array_push($temp,"Mac");
+        elseif(strpos($datos,"Linux")!==false)
+            array_push($temp,"Linux");
+        if(strpos($datos,"MSIE")!==false)
+            array_push($temp,"Internet Explorer");
+        elseif(strpos($datos,"Firefox")!==false)
+            array_push($temp,"Firefox");
+        elseif(strpos($datos,"Chrome")!==false)
+            array_push($temp,"Google Chrome");
+        elseif(strpos($datos,"Safari")!==false)
+            array_push($temp,"Safari");
+        elseif(strpos($datos,"Opera")!==false)
+            array_push($temp,"Opera");
+        else
+            array_push($temp,"Navegador desconocido");
+        return $temp;
     }
 }
 
