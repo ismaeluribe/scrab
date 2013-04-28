@@ -11,6 +11,7 @@ if (isset($_SESSION['user'])) {
 }
 if (isset($_POST['pass'])) {
     $bd = new UserDAO();
+    $bd->conexion($_POST['user']);
     $bd->userpass();
 }
 ?>
