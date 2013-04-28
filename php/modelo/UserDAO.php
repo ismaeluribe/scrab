@@ -19,6 +19,9 @@ class UserDAO {
         $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios VALUES (?,?,?,'".date("Y-m-d")."','',0,?)");
         $this->userName = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ?");
         $this->email = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE email = ?");
+        $this->image = $this->db->prepare("SELECT foto FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
+        $this->dropPersona = $this->db->prepare("DELETE FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
+        $this->dropUsuario = $this->db->prepare("DELETE FROM usuarios WHERE nombreUser = ?");
     }
 
     function userpass() {// Comprueba si el usuario y la contraseña introducidos son correctos
@@ -95,6 +98,23 @@ class UserDAO {
         } else {
             return FALSE;
         }
+    }
+
+    private function getImage($user){ // No funciona todavia, no se si es xk no hay nada en los blob todavia.
+        $this->image->bind_param("s",$user);
+        $this->image->execute();
+        $this->image->store_result();
+        $this->image->bind_result($image);
+        $this->image->fetch();
+        header("Content-Type: image/jpg");
+        echo $image; 
+    }
+
+    private function dropUser($user){
+        $this->dropPersona->bind_param("s",$user);
+        $this->dropUsuario->bind_param("s",$user);
+        $this->dropUsuario->execute();
+        $this->dropPersona->execute();
     }
 }
 
