@@ -11,7 +11,6 @@ if (isset($_SESSION['user'])) {
 }
 if (isset($_POST['pass'])) {
     $bd = new UserDAO();
-    $bd->conexion($_POST['user']);
     $bd->userpass();
 }
 ?>
@@ -59,6 +58,7 @@ if (isset($_POST['pass'])) {
                     <br/><br/>
                     <?php
                     if (!isset($_SESSION['user']) && isset($_POST['user'])) {
+
                         echo "<h5>Contraseña incorrecta</h5>";
                     }
                     ?>
