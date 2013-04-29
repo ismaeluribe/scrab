@@ -22,7 +22,7 @@ class UserDAO {
         $this->image = $this->db->prepare("SELECT foto FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
         $this->dropPersona = $this->db->prepare("DELETE FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
         $this->dropUsuario = $this->db->prepare("DELETE FROM usuarios WHERE nombreUser = ?");
-        $this->conexion = $this->db->prepare("INSERT INTO conexiones (usuarios_personas_idpersonas,navegador,sistema,ip,fecha) VALUES(?,?,?,?,?)");
+        $this->conexion = $this->db->prepare("INSERT INTO conexiones (usuarios_personas_idpersonas,navegador,sistema,ip,fecha) VALUES (?,?,?,?,".date("Y-m-d").")");
     }
 
     function userpass() {// Comprueba si el usuario y la contraseña introducidos son correctos
@@ -33,10 +33,9 @@ class UserDAO {
         $this->userpass->bind_result($result);
         $this->userpass->fetch();
         if (isset($result)) {
-            $this->conexion($user);
-            $_SESSION['user'] = $_POST['user'];
+            $_SESSION['user'] = $user;
+            /*$this->db->conexion($user);*/
             header("location: inicio.php");
-
         }
     }
 
@@ -65,11 +64,11 @@ class UserDAO {
             //migramos los datos de personas a aqui
             $this->registroUsuario->bind_param("isss",$mayor1,$nombreUser,$email,$pass);
             $this->registroUsuario->execute();
-        header("location: index.php");
-        $_SESSION['user'] = $_POST['user'];
-    }else{
-        echo("Usuario o email ya existe.<br/>");
-    }
+            header("location: index.php");
+            $_SESSION['user'] = $_POST['user'];
+        }else{
+            echo("Usuario o email ya existe.<br/>");
+        }
     }
 
     function cerrarSesion() {
@@ -91,13 +90,14 @@ class UserDAO {
         }
     }
 
-    private function conexion($user){
+    function conexion($user){
         $this->userName->bind_param("s",$user);
         $this->userName->execute();
         $this->userName->bind_result($result);
         $this->userName->fetch();
-        $datos = getDatos();
-        $this->conexion->bind_param("issss",$result,$datos[2],$datos[1],$datos[0]);
+        $datos = $this->getDatos();
+        /*$this->conexion->bind_param("isss",$result,$datos[2],$datos[1],$datos[0]);
+        $this->conexion->execute();*/
     }
 
     private function emailUser($email) {
