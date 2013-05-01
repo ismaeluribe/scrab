@@ -101,6 +101,7 @@ session_start();
             document.getElementById("drop-files").ondragover = over;
             document.getElementById("drop-files").ondragleave = leave;
 
+             var imageG;
 
             function drop(e){
                e.stopPropagation(); // para la propagacion
@@ -109,7 +110,7 @@ session_start();
                
                
                //imagen
-               var files = e.dataTransfer.files;7
+               var files = e.dataTransfer.files;
                //var files = e.target.files;
                if(!files[0].type.match('image.*')){
                    $("#drop-files").html("tienes que arrastrar una imagen");
@@ -128,6 +129,7 @@ session_start();
                         };
                             
                })(files[0]);
+               imageG=files[0];
               reader.readAsDataURL(files[0]);
               alert (files[0]);
               var a=JSON.stringify(files[0]);
@@ -156,7 +158,17 @@ session_start();
                 success: successfulAjax,
                 error: errorAjax
                 });
+                
+                $.ajax({
+                url: 'php/controlador/GruposController.php',
+                type: 'POST',
+                async: true,
+                data: 'image='+imageG,
+                success: successfulAjax,
+                error: errorAjax
+                });
             });
+            
             function successfulAjax(e){
                 $("#response").html(e);
                 //alert ("la respuesta es good");
