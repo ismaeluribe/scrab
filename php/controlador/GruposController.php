@@ -11,48 +11,49 @@ $base_dir = realpath(dirname(__FILE__) . '/..');
 require_once("{$base_dir}/modelo/gruposDAO.php");
 
 
-
-//$dirImg=  realpath(dirname(__FILE__).'../../image/grupo');
-//echo $dirImg;
-
-
-
-if (isset($_POST['image']) && isset($_POST['imageName'])) {
-    $file = $_POST['image'];
-    $name = $_POST['imageName'];
-    $data = explode(',', $file);
-    // Encode it correctly
-    $encodedData = str_replace(' ', '+', $data[1]);
-    $decodedData = base64_decode($encodedData);
-    if (file_put_contents( '../../image/grupo/'.$name, $decodedData)) {
-        //echo $dirImg;
-        echo $name . ":uploaded successfully";
-    } else {
-        // Show an error message should something go wrong.
-        echo "Something went wrong. Check that the file isn't corrupted";
-    }
-
-
-    //echo "ha llegado la imagen";
-}
-
-
-$name = $_POST['name'];
+$nameGroup = $_POST['name'];
 $description = $_POST['description'];
+$nameImage=null;
 
 $obj = new GruposDAO();
+
+if (($_POST['image']!='null') && ($_POST['imageName']!='null')) {
+
+    //cargamos las variables
+    $file = $_POST['image'];
+    $name = $_POST['imageName'];
+    
+    
+    //obtenemos el archivo
+    $data = explode(',', $file);
+    
+    //obtenemos la extencion de la foto .jpeg / .png
+    $getMime = explode('.', $name);
+    $mime = end($getMime);
+    
+    //codificamos el archivo mime
+    $encodedData = str_replace(' ', '+', $data[1]);
+    $decodedData = base64_decode($encodedData);
+    
+    //le ponermos nombre al archivo del grupo
+    $nameImage=$nameGroup.'.'.$mime;
+    
+    
+    
+    if (file_put_contents( '../../image/grupo/'.$nameImage, $decodedData)) {
+        $mensaje = "imagen subida con exito";
+    } else {
+        $mensaje ="se a liado parda con la imagen";
+    }
+    
+}
+
 $id = $obj->ultimoDato();
 
-if ($obj->insert_datos($id, 1, $name, $description)) {
+if ($obj->insert_datos($id, 1, $nameGroup, $description,$nameImage)) {
     echo "<h1>exito</h1>";
 } else {
     "<h1>fracaso</h1>";
 }
 
-echo $id;
-echo "<br>$name<br>$description";
-
-//class GruposController {
-//put your code here
-//}
 ?>
