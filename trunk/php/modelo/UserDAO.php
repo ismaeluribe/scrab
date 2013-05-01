@@ -22,7 +22,6 @@ class UserDAO {
         $this->image = $this->db->prepare("SELECT foto FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
         $this->dropPersona = $this->db->prepare("DELETE FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
         $this->dropUsuario = $this->db->prepare("DELETE FROM usuarios WHERE nombreUser = ?");
-        $this->conexion = $this->db->prepare("INSERT INTO conexiones (usuarios_personas_idpersonas,navegador,sistema,ip,fecha) VALUES (?,?,?,?,".date("Y-m-d").")");
     }
 
     function userpass() {// Comprueba si el usuario y la contraseña introducidos son correctos
@@ -34,7 +33,6 @@ class UserDAO {
         $this->userpass->fetch();
         if (isset($result)) {
             $_SESSION['user'] = $user;
-            /*$this->db->conexion($user);*/
             header("location: inicio.php");
         }
     }
@@ -96,8 +94,9 @@ class UserDAO {
         $this->userName->bind_result($result);
         $this->userName->fetch();
         $datos = $this->getDatos();
-        /*$this->conexion->bind_param("isss",$result,$datos[2],$datos[1],$datos[0]);
-        $this->conexion->execute();*/
+        $query = "INSERT INTO conexiones (usuarios_personas_idpersonas,navegador,sistema,ip,fecha) VALUES (\"$result\",\"".$datos['2']."\",\"".$datos['1']."\",\"".$datos['0']."\",\"".date("Y-m-d")."\")";
+        $this->db->query($query);
+        echo $this->db->error;
     }
 
     private function emailUser($email) {

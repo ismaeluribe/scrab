@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <?php
 session_start();
-
-
-
 require_once ("php/modelo/UserDAO.php");
 
 if (isset($_SESSION['user'])) {
@@ -55,11 +52,14 @@ if (isset($_POST['pass'])) {
             </header>
             <article>
                 <form class="formulario modal" action="index.php" method="POST">
-                    <br/><br/>
+                    <br/>
+                    <br/>
                     <?php
                     if (!isset($_SESSION['user']) && isset($_POST['user'])) {
-
                         echo "<h5>Contraseña incorrecta</h5>";
+                    }
+                    if (isset($_POST['pass'])) {
+                        $bd->conexion($_POST['user']);
                     }
                     ?>
                     <input type="text" placeholder="Usuario" name="user" required="required"/>

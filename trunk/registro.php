@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-
 require_once("php/modelo/UserDAO.php");
-
 if (isset($_SESSION['user'])) {
     header("location: inicio.php");
 }
@@ -53,8 +51,8 @@ if (isset($_SESSION['user'])) {
                     </br></br>
                     <?php 
                 if (isset($_POST['submit'])) {
-                $bd = new UserDAO();
-                $bd->registroUsuario();
+                    $bd = new UserDAO();
+                    $bd->registroUsuario();
                 }
                 ?>
                     <input type="text" placeholder="Nombre" name="nom" />
