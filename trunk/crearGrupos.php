@@ -48,9 +48,7 @@ session_start();
 
         <!-- id/propietario/nombre/fecha/descripcion/privacidad-->
         <input type="text" id="groupName" name="nombreGrupo" placeholder="Nombre del grupo">
-        <textarea id="description" name="descripcion">
-                Descripcion
-        </textarea>
+        <textarea id="description" name="descripcion" placeholder="Descripción"></textarea>
 
         <input type="radio" name="privacidad" value="privado">
         <input type="radio" name="privacidad" value="publico">
