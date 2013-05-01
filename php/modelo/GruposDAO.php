@@ -34,8 +34,8 @@ class GruposDAO {
     }
 
     public function insert_datos($id, $idUser, $name,  $description) {
-        $query="INSERT INTO grupos (idgrupos,usuarios_personas_idpersonas,nombre,fecha,descripcion)
-                VALUES ($id,$idUser,'$name',NOW(),'$description')";
+       $query="INSERT INTO grupos (idgrupos,usuarios_personas_idpersonas,nombre,fecha,descripcion)
+                 VALUES ($id,$idUser,'$name',NOW(),'$description')";
         if($this->bd->query($query)){
             return true;
         }else return false;
@@ -46,6 +46,13 @@ class GruposDAO {
                 VALUES ('$format')";
       if($this->bd->query($query)) return true;
       else return false;
+  }
+  public function ultimoDato(){
+      $query="SELECT MAX(idgrupos)AS \"MAYOR\" FROM grupos";
+      $stm=$this->bd->query($query);
+      $dato=$stm->fetch_assoc();
+      $dato['MAYOR']++;
+      return $dato['MAYOR'];
   }
 
 }
