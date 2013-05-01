@@ -16,7 +16,7 @@ class UserDAO {
         $this->db = $obj->getDB();
         $this->userpass = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ? AND pass = ?");
         $this->registroPersonas = $this->db->prepare("INSERT INTO personas VALUES(?,?,?,?,?,?,?,?,?,0)");
-        $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios VALUES (?,?,?,'".date("Y-m-d")."','',0,?)");
+        $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios VALUES (?,?,?,now(),'',0,?)");
         $this->userName = $this->db->prepare("SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?");
         $this->email = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE email = ?");
         $this->image = $this->db->prepare("SELECT foto FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
@@ -34,6 +34,7 @@ class UserDAO {
         if (isset($result)) {
             $_SESSION['user'] = $user;
             header("location: inicio.php");
+            $this->userpass->free_result();
         }
     }
 
@@ -93,8 +94,9 @@ class UserDAO {
         $this->userName->execute();
         $this->userName->bind_result($result);
         $this->userName->fetch();
+        $this->userName->free_result();
         $datos = $this->getDatos();
-        $query = "INSERT INTO conexiones (usuarios_personas_idpersonas,navegador,sistema,ip,fecha) VALUES (\"$result\",\"".$datos['2']."\",\"".$datos['1']."\",\"".$datos['0']."\",\"".date("Y-m-d")."\")";
+        $query = "INSERT INTO conexiones (usuarios_personas_idpersonas,navegador,sistema,ip,fecha) VALUES (\"$result\",\"".$datos['2']."\",\"".$datos['1']."\",\"".$datos['0']."\",now())";
         $this->db->query($query);
         echo $this->db->error;
     }
@@ -105,8 +107,10 @@ class UserDAO {
         $this->email->bind_result($result);
         $this->email->fetch();
         if (!isset($result)) {
+            $this->email->free_result();
             return TRUE;
         } else {
+            $this->email->free_result();
             return FALSE;
         }
     }
