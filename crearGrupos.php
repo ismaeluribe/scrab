@@ -45,21 +45,21 @@ session_start();
         </style>
     </head>
     <body>
-        
-            <!-- id/propietario/nombre/fecha/descripcion/privacidad-->
-            <input type="text" id="groupName" name="nombreGrupo" placeholder="Nombre del grupo">
-            <textarea id="description" name="descripcion">
+
+        <!-- id/propietario/nombre/fecha/descripcion/privacidad-->
+        <input type="text" id="groupName" name="nombreGrupo" placeholder="Nombre del grupo">
+        <textarea id="description" name="descripcion">
                 Descripcion
-            </textarea>
+        </textarea>
 
-            <input type="radio" name="privacidad" value="privado">
-            <input type="radio" name="privacidad" value="publico">
-            <div id="cargaImg"> arrasta para soltar</div>
-            <button id="btnSubmit" name="envio"> envio </button>
-            <button type="reset">reset</button>
+        <input type="radio" name="privacidad" value="privado">
+        <input type="radio" name="privacidad" value="publico">
+        <div id="cargaImg"> arrasta para soltar</div>
+        <button id="btnSubmit" name="envio"> envio </button>
+        <button type="reset">reset</button>
 
 
-      
+
         <img src="" alt="">
         <div id="not-drop-files">
             <div id="drop-files"> 
@@ -101,84 +101,88 @@ session_start();
             document.getElementById("drop-files").ondragover = over;
             document.getElementById("drop-files").ondragleave = leave;
 
-             var imageG;
+            var imageG=null;
+            var imageName=null;
+           // var imgBool=false;
 
-            function drop(e){
-               e.stopPropagation(); // para la propagacion
-               e.preventDefault(); 
-               //aciones al arrastrar la imagen
-               
-               
-               //imagen
-               var files = e.dataTransfer.files;
-               //var files = e.target.files;
-               if(!files[0].type.match('image.*')){
-                   $("#drop-files").html("tienes que arrastrar una imagen");
-                   return false;
-               }
-               else{
-                   $("#drop-files").html("imagen arrastrada");
-               
-                   var reader= new FileReader();
-                   reader.onload=(function(theFile) {
-                        return function(e){
-                            $("#drop-files").empty();
-                           //document.getElementById("drop-files").innerHtml="";
-                            $("#drop-files").append("<img class=\"imagen\" src=\""+e.target.result+"\" alt=\""+theFile.name+"\">");
+            function drop(e) {
+                e.stopPropagation(); // para la propagacion
+                e.preventDefault();
+                //aciones al arrastrar la imagen
+
+
+                //imagen
+                var files = e.dataTransfer.files;
+
+                if (!files[0].type.match('image.*')) {
+                    $("#drop-files").html("tienes que arrastrar una imagen");
+                    return false;
+                }
+                else {
+                    var reader = new FileReader();
+                    reader.onload = (function(theFile) {                 
+                        return function(e) {
+                            imageG=this.result;
                         
+                            $("#drop-files").empty();
+
+                            $("#drop-files").append("<img class=\"imagen\" src=\"" + e.target.result + "\" alt=\"" + theFile.name + "\">");
+                           // imgBool=true;
+                          //  alert (imgBool);
                         };
-                            
-               })(files[0]);
-               imageG=files[0];
-              reader.readAsDataURL(files[0]);
-              alert (files[0]);
-              var a=JSON.stringify(files[0]);
-              alert (a);
-            }
-            $("#drop-files").css("background-color", "#cccccc");
-            $("#drop-files").css("color", "black");
-            document.getElementById("not-drop-files").ondragover = notDrop;
+
+                    })(files[0]);
+                    //imageG = files[0].result;
+                    imageName=files[0].name;
+                    //alert (name);
+                    reader.readAsDataURL(files[0]);
+                   // alert(files[0]);
+                   // var a = JSON.stringify(files[0]);
+                  //  alert(a);
+                }
+                $("#drop-files").css("background-color", "#cccccc");
+                $("#drop-files").css("color", "black");
+                document.getElementById("not-drop-files").ondragover = notDrop;
             }
             document.getElementById("drop-files").ondrop = drop;
-           // var col = $("#drop-files");
-          
-          // document.getElementById("drop-files").ondragend=notDrop;
-          // col.addEventListener('dragend', notDrop, false);
-            $("#btnSubmit").click(function (){
-                var val1=$("#groupName").val();
-                var val2=$("#description").val();
-                //alert (val1);
-               // alert (val2);
-                
+
+            $("#btnSubmit").click(function() {
+                var val1 = $("#groupName").val();
+                var val2 = $("#description").val();
+//alert ("la imagen es "+imageG+" su nombre es "+imageName);
                 $.ajax({
-                url: 'php/controlador/GruposController.php',
-                type: 'POST',
-                async: true,
-                data: 'name='+val1+'&description='+val2,
-                success: successfulAjax,
-                error: errorAjax
+                    url: 'php/controlador/GruposController.php',
+                    type: 'POST',
+                    async: true,
+                    data: 'name=' + val1 + '&description=' + val2+'&image='+imageG+'&imageName='+imageName,
+                    success: successfulAjax,
+                    error: errorAjax
                 });
+               // alert (imgBool);
+               /* if (imgBool) {
+                    $.ajax({
+                        url: 'php/controlador/GruposController.php',
+                        type: 'POST',
+                        async: true,
+                        data: 'image=' + imageG,
+                        success: successfulAjax,
+                        error: errorAjax
+                    });*/
+
                 
-                $.ajax({
-                url: 'php/controlador/GruposController.php',
-                type: 'POST',
-                async: true,
-                data: 'image='+imageG,
-                success: successfulAjax,
-                error: errorAjax
-                });
+
             });
-            
-            function successfulAjax(e){
+
+            function successfulAjax(e) {
                 $("#response").html(e);
-                //alert ("la respuesta es good");
+
             }
-            function errorAjax(e){
+            function errorAjax(e) {
                 $("#response").html(e);
-                //alert ("ha habido un error");
+
             }
-            
-            
+
+
         </script>
 
 
