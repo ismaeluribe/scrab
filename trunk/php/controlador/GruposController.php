@@ -24,7 +24,7 @@ if (isset($_POST['image']) && isset($_POST['imageName'])) {
     // Encode it correctly
     $encodedData = str_replace(' ', '+', $data[1]);
     $decodedData = base64_decode($encodedData);
-    if (file_put_contents( $base_dir.$name, $decodedData)) {
+    if (file_put_contents( '../../image/grupo/'.$name, $decodedData)) {
         //echo $dirImg;
         echo $name . ":uploaded successfully";
     } else {
