@@ -33,26 +33,29 @@ class GruposDAO {
         $this->bd = $obj->getDB();
     }
 
-    public function insert_datos($id, $idUser, $name,  $description) {
-       $query="INSERT INTO grupos (idgrupos,usuarios_personas_idpersonas,nombre,fecha,descripcion)
-                 VALUES ($id,$idUser,'$name',NOW(),'$description')";
+    public function insert_datos($id, $idUser, $name,  $description,$nameFoto) {
+       $query="INSERT INTO ".self::tablaGrupos." (idgrupos,usuarios_personas_idpersonas,nombre,fecha,descripcion,foto)
+                 VALUES ($id,$idUser,'$name',NOW(),'$description','$nameFoto')";
         if($this->bd->query($query)){
             return true;
         }else return false;
        
     }
-  public function insert_fotos($format){
-      $query="INSERT INTO grupos (formato)
-                VALUES ('$format')";
+  public function insert_fotos($foto){
+      $query="INSERT INTO ".self::tablaGrupos." (foto)
+                VALUES ('$foto')";
       if($this->bd->query($query)) return true;
       else return false;
   }
   public function ultimoDato(){
-      $query="SELECT MAX(idgrupos)AS \"MAYOR\" FROM grupos";
+      $query="SELECT MAX(idgrupos) AS \"MAYOR\" FROM ".self::tablaGrupos;
       $stm=$this->bd->query($query);
       $dato=$stm->fetch_assoc();
       $dato['MAYOR']++;
       return $dato['MAYOR'];
+  }
+  public function nameNoRepeat($name){
+      $query="SELECT nombre  FROM ".self::tablaGrupos." where nombre = '$name'";
   }
 
 }
