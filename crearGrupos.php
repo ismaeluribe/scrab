@@ -51,8 +51,8 @@ session_start();
         <textarea id="description" name="descripcion" placeholder="Descripción"></textarea>
 
         <input type="radio" name="privacidad" value="privado">
-        <input type="radio" name="privacidad" value="publico">
-        <div id="cargaImg"> arrasta para soltar</div>
+        <input type="radio" name="privacidad" value="publico" default>
+        
         <button id="btnSubmit" name="envio"> envio </button>
         <button type="reset">reset</button>
 
@@ -147,7 +147,9 @@ session_start();
             $("#btnSubmit").click(function() {
                 var val1 = $("#groupName").val();
                 var val2 = $("#description").val();
-//alert ("la imagen es "+imageG+" su nombre es "+imageName);
+                $("#drop-files").empty();
+                $("#groupName").val("");
+                $("#description").val("");
                 $.ajax({
                     url: 'php/controlador/GruposController.php',
                     type: 'POST',
@@ -156,18 +158,6 @@ session_start();
                     success: successfulAjax,
                     error: errorAjax
                 });
-               // alert (imgBool);
-               /* if (imgBool) {
-                    $.ajax({
-                        url: 'php/controlador/GruposController.php',
-                        type: 'POST',
-                        async: true,
-                        data: 'image=' + imageG,
-                        success: successfulAjax,
-                        error: errorAjax
-                    });*/
-
-                
 
             });
 
