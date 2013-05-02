@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <?php
+
 session_start();
-require_once("php/modelo/UserDAO.php");
-if (isset($_SESSION['user'])) {
-    header("location: inicio.php");
-}
+session_regenerate_id(true); //regeneramos el id por seguridad
+
+//no hace falta iniciar una session ya que no es una pagina que necesite un ccontrol
+//un usuario con sesion iniciada puede registrarse otra vez con otros datos
 ?>
 <html>
 
@@ -47,21 +48,23 @@ if (isset($_SESSION['user'])) {
             </header>
             <article>
                 
-                <form class="formularioReg modal" action="registro.php" method="POST">
+                <form class="formularioReg modal" action="php/controlador/RegistroController.php?id=<?php echo session_id();?>" method="POST">
                     </br></br>
                     <?php 
-                if (isset($_POST['submit'])) {
-                    $bd = new UserDAO();
-                    $bd->registroUsuario();
-                }
-                ?>
-                    <input type="text" placeholder="Nombre" name="nom" />
+                    /*
+                    if (isset($_POST['submit'])) {
+                        $bd = new UserDAO();
+                        $bd->registroUsuario();
+                        }*/
+                        //esto debe controlarse por js
+                    ?>
+                    <input type="text" placeholder="Nombre" name="nom" required="required"/>
                     </br>
-                    <input type="text" placeholder="Primer Apellido" name="ape1" />
+                    <input type="text" placeholder="Primer Apellido" name="ape1" required="required"/>
                     </br>
                     <input type="text" placeholder="Segundo Apellido" name="ape2" />
                     </br>
-                    <input type="date" placeholder="Fecha de nacimiento" name="nac" />
+                    <input type="date" placeholder="Fecha de nacimiento" name="nac" required="required"/>
                     </br>
                     Sexo: <select name="sexo">
                         <option value="s" selected="selected">Sin especificar</option>
@@ -73,14 +76,39 @@ if (isset($_SESSION['user'])) {
                     </br>
                     <input type="email" placeholder="Email" name="email" required="required"/>
                     </br>
-                    <input type="password" placeholder="Contraseña" name="pass" required="required" />
+                    <input type="password" id="pass1" placeholder="Contraseña" name="pass" required="required" oninput="checkPass(this.value);"/>
                     </br>
-                    <input type="password" placeholder="Repira la contraseña" name="pass2" required="required" />
+                    <input type="password" id="pass2" placeholder="Repita la contraseña" name="pass2" required="required" disabled="disabled" oninput="getPass(this.value);"/>
                     </br>
-                    <input type="checkbox" id="terminos" value="Terminos" />&nbsp; Acepto los términos
+                    <input type="checkbox" id="terminos" value="Terminos" required="required"/>&nbsp; Acepto los términos
                     </br>
                     </br>
-                    <button type="submit" class="btn btn-primary" name="submit">Enviar</button>
+                    <button type="submit" id="sbmit" class="btn btn-primary" name="submit" disabled="disabled" onsubmit="return datos();">Enviar</button>
+                    <script>
+                        function checkPass(para){
+                            //alert (para.lenght);
+                           // para=para.toString();
+                           // var para=document.getElementById('pass1').value;
+                            //alert (para.lenght);
+                            //alert (para);
+                            if(/^\w{6,20}$/.test(para)){
+                                //esta comprobacion deberia ser mucho mas grande, el unico inconveniente es que 
+                                //al estar todavia en fase de pruebas es pesado estar introduciendo tantas contraseñas
+                                //$('#pass2').attr('disabled',false);
+                                document.getElementById('pass2').disabled=false;
+                            }else{
+                                document.getElementById('pass2').disabled=true;
+                            }
+                        }
+                        function getPass(para){
+                           // alert (para);
+                            var val1=$("#pass1").val();
+                            if(val1===para){
+                                document.getElementById('sbmit').disabled=false;
+                              // $('#sbmit').attr('disabled',false);
+                            }
+                        }
+                    </script>
                 </form>
             </article>
         </div>
