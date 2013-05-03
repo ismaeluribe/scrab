@@ -14,7 +14,7 @@ if (isset($_POST['pass'])) {
 <html>
 
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8"> 
         <link rel="shortcut icon" href="img/scrab.png" type="image/png" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
