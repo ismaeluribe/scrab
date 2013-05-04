@@ -40,8 +40,18 @@ if (isset($_GET['cerrar'])) {
                     scrollTop: 0
                 }, 250);
             }
-            function cerrar() {
-
+            function nuevoRumor(){
+                var parametros = {
+                    "grupo":$("#grupos").val(),
+                    "contenido":$("#contenido").val(),
+                    "lugar":$("#lugar").val(),
+                    "enlace":$("#enlace").val()
+                }
+                $.ajax({
+                    url: 'php/nuevoRumor.php',
+                    type: 'POST',
+                    data: parametros
+                })
             }
         </script>
         <script src="js/nuevoRumor.js"></script>
@@ -104,11 +114,17 @@ if (isset($_GET['cerrar'])) {
                     <h3>Nuevo rumor</h3>
                 </div>
                 <div class="modal-body">
-                    
+                    <select name="grupos" id="grupos">
+                        <option value="1">Público</option>
+                        <option value="2">Grupo1</option>
+                    </select>
+                    <textarea name="contenido" id="contenido" cols="30" rows="10" placeholder="Contenido"></textarea>
+                    <input type="text" name="lugar" id="lugar" placeholder="Lugar">
+                    <input type="text" name="enlace" id="enlace" placeholder="Enlace">
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn" data-dismiss="modal">Cerrar</a>
-                    <a href="#" onclick="nuevoRumor" class="btn btn-primary" data-dismiss="modal">Enviar rumor</a>
+                    <button onclick="nuevoRumor()" class="btn btn-primary" data-dismiss="modal">Enviar rumor</button>
                 </div>
             </div>
             <div class="tabbable tabs-left todoInicio">
