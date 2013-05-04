@@ -7,6 +7,7 @@ session_regenerate_id(true); //regeneramos el id por seguridad
 //no hace falta iniciar una session ya que no es una pagina que necesite un ccontrol
 //un usuario con sesion iniciada puede registrarse otra vez con otros datos
 ?>
+
 <html>
 
     <head>
