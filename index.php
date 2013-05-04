@@ -9,6 +9,7 @@ if (isset($_SESSION['user'])) {
 if (isset($_POST['pass'])) {
     $bd = new UserDAO();
     $bd->userpass();
+    
 }
 ?>
 <html>
@@ -59,7 +60,7 @@ if (isset($_POST['pass'])) {
                         echo "<h5>Contraseña incorrecta</h5>";
                     }
                     if (isset($_POST['pass'])) {
-                        $bd->conexion($_POST['user']);
+                        
                     }
                     ?>
                     <input type="text" placeholder="Usuario" name="user" required="required"/>

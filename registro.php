@@ -51,11 +51,11 @@ session_regenerate_id(true); //regeneramos el id por seguridad
                 <form class="formularioReg modal" action="php/controlador/RegistroController.php?id=<?php echo session_id();?>" method="POST">
                     </br></br>
                     <?php 
-                    /*
+                    
                     if (isset($_POST['submit'])) {
                         $bd = new UserDAO();
                         $bd->registroUsuario();
-                        }*/
+                        }
                         //esto debe controlarse por js
                     ?>
                     <input type="text" placeholder="Nombre" name="nom" required="required"/>
