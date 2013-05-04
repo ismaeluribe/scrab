@@ -10,7 +10,7 @@
  *
  * @author nico
  */
-class ModeloException {
+class ModeloException extends RuntimeException{
     //put your code here
 }
 
