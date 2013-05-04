@@ -19,7 +19,7 @@ require_once '../modelo/modeloException/ModeloException.php';
 //comprovamos que el id de sesion es el mismo que ha obtenido el usuario en la pagina de registro
 //y que venga de ella con la variable $_post
 $classPHP='index.php';
-if($_GET['id'] ==  session_id() && isset($_POST['nom'])){
+if($_GET['id'] == session_id() && isset($_POST['nom'])){
     //obtenemos las variables del $post
     $tipo='user';
     $name=$_POST['nom'];
@@ -27,10 +27,9 @@ if($_GET['id'] ==  session_id() && isset($_POST['nom'])){
     $ape2=$_POST['ape2'];
     $nac=$_POST['nac'];
     $sex=$_POST['sexo'];
-    
-    $user=$_POST['user'];
-    $email=$_POST['email'];
-    $pass=$_POST['pass'];
+    $user = $_POST['user'];
+    $email = $_POST['email'];
+    $pass = hash("sha512", $_POST['pass']);
      //iniciamos el manejo de exepciones de las llamadas que hacemos
     try {
         $objPersonas = new PersonasDAO();
@@ -45,7 +44,7 @@ if($_GET['id'] ==  session_id() && isset($_POST['nom'])){
             $_SESSION['pass']=$pass;
             $_SESSION['id']=$id;
         }else{
-            //como no se ha cumplido los valores para la inserccion volvemos a laa pagina de registro
+            //como no se ha cumplido los valores para la inserccion volvemos a la pagina de registro
             $classPHP='registro.php';
         }
     } catch (PersonasException $ep) {

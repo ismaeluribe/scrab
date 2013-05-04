@@ -13,8 +13,6 @@ require_once ('modeloException/PersonasException.php');
 class PersonasDAO {
     //put your code here
 
-    const tablaPersonas = "personas";
-
     private $db;
 
     public function __construct() {
@@ -24,7 +22,7 @@ class PersonasDAO {
     }
 
     public function registroPersonas($idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo) {
-        $stm = $this->db->prepare("INSERT INTO " . self::tablaPersonas . " (idpersonas,tipo,nombre,apellido,apellido2,fechaNac,sexo) VALUES(?,?,?,?,?,?,?)");
+        $stm = $this->db->prepare("INSERT INTO personas (idpersonas,tipo,nombre,apellido,apellido2,fechaNac,sexo) VALUES(?,?,?,?,?,?,?)");
         if (1!=($stm->bind_param("issssss", $idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo))) {
             
             throw new PersonasException("errores en el formato de los parametros");
@@ -38,7 +36,7 @@ class PersonasDAO {
     }
 
     public function getUltimoId() {
-        $query1 = "SELECT MAX(idpersonas) AS \"mayor\" FROM " . self::tablaPersonas;
+        $query1 = "SELECT MAX(idpersonas) AS \"mayor\" FROM personas";
         $result1 = $this->db->query($query1);
         $mayor = $result1->fetch_assoc();
         $id = $mayor['mayor'] + 1;

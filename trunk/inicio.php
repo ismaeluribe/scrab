@@ -44,6 +44,7 @@ if (isset($_GET['cerrar'])) {
 
             }
         </script>
+        <script src="js/nuevoRumor.js"></script>
 
         <!--/Scripts -->
 
@@ -103,11 +104,11 @@ if (isset($_GET['cerrar'])) {
                     <h3>Nuevo rumor</h3>
                 </div>
                 <div class="modal-body">
-                    Aqui se escribirá el nuevo rumor
+                    
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn" data-dismiss="modal">Cerrar</a>
-                    <a href="#" class="btn btn-primary">Enviar rumor</a>
+                    <a href="#" onclick="nuevoRumor" class="btn btn-primary" data-dismiss="modal">Enviar rumor</a>
                 </div>
             </div>
             <div class="tabbable tabs-left todoInicio">

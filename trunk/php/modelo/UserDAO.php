@@ -27,15 +27,16 @@ class UserDAO {
         $this->dropUsuario = $this->db->prepare("DELETE FROM usuarios WHERE nombreUser = ?");
     }
 
-    function userpass($user, $pass) {// Comprueba si el usuario y la contraseña introducidos son correctos
-        //$user = $_POST['user'];
-        // $pass = hash("sha512", $_POST['pass']);
+    function userpass() {// Comprueba si el usuario y la contraseña introducidos son correctos
+        $user = $_POST['user'];
+        $pass = hash("sha512", $_POST['pass']);
         $this->userpass->bind_param("ss", $user, $pass);
         $this->userpass->execute();
         $this->userpass->bind_result($result);
         $this->userpass->fetch();
         if (isset($result)) {
             $_SESSION['user'] = $user;
+            /*$this->conexion($user);*/
             header("location: inicio.php");
             $this->userpass->free_result();
         }
@@ -168,3 +169,8 @@ class UserDAO {
 }
 
 ?>
+
+Cannot add or update a child row: a foreign key constraint fails 
+(`scrab`.`conexiones`, CONSTRAINT `fk_conexiones_usuarios1` FOREIGN KEY 
+.(`usuarios_personas_idpersonas`) REFERENCES `usuarios` (`personas_idpersonas`) 
+ON DELETE NO ACTION ON UPDATE NO ACTION) 
