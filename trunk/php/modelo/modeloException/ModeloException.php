@@ -12,6 +12,8 @@
  */
 class ModeloException extends RuntimeException{
     //put your code here
+    
+    
 }
 
 ?>
