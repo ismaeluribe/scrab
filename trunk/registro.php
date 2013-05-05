@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <?php
-
+//require_once 'php/modelo/UserDAO.php';
 session_start();
+//si esta session ya contiene esta variable volvemos automaticamente a la pagina de inciio
+if (isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {
+    //$objUser=new UserDAO() 
+    header("location:inicio.php");
+}
+//fecha actual
+$date= date('Y-m-d');
+//fecha de hace 18 año en milisegundos
+$oldDate=  strtotime( '-18 year' , strtotime ( $date ) ) ;
+//fecha de hace 18 año en formato correcto yyyy-mm-dd
+$oldDate =date ( 'Y-m-d' , $oldDate );
 session_regenerate_id(true); //regeneramos el id por seguridad
 
-//no hace falta iniciar una session ya que no es una pagina que necesite un ccontrol
-//un usuario con sesion iniciada puede registrarse otra vez con otros datos
 ?>
 
 <html>
@@ -51,21 +60,14 @@ session_regenerate_id(true); //regeneramos el id por seguridad
                 
                 <form class="formularioReg modal" action="php/controlador/RegistroController.php?id=<?php echo session_id();?>" method="POST">
                     </br></br>
-                    <?php 
                     
-                    if (isset($_POST['submit'])) {
-                        $bd = new UserDAO();
-                        $bd->registroUsuario();
-                        }
-                        //esto debe controlarse por js
-                    ?>
                     <input type="text" placeholder="Nombre" name="nom" required="required"/>
                     </br>
                     <input type="text" placeholder="Primer Apellido" name="ape1" required="required"/>
                     </br>
                     <input type="text" placeholder="Segundo Apellido" name="ape2" />
                     </br>
-                    <input type="date" placeholder="Fecha de nacimiento" name="nac" required="required"/>
+                    <input type="date" value="<?php echo $oldDate; ?>" placeholder="Fecha de nacimiento" name="nac" required="required"/>
                     </br>
                     Sexo: <select name="sexo">
                         <option value="s" selected="selected">Sin especificar</option>
@@ -87,26 +89,19 @@ session_regenerate_id(true); //regeneramos el id por seguridad
                     <button type="submit" id="sbmit" class="btn btn-primary" name="submit" disabled="disabled" onsubmit="return datos();">Enviar</button>
                     <script>
                         function checkPass(para){
-                            //alert (para.lenght);
-                           // para=para.toString();
-                           // var para=document.getElementById('pass1').value;
-                            //alert (para.lenght);
-                            //alert (para);
+                       
                             if(/^\w{6,20}$/.test(para)){
                                 //esta comprobacion deberia ser mucho mas grande, el unico inconveniente es que 
-                                //al estar todavia en fase de pruebas es pesado estar introduciendo tantas contraseñas
-                                //$('#pass2').attr('disabled',false);
+                                //al estar todavia en fase de pruebas es pesado estar introduciendo tantas contraseña
                                 document.getElementById('pass2').disabled=false;
                             }else{
                                 document.getElementById('pass2').disabled=true;
                             }
                         }
                         function getPass(para){
-                           // alert (para);
                             var val1=$("#pass1").val();
                             if(val1===para){
                                 document.getElementById('sbmit').disabled=false;
-                              // $('#sbmit').attr('disabled',false);
                             }
                         }
                     </script>

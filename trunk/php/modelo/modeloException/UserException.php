@@ -10,7 +10,9 @@
  *
  * @author nico
  */
+
 require_once 'ModeloException.php';
+
 class UserException extends ModeloException{
     //put your code here
 }
