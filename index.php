@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <?php
-session_start();
-require_once ("php/modelo/UserDAO.php");
 
-if (isset($_SESSION['user'])) {
-    header("location: inicio.php");
+/*
+ *  $_SESSION['user']=$user;
+            $_SESSION['email']=$email;
+            $_SESSION['pass']=$pass;
+            $_SESSION['id']=$id;
+ */
+
+session_start();
+//require_once ("php/modelo/UserDAO.php");
+
+if (isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {
+    header("location: {$_SERVER['DOCUMENT_ROOT']}/php/controlador/inicioController.php");
 }
+
+session_regenerate_id(true);
+/*
 if (isset($_POST['pass'])) {
     $bd = new UserDAO();
     $bd->userpass();
     
-}
+}*/
+echo '<br><br><br>';
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
 ?>
 <html>
 
@@ -52,16 +67,17 @@ if (isset($_POST['pass'])) {
                 </nav>
             </header>
             <article>
-                <form class="formulario modal" action="index.php" method="POST">
+                <form class="formulario modal" action="php/controlador/InicioController.php?id=<?php echo session_id();?>" method="POST">
                     <br/>
                     <br/>
                     <?php
-                    if (!isset($_SESSION['user']) && isset($_POST['user'])) {
-                        echo "<h5>Contraseña incorrecta</h5>";
-                    }
-                    if (isset($_POST['pass'])) {
+                    if(isset($_GET['errno'])){
+                        if($_GET['errno']==1)       echo '<h5>error en la base de datos</h5>';
+                            elseif ($_GET['errno']==2) echo '<h5>contraseña incorrecta</h5>';
+                            else echo '<h5>error desconocido</h5>';
                         
                     }
+                    
                     ?>
                     <input type="text" placeholder="Usuario" name="user" required="required"/>
                     <input type="password" placeholder="Contraseña" name="pass" required="required" />

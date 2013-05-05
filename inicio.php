@@ -1,10 +1,35 @@
 <?php
+
+
+require_once "{$_SERVER['DOCUMENT_ROOT']}/php/modelo/UserDAO.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/php/modelo/PersonasDAO.php";
+
 session_start();
+
+
+try {
+    $bd = new UserDAO();
+    $objPersonas = new PersonasDAO();
+    //obtenemos los datos relativos a las personas
+    $arrayPersonas = $objPersonas->getDataById($_SESSION['id']);
+    //si el array esta vacio salta esta exepcion
+    if (!$arrayPersonas)
+        throw new ModeloException('no existe el id del usuario en personas');
+} catch (UserException $eu) {
+    
+} catch (ModeloException $em) {
+    
+} catch (RuntimeException $e) {
+    
+}
+
+
+/*session_start();
 require_once("php/modelo/UserDAO.php");
 $bd = new UserDAO();
 if (!isset($_SESSION['user'])) {
     header("location: index.php");
-}
+}*/
 if (isset($_GET['cerrar'])) {
     $bd->cerrarSesion();
 }

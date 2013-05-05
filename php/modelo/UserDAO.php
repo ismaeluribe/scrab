@@ -16,64 +16,42 @@ class UserDAO {
     public function __construct() {// Constructor de la clase
         $obj = new bd();
         $this->db = $obj->getDB();
-        $this->userpass = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ? AND pass = ?");
-        // $this->registroPersonas = $this->db->prepare("INSERT INTO personas VALUES(?,?,?,?,?,?,?,?,?)");
+        $this->userpass = $this->db->prepare("SELECT personas_idpersonas,email FROM usuarios WHERE nombreUser = ? AND pass = ?");
         $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios (personas_idpersonas,nombreUser,email,fechaReg,pass) VALUES (?,?,?,now(),?)");
-
         $this->userName = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ?");
         $this->email = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE email = ?");
-        // $this->image = $this->db->prepare("SELECT foto FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
-        //  $this->dropPersona = $this->db->prepare("DELETE FROM personas WHERE idpersonas = (SELECT personas_idpersonas FROM usuarios WHERE nombreUser = ?)");
         $this->dropUsuario = $this->db->prepare("DELETE FROM usuarios WHERE nombreUser = ?");
     }
 
-    function userpass() {// Comprueba si el usuario y la contraseña introducidos son correctos
-        $user = $_POST['user'];
-        $pass = hash("sha512", $_POST['pass']);
-        $this->userpass->bind_param("ss", $user, $pass);
-        $this->userpass->execute();
-        $this->userpass->bind_result($result);
-        $this->userpass->fetch();
-        if (isset($result)) {
-            $_SESSION['user'] = $user;
-            /*$this->conexion($user);*/
-            header("location: inicio.php");
-            $this->userpass->free_result();
+    function userpass($user, $pass) {
+        // Comprueba si el usuario y la contraseña introducidos son correctosy el correo electronico
+        //si son correctos devuleve el id del usuario 
+        $bool = null;
+        if (1 != $this->userpass->bind_param("ss", $user, $pass)) {
+            throw new UserException('error en el registro y la contraseña, asignacion de parametros');
         }
+        $this->userpass->execute();
+        if (!$this->userpass->bind_result($col1, $col2)) {
+            throw new UserException('error en el statement');
+        }
+        if ($this->userpass->fetch()) {
+            $bool = array($col1, $col2);
+        }
+
+        $this->userpass->close();
+        return $bool;
     }
 
-    function registroUsuario($mayor1, $nombreUser, $email, $pass) { // Hace el registro primero de persona y despues de usuario
-        /* $tipo = "user";
-          $nombre = $_POST['nom'];
-          $ape1 = $_POST['ape1'];
-          $ape2 = $_POST['ape2'];
-          $nac = $_POST['nac'];
-          $sexo = $_POST['sexo'];
-          $nombreUser = $_POST['user'];
-          $email = $_POST['email'];
-          $pass = hash("sha512", $_POST['pass']); */
-        //para hacer el registro primero tenemos que comprobar que no existe un campo
-        //con el mismo nombre de usuario ni el mismo correo en la bd
-        //if ($this->emailUser($email) && $this->nombreUser($nombreUser)) {
-        //insertamos datos en personas
-        //  $this->registroPersonas->bind_param("issssss", $mayor1, $tipo, $nombre, $ape1, $ape2, $nac, $sexo);
-        //  $this->registroPersonas->execute();
-        //migramos los datos de personas a aqui
-        $pass = hash("sha512", $pass);
-        if(1!=$this->registroUsuario->bind_param("isss", $mayor1, $nombreUser, $email, $pass)){
+    public function registroUsuario($mayor1, $nombreUser, $email, $pass) {
+        // Hace el registro primero de persona y despues de usuario
+        if (1 != $this->registroUsuario->bind_param("isss", $mayor1, $nombreUser, $email, $pass)) {
             throw new \UserException('error en la asignacion de parametros');
         }
         $this->registroUsuario->execute();
-        if (1!=$this->registroUsuario->affected_rows) {
+        if (1 != $this->registroUsuario->affected_rows) {
             throw new \UserException('error en la en la inserccion en la bd');
         }
         $this->registroUsuario->close();
-        
-        //  header("location: index.php");
-        //   $_SESSION['user'] = $_POST['user'];
-        // } else {
-        //     echo("Usuario o email ya existe.<br/>");
-        // }
     }
 
     function cerrarSesion() {
@@ -96,18 +74,6 @@ class UserDAO {
         return $bool;
     }
 
-    public function conexion($user) {
-        $this->userName->bind_param("s", $user);
-        $this->userName->execute();
-        $this->userName->bind_result($result);
-        $this->userName->fetch();
-        $this->userName->free_result();
-        $datos = $this->getDatos();
-        $query = "INSERT INTO conexiones (usuarios_personas_idpersonas,navegador,sistema,ip,fecha) VALUES (\"$result\",\"" . $datos['2'] . "\",\"" . $datos['1'] . "\",\"" . $datos['0'] . "\",now())";
-        $this->db->query($query);
-        echo $this->db->error;
-    }
-
     public function emailUser($email) {
         $bool = false;
         $this->email->bind_param("s", $email);
@@ -121,17 +87,16 @@ class UserDAO {
         return $bool;
     }
 
-    /*
-      private function getImage($user) { // No funciona todavia, no se si es xk no hay nada en los blob todavia.
-      $this->image->bind_param("s", $user);
-      $this->image->execute();
-      $this->image->store_result();
-      $this->image->bind_result($image);
-      $this->image->fetch();
-      header("Content-Type: image/jpg");
-      echo $image;
-      }
-     */
+    public function conexion($id) {
+        $bool = false;
+        $datos = $this->getDatos();
+        $idconexiones= $this->getConnById($id);
+        $query = "INSERT INTO conexiones (usuarios_personas_idpersonas,idconexiones,navegador,sistema,ip,fecha) VALUES ($id, $idconexiones, \"" . $datos['2'] . "\",\"" . $datos['1'] . "\",\"" . $datos['0'] . "\",now())";
+        if ($this->db->query($query))
+            $bool = true;
+        return $bool;
+        // echo $this->db->error;
+    }
 
     private function dropUser($user) {
         $this->dropPersona->bind_param("s", $user);
@@ -165,12 +130,30 @@ class UserDAO {
             array_push($temp, "Navegador desconocido");
         return $temp;
     }
+    
+    private function getConnById($id){
+        $query1 = "SELECT MAX(idconexiones) AS \"last\" FROM conexiones WHERE usuarios_personas_idpersonas = $id";
+        $result1 = $this->db->query($query1);
+        $mayor = $result1->fetch_assoc();
+        $id = $mayor['last'] + 1;
+        //echo $id;
+        $result1->close();
+        return $id;
+    }
 
 }
 
+/*
+  $obj=new UserDAO();
+  $pass='123456';
+  $pass=hash("sha512", $pass);
+  $user='nico3';
+  try{
+  $var=$obj->userpass($user, $pass);
+  var_dump($var);
+  }  catch (Exception $e){
+  echo "<br>$e<br>";
+  }
+ */
 ?>
 
-Cannot add or update a child row: a foreign key constraint fails 
-(`scrab`.`conexiones`, CONSTRAINT `fk_conexiones_usuarios1` FOREIGN KEY 
-.(`usuarios_personas_idpersonas`) REFERENCES `usuarios` (`personas_idpersonas`) 
-ON DELETE NO ACTION ON UPDATE NO ACTION) 

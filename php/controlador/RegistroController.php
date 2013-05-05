@@ -29,7 +29,7 @@ if($_GET['id'] == session_id() && isset($_POST['nom'])){
     $sex=$_POST['sexo'];
     $user = $_POST['user'];
     $email = $_POST['email'];
-    $pass = hash("sha512", $_POST['pass']);
+    $pass = hash("sha512", $_POST['pass']);//ciframos la contraseña
      //iniciamos el manejo de exepciones de las llamadas que hacemos
     try {
         $objPersonas = new PersonasDAO();
@@ -43,6 +43,7 @@ if($_GET['id'] == session_id() && isset($_POST['nom'])){
             $_SESSION['email']=$email;
             $_SESSION['pass']=$pass;
             $_SESSION['id']=$id;
+           // $_SESSION['log']=true;
         }else{
             //como no se ha cumplido los valores para la inserccion volvemos a la pagina de registro
             $classPHP='registro.php';
@@ -58,8 +59,7 @@ if($_GET['id'] == session_id() && isset($_POST['nom'])){
     }
 
 }else {
-    //echo "se ha";
-    //header("location:../../registro.php");
+
     $classPHP='inicio.php';
 }
 session_regenerate_id(true);
