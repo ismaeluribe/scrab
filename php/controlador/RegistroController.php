@@ -18,8 +18,9 @@ require_once '../modelo/modeloException/ModeloException.php';
 
 //comprovamos que el id de sesion es el mismo que ha obtenido el usuario en la pagina de registro
 //y que venga de ella con la variable $_post
-$classPHP='index.php';
-if($_GET['id'] == session_id() && isset($_POST['nom'])){
+
+if(isset($_POST['nom'],$_GET['id']) && $_GET['id'] == session_id()){
+    //$classPHP='index.php';
     //obtenemos las variables del $post
     $tipo='user';
     $name=$_POST['nom'];
@@ -31,6 +32,7 @@ if($_GET['id'] == session_id() && isset($_POST['nom'])){
     $email = $_POST['email'];
     $pass = hash("sha512", $_POST['pass']);//ciframos la contraseña
      //iniciamos el manejo de exepciones de las llamadas que hacemos
+    $errno=null;
     try {
         $objPersonas = new PersonasDAO();
         $objUser = new UserDAO();
@@ -46,37 +48,34 @@ if($_GET['id'] == session_id() && isset($_POST['nom'])){
            // $_SESSION['log']=true;
         }else{
             //como no se ha cumplido los valores para la inserccion volvemos a la pagina de registro
-            $classPHP='registro.php';
+            throw new ModeloException();
         }
     } catch (PersonasException $ep) {
-        echo $ep;
+        //error en las personas
+        $errno=1;
     } catch (UserException $eu){
-        echo $eu;
+        //error en los usuarios
+        $errno=2;
     }  catch (ModeloException $em){
-        echo $em;
+        //el usuario o el email ya existe
+        $errno=3;
     }catch (Exception $exc) {
-        echo $exc->getTraceAsString();
+        //error desconocido
+        $errno=4;
     }
-
-}else {
-
+    if(is_numeric($errno)){
+        $classPHP="registro.php?errno=$errno";
+    }else{
+        $classPHP='inicio.php';
+    }
+}
+elseif (isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {
     $classPHP='inicio.php';
 }
+else {
+    $classPHP='index.php';
+}
+//regeneramos el id para que el usuario no tenga conocimiento del mismo
 session_regenerate_id(true);
-header("location:../../$classPHP")
-/*
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";*/
-//echo "he llegado";*/
- /*[nom] => asad
-    [ape1] => asad
-    [ape2] => as
-    [nac] => 1990-12-19
-    [sexo] => h
-    [user] => nico1
-    [email] => aurapato2000@hotmail.com
-    [pass] => 123456
-    [pass2] => 123456
-    [submit] => */
+header("location: ../../$classPHP")
 ?>

@@ -2,7 +2,7 @@
 
 $base_dir = realpath(dirname(__FILE__) . '/..');
 //definimos como directorio base el directorio en el que estamos en este caso es /php
-require_once("{$base_dir}/clasesImportantes/bd.php");
+require_once("{$base_dir}/commons/bd.php");
 
 class rumoresDAO{
 

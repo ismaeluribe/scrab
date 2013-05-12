@@ -1,32 +1,16 @@
-<!DOCTYPE html>
+
 <?php
 
-/*
- *  $_SESSION['user']=$user;
-            $_SESSION['email']=$email;
-            $_SESSION['pass']=$pass;
-            $_SESSION['id']=$id;
- */
-
 session_start();
-//require_once ("php/modelo/UserDAO.php");
+
 
 if (isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {
-    header("location: {$_SERVER['DOCUMENT_ROOT']}/php/controlador/inicioController.php");
+    header("location: ./php/controlador/inicioController.php");
 }
-
 session_regenerate_id(true);
-/*
-if (isset($_POST['pass'])) {
-    $bd = new UserDAO();
-    $bd->userpass();
-    
-}*/
-echo '<br><br><br>';
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
+
 ?>
+<!DOCTYPE html>
 <html>
 
     <head>
