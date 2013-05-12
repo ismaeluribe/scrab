@@ -1,11 +1,12 @@
 <?php
-
-
-require_once "{$_SERVER['DOCUMENT_ROOT']}/php/modelo/UserDAO.php";
-require_once "{$_SERVER['DOCUMENT_ROOT']}/php/modelo/PersonasDAO.php";
-
+//los requires
+require_once '/php/modelo/UserDAO.php';
+require_once '/php/modelo/PersonasDAO.php';
+//iniciamos secion
 session_start();
-
+if (!isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {
+    header("location: index.php");
+}
 
 try {
     $bd = new UserDAO();
@@ -23,13 +24,6 @@ try {
     
 }
 
-
-/*session_start();
-require_once("php/modelo/UserDAO.php");
-$bd = new UserDAO();
-if (!isset($_SESSION['user'])) {
-    header("location: index.php");
-}*/
 if (isset($_GET['cerrar'])) {
     $bd->cerrarSesion();
 }

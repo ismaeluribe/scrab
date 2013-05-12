@@ -6,10 +6,8 @@
  */
 
 $base_dir = realpath(dirname(__FILE__) . '/..');
-//echo $base_dir;
 //definimos como directorio base el directorio en el que estamos en este caso es /php
 require_once("{$base_dir}/modelo/gruposDAO.php");
-
 
 $nameGroup = $_POST['name'];
 $description = $_POST['description'];

@@ -1,6 +1,4 @@
-<!DOCTYPE html>
 <?php
-//require_once 'php/modelo/UserDAO.php';
 session_start();
 //si esta session ya contiene esta variable volvemos automaticamente a la pagina de inciio
 if (isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {
@@ -14,9 +12,9 @@ $oldDate=  strtotime( '-18 year' , strtotime ( $date ) ) ;
 //fecha de hace 18 año en formato correcto yyyy-mm-dd
 $oldDate =date ( 'Y-m-d' , $oldDate );
 session_regenerate_id(true); //regeneramos el id por seguridad
-
 ?>
 
+<!DOCTYPE html>
 <html>
 
     <head>
@@ -60,6 +58,16 @@ session_regenerate_id(true); //regeneramos el id por seguridad
                 
                 <form class="formularioReg modal" action="php/controlador/RegistroController.php?id=<?php echo session_id();?>" method="POST">
                     </br></br>
+                    
+                    <?php
+                    if(isset($_GET['errno'])){
+                        if($_GET['errno']<3)       echo '<h5>error en la base de datos</h5>';
+                            elseif ($_GET['errno']==3) echo '<h5>el nombre de usuario ya existe</h5>';
+                            else echo '<h5>error desconocido</h5>';
+                        
+                    }
+                    
+                    ?>
                     
                     <input type="text" placeholder="Nombre" name="nom" required="required"/>
                     </br>
