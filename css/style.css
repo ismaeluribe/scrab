@@ -20,28 +20,39 @@ body{
 .todoInicio{
     width: 1000px;
     overflow: hidden;
+    padding-bottom: 80px;
+    height: auto;
 }
 
 .listaInicio{
     padding-left: 5px;
     padding-top: 5px;
-    width: 200px;
-    height: 800px;
+    width: 130px;
+    height: auto;
     text-align: right;
+    margin: 0;
+    float: left;
 }
 
 .centroInicio{
-    margin-left: 240px;
-    margin-top: 20px;
+    /* margin-left: 240px;
+     margin-top: 20px;*/
+    min-height: 500px;
+    overflow: hidden;
+    float: right;
+    /* background-color: red;*/
+    width: 864px;
+    margin: 0;
+    text-align: center;
 }
 
 .caja{
-    position:relative;
     float:left;
-    height: 300px;
+    height: 350px;
     width:200px;
     background-color: #f7e4c7;
-    margin:20px;
+    margin-left: 66px;
+    margin-top: 70px;
 }
 
 #fperfil{
@@ -61,4 +72,52 @@ body{
     position:relative;
     top:10em;
     height:500px;
+}
+.formularioGrupos{
+    margin: 40px;
+    width: 300px;
+    float: left;
+    text-align: left;
+    padding-left: 10px;
+}
+#drop-files {
+    width: 300px;
+    height: 150px;
+    background: #cccccc;
+    border-radius: 10px;
+    border: 4px dashed rgba(0,0,0,0.2);
+    /*color: #ccccff;*/
+    padding: 25px 0 0 0;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: arial;
+    margin:  60px auto;
+}
+#not-drop-files {
+    width: 400px;
+    height: 300px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 4px dashed rgba(0,0,0,0.2);
+    float: left;
+    margin-top: 55px;
+}
+.imagen{
+    width: auto;
+    height: 100px;
+    max-width: 300px;
+    opacity: 0.4;
+    margin: 0 auto;
+}
+.areaGroup{
+    width: 270px;
+    height: 180px;
+    resize: none;
+}
+#response{
+    width: 50%;
+    float: left;
+   /* margin-left: 200px;*/
+    margin-top: 150px;
 }

@@ -34,7 +34,7 @@ if (isset($_GET['cerrar'])) {
         <meta charset="UTF-8">
         <link rel="shortcut icon" href="img/scrab.png" type="image/png" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
+        <!--<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />-->
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 
         <!-- Scripts-->
@@ -65,12 +65,12 @@ if (isset($_GET['cerrar'])) {
                     "contenido":$("#contenido").val(),
                     "lugar":$("#lugar").val(),
                     "enlace":$("#enlace").val()
-                }
+                };
                 $.ajax({
                     url: 'php/nuevoRumor.php',
                     type: 'POST',
                     data: parametros
-                })
+                });
             }
         </script>
         <script src="js/nuevoRumor.js"></script>
@@ -101,12 +101,13 @@ if (isset($_GET['cerrar'])) {
                         </form>
                         <ul class="nav pull-right">
                             <li>
+                                <a href="crear.php">Crear</a>
+                            </li>
+                            <li>
                                 <a href="#nuevoRumor" data-toggle="modal" title="Nuevo rumor" class="btn-primary">
                                     <img src="img/scrab.png" style="height:17px;" />
                                 </a>
-
                             </li>
-
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="fperfil" src="img/cosas.jpg">&nbsp;&nbsp;<?php echo $_SESSION['user']; ?></a>
                                 <ul class="dropdown-menu">
@@ -143,14 +144,14 @@ if (isset($_GET['cerrar'])) {
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn" data-dismiss="modal">Cerrar</a>
-                    <button onclick="nuevoRumor()" class="btn btn-primary" data-dismiss="modal">Enviar rumor</button>
+                    <button onclick="nuevoRumor();" class="btn btn-primary" data-dismiss="modal">Enviar rumor</button>
                 </div>
             </div>
             <div class="tabbable tabs-left todoInicio">
                 <ul class="nav nav-tabs listaInicio" style="position:fixed;">
-                    <li class="active"><a onclick="scrollUp()" href="#publico" data-toggle="tab">Público</a></li>
-                    <li><a href="#grupo1" data-toggle="tab" onclick="scrollUp()">Grupo1</a></li>
-                    <li><a href="#grupo2" data-toggle="tab" onclick="scrollUp()">Grupo2</a></li>
+                    <li class="active"><a onclick="scrollUp();" href="#publico" data-toggle="tab">Público</a></li>
+                    <li><a href="#grupo1" data-toggle="tab" onclick="scrollUp();">Grupo1</a></li>
+                    <li><a href="#grupo2" data-toggle="tab" onclick="scrollUp();">Grupo2</a></li>
                 </ul>
                 <div class="tab-content centroInicio">
                     <div class="tab-pane active" id="publico">
