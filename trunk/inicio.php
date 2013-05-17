@@ -66,10 +66,15 @@ if (isset($_GET['cerrar'])) {
                     "lugar":$("#lugar").val(),
                     "enlace":$("#enlace").val()
                 };
-                $.ajax({
-                    url: 'php/nuevoRumor.php',
-                    type: 'POST',
-                    data: parametros
+                var ajax = $.ajax({
+                    url: "php/nuevoRumor.php",
+                    type: "POST",
+                    data: {
+                    "grupo":$("#grupos").val(),
+                    "contenido":$("#contenido").val(),
+                    "lugar":$("#lugar").val(),
+                    "enlace":$("#enlace").val()
+                }
                 });
             }
         </script>

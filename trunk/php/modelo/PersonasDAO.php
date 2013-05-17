@@ -14,7 +14,6 @@ class PersonasDAO {
     //put your code here
 
     private $db;
-    const tablaPersonas = "personas";
 
     public function __construct() {
         $obj = new bd();
@@ -23,8 +22,8 @@ class PersonasDAO {
     }
 
     public function registroPersonas($idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo) {
-        $stm = $this->db->prepare("INSERT INTO ".self::tablaPersonas." (idpersonas,tipo,nombre,apellido,apellido2,fechaNac,sexo) VALUES(?,?,?,?,?,?,?)");
-        if (1!=($stm->bind_param("issssss", $idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo))) {
+        $stm = $this->db->prepare("INSERT INTO personas (idpersonas,tipo,nombre,apellido,apellido2,fechaNac,sexo) VALUES(?,?,?,?,?,?,?)");
+        if (1!=($stm->bind_param("issssss", $idpersonas, $tipo, utf8_decode($nombre), utf8_decode($apellido), utf8_decode($apellido2), $fechaNac, $sexo))) {
             
             throw new PersonasException("errores en el formato de los parametros");
         }
@@ -37,7 +36,7 @@ class PersonasDAO {
     }
 
     public function getUltimoId() {
-        $query1 = "SELECT MAX(idpersonas) AS \"mayor\" FROM ".self::tablaPersonas;
+        $query1 = "SELECT MAX(idpersonas) AS \"mayor\" FROM personas ";
         $result1 = $this->db->query($query1);
         $mayor = $result1->fetch_assoc();
         $id = $mayor['mayor'] + 1;
@@ -47,7 +46,7 @@ class PersonasDAO {
 
     public function getDataById($id){
         $var=null;
-        $query1 = "SELECT nombre,apellido,apellido2,IFNULL(foto,'noimage.jpg') FROM ".self::tablaPersonas." WHERE idpersonas = ?";
+        $query1 = "SELECT nombre,apellido,apellido2,IFNULL(foto,'noimage.jpg') FROM personas WHERE idpersonas = ?";
         $stm = $this->db->prepare($query1);
         if (1!=($stm->bind_param("i", $id))) {
             
