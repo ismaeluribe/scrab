@@ -33,7 +33,7 @@ class GruposDAO {
         $this->bd = $obj->getDB();
     }
 
-    public function insert_datos($id, $idUser, $name,  $description,$nameFoto,$privacidad) {
+    public function insert_datos($id, $idUser, $name, $description,$nameFoto,$privacidad) {
        $query="INSERT INTO ".self::tablaGrupos." (idgrupos,usuarios_personas_idpersonas,nombre,fecha,descripcion,foto,privacidad)
                  VALUES ($id,$idUser,'$name',NOW(),'$description','$nameFoto','$privacidad')";
         if($this->bd->query($query)){
@@ -55,7 +55,7 @@ class GruposDAO {
       return $dato['MAYOR'];
   }
   public function nameNoRepeat($name){
-      $query="SELECT nombre  FROM ".self::tablaGrupos." where nombre = '$name'";
+      $query="SELECT nombre FROM ".self::tablaGrupos." where nombre = '$name'";
   }
 
 }/*
