@@ -60,10 +60,29 @@
 	"buffers":
 	[
 		{
+			"contents": "<?php\n//los requires\nrequire_once '/php/modelo/UserDAO.php';\nrequire_once '/php/modelo/PersonasDAO.php';\n//iniciamos secion\nsession_start();\nif (!isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {\n    header(\"location: index.php\");\n}\n\ntry {\n    $bd = new UserDAO();\n    $objPersonas = new PersonasDAO();\n    //obtenemos los datos relativos a las personas\n    $arrayPersonas = $objPersonas->getDataById($_SESSION['id']);\n    //si el array esta vacio salta esta exepcion\n    if (!$arrayPersonas)\n        throw new ModeloException('no existe el id del usuario en personas');\n} catch (UserException $eu) {\n    \n} catch (ModeloException $em) {\n    \n} catch (RuntimeException $e) {\n    \n}\n\nif (isset($_GET['cerrar'])) {\n    $bd->cerrarSesion();\n}\n?>\n<!DOCTYPE html>\n<html\n    <head>\n        <meta charset=\"UTF-8\">\n        <link rel=\"shortcut icon\" href=\"img/scrab.png\" type=\"image/png\" />\n        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.css\" />\n        <!--<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap-responsive.css\" />-->\n        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\" />\n\n        <!-- Scripts-->\n\n        <script src=\"js/libs/jquery/jquery.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-affix.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-alert.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-button.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-carousel.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-collapse.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-dropdown.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-modal.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-transition.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-popover.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-scrollspy.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-tab.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-tooltip.js\"></script>\n        <script src=\"js/libs/bootstrap/bootstrap-typeahead.js\"></script>\n        <script type=\"text/javascript\">\n            function scrollUp() {\n                $('html,body').animate({\n                    scrollTop: 0\n                }, 250);\n            }\n            function nuevoRumor(){\n                $.post(\"php/nuevoRumor.php\",{grupo:$(\"#grupos\").val(),contenido:$(\"#contenido\").val(),lugar:$(\"#lugar\").val(),enlace:$(\"#enlace\").val()});\n            }\n        </script>\n        <script src=\"js/nuevoRumor.js\"></script>\n\n        <!--/Scripts -->\n\n        <title>Scrab</title>\n    </head>\n    <body>\n\n        <!-- Barra de navegación -->\n\n        <header class=\"navbar navbar-fixed-top\">\n            <nav class=\"navbar-inner\" style=\"margin:auto;\">\n                <div class=\"container fluid\">\n                    <a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\"nav-collapse\">\n                    </a>\n                    <a class=\"brand\" href=\"index.php\">Scrab</a>\n                    <div class=\"nav-collapse\">\n                        <ul class=\"nav\">\n                            <li class=\"active\"><a href=\"#\"><i class=\"icon-home icon-white\"></i>&nbsp;Inicio</a></li>\n                            <li><a href=\"#\">Perfil</a></li>\n                            <li><a href=\"#\">Grupos&nbsp;<span class=\"badge\">8</span></a></li>\n                            <li><a href=\"#\">Espiados</a></li>\n                        </ul>\n                        <form class=\"navbar-search pull-left\" action=\"\">\n                            <input type=\"text\" class=\"search-query span3\" placeholder=\"Buscar\" />\n                        </form>\n                        <ul class=\"nav pull-right\">\n                            <li>\n                                <a href=\"crear.php\">Crear</a>\n                            </li>\n                            <li>\n                                <a href=\"#nuevoRumor\" data-toggle=\"modal\" title=\"Nuevo rumor\" class=\"btn-primary\">\n                                    <img src=\"img/scrab.png\" style=\"height:17px;\" />\n                                </a>\n                            </li>\n                            <li class=\"dropdown\">\n                                <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><img id=\"fperfil\" src=\"img/cosas.jpg\">&nbsp;&nbsp;<?php echo $_SESSION['user']; ?></a>\n                                <ul class=\"dropdown-menu\">\n                                    <li><a href=\"#\">Ayuda</a></li>\n                                    <li><a href=\"#\">Configuración</a></li>\n                                    <li class=\"divider\"></li>\n                                    <li><a href=\"inicio.php?cerrar=1\" name=\"cerrar\">Cerrar sesión</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                    </div>\n                </div>\n            </nav>\n        </header>\n\n        <!-- /Barra de navegación -->\n\n        <br/>\n        <br/>\n        <div class=\"container\" id=\"wrapper\">\n            <div class=\"modal hide fade\" id=\"nuevoRumor\">\n                <div class=\"modal-header\">\n                    <a class=\"close\" data-dismiss=\"modal\">x</a>\n                    <h3>Nuevo rumor</h3>\n                </div>\n                <div class=\"modal-body\">\n                    <select name=\"grupos\" id=\"grupos\">\n                        <option value=\"1\">Público</option>\n                        <option value=\"2\">Grupo1</option>\n                    </select>\n                    <textarea name=\"contenido\" id=\"contenido\" cols=\"30\" rows=\"10\" placeholder=\"Contenido\"></textarea>\n                    <input type=\"text\" name=\"lugar\" id=\"lugar\" placeholder=\"Lugar\">\n                    <input type=\"text\" name=\"enlace\" id=\"enlace\" placeholder=\"Enlace\">\n                </div>\n                <div class=\"modal-footer\">\n                    <a href=\"#\" class=\"btn\" data-dismiss=\"modal\">Cerrar</a>\n                    <button onclick=\"nuevoRumor();\" class=\"btn btn-primary\" data-dismiss=\"modal\">Enviar rumor</button>\n                </div>\n            </div>\n            <div class=\"tabbable tabs-left todoInicio\">\n                <ul class=\"nav nav-tabs listaInicio\" style=\"position:fixed;\">\n                    <li class=\"active\"><a onclick=\"scrollUp();\" href=\"#publico\" data-toggle=\"tab\">Público</a></li>\n                    <li><a href=\"#grupo1\" data-toggle=\"tab\" onclick=\"scrollUp();\">Grupo1</a></li>\n                    <li><a href=\"#grupo2\" data-toggle=\"tab\" onclick=\"scrollUp();\">Grupo2</a></li>\n                </ul>\n                <div class=\"tab-content centroInicio\">\n                    <div class=\"tab-pane active\" id=\"publico\">\n                        <div class=\"caja\">texto1.1</div>\n                        <div class=\"caja\">texto1.2</div>\n                        <div class=\"caja\">texto1.3</div>\n                        <div class=\"caja\">texto1.4</div>\n                        <div class=\"caja\">texto1.5</div>\n                        <div class=\"caja\">texto1.6</div>\n                        <div class=\"caja\">texto1.7</div>\n                        <div class=\"caja\">texto1.8</div>\n                        <div class=\"caja\">texto1.9</div>\n                        <div class=\"caja\">texto1.10</div>\n                        <div class=\"caja\">texto1.11</div>\n                        <div class=\"caja\">texto1.12</div>\n                        <div class=\"caja\">texto1.13</div>\n                        <div class=\"caja\">texto1.14</div>\n                        <div class=\"caja\">texto1.15</div>\n                        <div class=\"caja\">texto1.16</div>\n                        <div class=\"caja\">texto1.17</div>\n                        <div class=\"caja\">texto1.18</div>\n                        <div class=\"caja\">texto1.19</div>\n                        <div class=\"caja\">texto1.20</div>\n                        <div class=\"caja\">texto1.21</div>\n                    </div>\n                    <div class=\"tab-pane\" id=\"grupo1\">\n                        <div class=\"caja\">texto2.1</div>\n                        <div class=\"caja\">texto2.2</div>\n                        <div class=\"caja\">texto2.3</div>\n                        <div class=\"caja\">texto2.4</div>\n                        <div class=\"caja\">texto2.5</div>\n                        <div class=\"caja\">texto2.6</div>\n                        <div class=\"caja\">texto2.7</div>\n                        <div class=\"caja\">texto2.8</div>\n                        <div class=\"caja\">texto2.9</div>\n                        <div class=\"caja\">texto2.10</div>\n                        <div class=\"caja\">texto2.11</div>\n                        <div class=\"caja\">texto2.12</div>\n                        <div class=\"caja\">texto2.13</div>\n                        <div class=\"caja\">texto2.14</div>\n                        <div class=\"caja\">texto2.15</div>\n                        <div class=\"caja\">texto2.16</div>\n                        <div class=\"caja\">texto2.17</div>\n                        <div class=\"caja\">texto2.18</div>\n                        <div class=\"caja\">texto2.19</div>\n                        <div class=\"caja\">texto2.20</div>\n                        <div class=\"caja\">texto2.21</div>\n                    </div>\n                    <div class=\"tab-pane\" id=\"grupo2\">\n                        <div class=\"caja\">texto3.1</div>\n                        <div class=\"caja\">texto3.2</div>\n                        <div class=\"caja\">texto3.3</div>\n                        <div class=\"caja\">texto3.4</div>\n                        <div class=\"caja\">texto3.5</div>\n                        <div class=\"caja\">texto3.6</div>\n                        <div class=\"caja\">texto3.7</div>\n                        <div class=\"caja\">texto3.8</div>\n                        <div class=\"caja\">texto3.9</div>\n                        <div class=\"caja\">texto3.10</div>\n                        <div class=\"caja\">texto3.11</div>\n                        <div class=\"caja\">texto3.12</div>\n                        <div class=\"caja\">texto3.13</div>\n                        <div class=\"caja\">texto3.14</div>\n                        <div class=\"caja\">texto3.15</div>\n                        <div class=\"caja\">texto3.16</div>\n                        <div class=\"caja\">texto3.17</div>\n                        <div class=\"caja\">texto3.18</div>\n                        <div class=\"caja\">texto3.19</div>\n                        <div class=\"caja\">texto3.20</div>\n                        <div class=\"caja\">texto3.21</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </body>\n</html>",
 			"file": "inicio.php",
+			"file_size": 11480,
+			"file_write_time": 130134623591858640,
 			"settings":
 			{
-				"buffer_size": 11134,
+				"buffer_size": 10656,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "crear.php",
+			"settings":
+			{
+				"buffer_size": 13888,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "php/controlador/GruposController.php",
+			"settings":
+			{
+				"buffer_size": 2040,
 				"line_ending": "Windows"
 			}
 		},
@@ -71,7 +90,15 @@
 			"file": "php/nuevoRumor.php",
 			"settings":
 			{
-				"buffer_size": 167,
+				"buffer_size": 436,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "php/modelo/RumoresDAO.php",
+			"settings":
+			{
+				"buffer_size": 1113,
 				"line_ending": "Windows"
 			}
 		},
@@ -79,7 +106,7 @@
 			"file": "php/modelo/GruposDAO.php",
 			"settings":
 			{
-				"buffer_size": 1968,
+				"buffer_size": 2002,
 				"line_ending": "Windows"
 			}
 		},
@@ -100,10 +127,29 @@
 			}
 		},
 		{
+			"contents": "<?php\n\n/**\n * Description of PersonasDAO\n *\n * @author nico\n */\n$base_dir = realpath(dirname(__FILE__) . '/..');\n//definimos como directorio base el directorio en el que estamos en este caso es /php\nrequire_once(\"{$base_dir}/commons/bd.php\");\nrequire_once ('modeloException/PersonasException.php');\n\nclass PersonasDAO {\n    //put your code here\n\n    private $db;\n\n    public function __construct() {\n        $obj = new bd();\n        $this->db = $obj->getDB();\n        ;\n    }\n\n    public function registroPersonas($idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo) {\n        $stm = $this->db->prepare(\"INSERT INTO personas (idpersonas,tipo,nombre,apellido,apellido2,fechaNac,sexo) VALUES(?,?,?,?,?,?,?)\");\n        if (1!=($stm->bind_param(\"issssss\", $idpersonas, $tipo, utf8_decode($nombre), utf8_decode($apellido), utf8_decode($apellido2), $fechaNac, $sexo))) {\n            \n            throw new PersonasException(\"errores en el formato de los parametros\");\n        }\n        $stm->execute();\n        if (1!=$stm->affected_rows) {\n\n            throw new PersonasException(\"errores en la inseccion de los datos\");\n        }\n        $stm->close();\n    }\n\n    public function getUltimoId() {\n        $query1 = \"SELECT MAX(idpersonas) AS \\\"mayor\\\" FROM personas \";\n        $result1 = $this->db->query($query1);\n        $mayor = $result1->fetch_assoc();\n        $id = $mayor['mayor'] + 1;\n        $result1->close();\n        return $id;\n    }\n\n    public function getDataById($id){\n        $var=null;\n        $query1 = \"SELECT nombre,apellido,apellido2,IFNULL(foto,'noimage.jpg') FROM personas WHERE idpersonas = ?\";\n        $stm = $this->db->prepare($query1);\n        if (1!=($stm->bind_param(\"i\", $id))) {\n            throw new PersonasException(\"errores en el formato de los parametros\");\n        }\n        $stm->execute();\n        $stm->bind_result($nom,$ape1,$ape2,$image);\n        if($stm->fetch()){\n            $var=array('nombre'=>$nom,'apellido'=>$ape1,'apellido2'=>$ape2,'imagen'=>$image);\n        }\n        else{\n            throw new PersonasException(\"errores en el formato de los parametros\");\n        }\n        $stm->close();\n        return $var;\n    }\n}\n    \n\n\n\n\n/*\ntry {\n    $obj = new PersonasDAO();\n    $id = $obj->getUltimoId();\n    $obj->registroPersonas($id, 'user', 'vcxv', 'dfv', 'cvcxv', '1990-12-19', 'h');\n} catch (PersonasException $ep) {\n    echo $ep;\n} catch (Exception $exc) {\n    echo $exc->getMessage();\n}*/\n?>\n",
 			"file": "php/modelo/PersonasDAO.php",
+			"file_size": 2554,
+			"file_write_time": 130129426016961448,
 			"settings":
 			{
-				"buffer_size": 2472,
+				"buffer_size": 2459,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "php/commons/bd.php",
+			"settings":
+			{
+				"buffer_size": 546,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "js/nuevoRumor.js",
+			"settings":
+			{
+				"buffer_size": 0,
 				"line_ending": "Windows"
 			}
 		}
@@ -140,6 +186,8 @@
 	},
 	"file_history":
 	[
+		"/C/xampp/htdocs/Scrab/registro.php",
+		"/C/xampp/htdocs/iidc/js/script.js",
 		"/C/xampp/htdocs/dpto/admin/bd.php",
 		"/C/Users/Ismael/Downloads/ProyectoAGRE/ProyectoAGRE/src/agre/model/Usuario.java",
 		"/C/xampp/htdocs/Scrab/js/nuevoRumor.js",
@@ -150,7 +198,6 @@
 		"/C/xampp/htdocs/Scrab/php/modelo/RumoresDAO.php",
 		"/C/xampp/htdocs/Scrab/php/clasesImportantes/bd.php",
 		"/C/xampp/htdocs/Scrab/inicio.php",
-		"/C/xampp/htdocs/Scrab/registro.php",
 		"/C/xampp/htdocs/Scrab/php/modelo/GruposDAO.php",
 		"/C/xampp/htdocs/Scrab/crearGrupos.php",
 		"/C/xampp/htdocs/Scrab/php/modelo/modeloException/PersonasException.php",
@@ -266,8 +313,7 @@
 		"/C/Users/red/Desktop/cosa rara1.html",
 		"/C/Users/red/Desktop/dpto2/database/modelo.dm2",
 		"/E/Matlab/página Ciudad2020/index.html",
-		"/E/Matlab/página Ciudad2020/edificios_ciudad.php",
-		"/E/Matlab/página Ciudad2020/alumbrado_nuevofarola.php"
+		"/E/Matlab/página Ciudad2020/edificios_ciudad.php"
 	],
 	"find":
 	{
@@ -285,6 +331,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"userpass",
+			"prepare",
 			"conexion",
 			"navbar",
 			"mydb",
@@ -335,7 +383,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -343,15 +391,15 @@
 					"file": "inicio.php",
 					"settings":
 					{
-						"buffer_size": 11134,
+						"buffer_size": 10656,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2533,
+								2533
 							]
 						],
 						"settings":
@@ -493,26 +541,348 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 3.0,
-						"translation.y": 1336.0,
+						"translation.x": 311.0,
+						"translation.y": 976.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "php/nuevoRumor.php",
+					"file": "crear.php",
 					"settings":
 					{
-						"buffer_size": 167,
+						"buffer_size": 13888,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8,
-								163
+								7217,
+								7217
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2756.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "php/controlador/GruposController.php",
+					"settings":
+					{
+						"buffer_size": 2040,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								708,
+								708
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "php/nuevoRumor.php",
+					"settings":
+					{
+						"buffer_size": 436,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								240,
+								240
 							]
 						],
 						"settings":
@@ -659,19 +1029,179 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "php/modelo/GruposDAO.php",
+					"buffer": 4,
+					"file": "php/modelo/RumoresDAO.php",
 					"settings":
 					{
-						"buffer_size": 1968,
+						"buffer_size": 1113,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1738,
-								1738
+								1023,
+								1023
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 349.0,
+						"translation.y": 60.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "php/modelo/GruposDAO.php",
+					"settings":
+					{
+						"buffer_size": 2002,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1145,
+								1145
 							]
 						],
 						"settings":
@@ -814,13 +1344,13 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 540.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 6,
 					"file": "php/modelo/UserDAO.php",
 					"settings":
 					{
@@ -831,8 +1361,8 @@
 						"selection":
 						[
 							[
-								2126,
-								2126
+								4064,
+								4064
 							]
 						],
 						"settings":
@@ -975,13 +1505,13 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 660.0,
+						"translation.y": 136.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 7,
 					"file": "crearGrupos.php",
 					"settings":
 					{
@@ -992,8 +1522,8 @@
 						"selection":
 						[
 							[
-								5402,
-								5402
+								5215,
+								5215
 							]
 						],
 						"settings":
@@ -1136,25 +1666,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2640.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 8,
 					"file": "php/modelo/PersonasDAO.php",
 					"settings":
 					{
-						"buffer_size": 2472,
+						"buffer_size": 2459,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								345,
-								345
+								821,
+								822
 							]
 						],
 						"settings":
@@ -1301,6 +1831,326 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "php/commons/bd.php",
+					"settings":
+					{
+						"buffer_size": 546,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								540,
+								540
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "js/nuevoRumor.js",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
 				}
 			]
 		}
@@ -1338,7 +2188,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 34.0
+		"height": 30.0
 	},
 	"replace":
 	{
@@ -1373,6 +2223,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 183.0,
+	"side_bar_width": 175.0,
 	"status_bar_visible": true
 }

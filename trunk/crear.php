@@ -181,9 +181,7 @@ if (isset($_GET['cerrar'])) {
 
                         </div>
                         <div id="not-drop-files">
-                            <div id="drop-files"> 
-                                Arrastra una imagen
-                            </div>
+                            <div id="drop-files">Arrastra una imagen</div>
                         </div>
 
                         <div id="response">

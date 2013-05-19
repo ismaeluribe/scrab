@@ -8,7 +8,7 @@ if (isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email']
 //fecha actual
 $date= date('Y-m-d');
 //fecha de hace 18 año en milisegundos
-$oldDate=  strtotime( '-18 year' , strtotime ( $date ) ) ;
+$oldDate= strtotime( '-18 year' , strtotime ( $date ) ) ;
 //fecha de hace 18 año en formato correcto yyyy-mm-dd
 $oldDate =date ( 'Y-m-d' , $oldDate );
 session_regenerate_id(true); //regeneramos el id por seguridad

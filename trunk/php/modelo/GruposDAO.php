@@ -35,7 +35,7 @@ class GruposDAO {
 
     public function insert_datos($id, $idUser, $name, $description,$nameFoto,$privacidad) {
        $query="INSERT INTO ".self::tablaGrupos." (idgrupos,usuarios_personas_idpersonas,nombre,fecha,descripcion,foto,privacidad)
-                 VALUES ($id,$idUser,'$name',NOW(),'$description','$nameFoto','$privacidad')";
+                 VALUES ($id,$idUser,'".utf8_decode($name)."',NOW(),'".utf8_decode($description)."','$nameFoto','$privacidad')";
         if($this->bd->query($query)){
             return true;
         }else return false;

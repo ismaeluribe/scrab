@@ -60,22 +60,18 @@ if (isset($_GET['cerrar'])) {
                 }, 250);
             }
             function nuevoRumor(){
-                var parametros = {
+                /*var parametros = {
                     "grupo":$("#grupos").val(),
                     "contenido":$("#contenido").val(),
                     "lugar":$("#lugar").val(),
                     "enlace":$("#enlace").val()
-                };
-                var ajax = $.ajax({
+                };*/
+                /*$.ajax({
                     url: "php/nuevoRumor.php",
                     type: "POST",
-                    data: {
-                    "grupo":$("#grupos").val(),
-                    "contenido":$("#contenido").val(),
-                    "lugar":$("#lugar").val(),
-                    "enlace":$("#enlace").val()
-                }
-                });
+                    data: 'grupo=' + $("#grupos").val() + '&contenido=' + $("#contenido").val() + '&lugar=' + $("#lugar").val() + '&enlace=' + $("#enlace").val(),
+                });*/
+                $.post("php/nuevoRumor.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()},function(respuesta){alert(respuesta);});
             }
         </script>
         <script src="js/nuevoRumor.js"></script>
