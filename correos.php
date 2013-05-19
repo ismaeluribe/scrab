@@ -11,7 +11,7 @@
         </form>
         <?php
         if (isset($_POST['email'])) {
-            require ("php/class.phpmailer.php");
+            require ("php/commons/class.phpmailer.php");
             $mail = new PHPMailer();
             $mail->SMTPAuth = true;
             $mail->Username = 'proyectoDawIsNi@gmail.com';

@@ -11,17 +11,17 @@ class rumoresDAO{
 	function __construct(){
 		$obj = new bd();
 		$this->db = $obj->getDB();
-		$this->registroRumor = $this->db->prepare("INSERT INTO rumores (anillos_grupos_idgrupo,anillos_usuarios_id_personas,foto,formato,lugar,enlace,personas_idpersonas) VALUES (?,?,?,?,?,?,?)");
+		$this->registroRumor = $this->db->prepare("INSERT INTO rumores (anillos_grupos_idgrupos,anillos_usuarios_idpersonas,contenido,foto,lugar,enlace,personas_idpersonas) VALUES (?,?,?,?,?,?,?)");
 	}
 
-	function registroRumor(){
-		$anillosIDgrupo = $_POST['anilloIDgrupo'];
-		$idPersona = $_SESSION['id'];
-		$lugar = $_POST['lugar'];
-		$enlace = $_POST['enlace'];
-		$trata = $_POST['trata'];
-		$this->registroRumor->bind_param("iibsssi",$anillosIDgrupo,$idPersona,null,null,$lugar,$enlace,$trata);
+	function registroRumor($anillosIDgrupo,$lugar,$enlace,$trata){
+		$idPersona =1;
+		$foto = null;
+		/*$query = "INSERT INTO rumores (anillos_grupos_idgrupos,anillos_usuarios_idpersonas,contenido,foto,lugar,enlace,personas_idpersonas) VALUES ($anillosIDgrupo,$idPersona,\"$trata\",\"\",\"$lugar\",\"$enlace\",$idPersona)";
+		echo $query;*/
+		$this->registroRumor->bind_param("iissssi", $anillosIDgrupo, $idPersona, utf8_decode($trata), $foto, utf8_decode($lugar), utf8_decode($enlace), $idPersona);
 		$this->registroRumor->execute();
+		/*$this->db->query($query);*/
 	}
 }
 

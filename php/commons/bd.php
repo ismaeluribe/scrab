@@ -16,7 +16,6 @@ class bd {
         if ($this->db->connect_error) {
             die("Error de conexion(" . $this->db->connect_errno . ")" . $this->db->connect_error);
         }
-        //else return $this->db;
     }
 
     function getDB() {
