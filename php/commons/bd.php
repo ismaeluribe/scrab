@@ -16,6 +16,8 @@ class bd {
         if ($this->db->connect_error) {
             die("Error de conexion(" . $this->db->connect_errno . ")" . $this->db->connect_error);
         }
+        //mysql_query();
+        $this->db->query("SET NAMES 'utf8'");
     }
 
     function getDB() {
