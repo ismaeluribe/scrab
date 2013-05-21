@@ -57,18 +57,8 @@ if (isset($_GET['cerrar'])) {
         <script src="js/libs/bootstrap/bootstrap-tooltip.js"></script>
         <script src="js/libs/bootstrap/bootstrap-typeahead.js"></script>
         <script type="text/javascript">
-            function nuevoRumor() {
-                var parametros = {
-                    "grupo": $("#grupos").val(),
-                    "contenido": $("#contenido").val(),
-                    "lugar": $("#lugar").val(),
-                    "enlace": $("#enlace").val()
-                };
-                $.ajax({
-                    url: 'php/nuevoRumor.php',
-                    type: 'POST',
-                    data: parametros
-                });
+            function nuevoRumor(){
+                $.post("php/nuevoRumor.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
             }
         </script>
         <script src="js/nuevoRumor.js"></script>
@@ -99,7 +89,7 @@ if (isset($_GET['cerrar'])) {
                         </form>
                         <ul class="nav pull-right">
                             <li class="active">
-                                <a href="#">Crear</a>
+                                <a href="crear.php">Crear</a>
                             </li>
                             <li>
                                 <a href="#nuevoRumor" data-toggle="modal" title="Nuevo rumor" class="btn-primary">
@@ -112,7 +102,7 @@ if (isset($_GET['cerrar'])) {
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="fperfil" src="img/cosas.jpg">&nbsp;&nbsp;<?php echo $_SESSION['user']; ?></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Ayuda</a></li>
-                                    <li><a href="#">Configuración</a></li>
+                                    <li><a href="configuracion.php">Configuración</a></li>
                                     <li class="divider"></li>
                                     <li><a href="inicio.php?cerrar=1" name="cerrar">Cerrar sesión</a></li>
                                 </ul>

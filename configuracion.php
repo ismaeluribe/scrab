@@ -1,10 +1,13 @@
 <?php
+/*
+ * Nicolas Quiceno
+ * clase que contiene los formularios para crear personajes y grupos
+ */
 //los requires
 require_once '/php/modelo/UserDAO.php';
 require_once '/php/modelo/PersonasDAO.php';
-//iniciamos secion
 session_start();
-if (!isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {
+if (!isset($_SESSION['user'], $_SESSION['id'], $_SESSION['pass'], $_SESSION['email'])) {
     header("location: index.php");
 }
 
@@ -54,14 +57,16 @@ if (isset($_GET['cerrar'])) {
         <script src="js/libs/bootstrap/bootstrap-tooltip.js"></script>
         <script src="js/libs/bootstrap/bootstrap-typeahead.js"></script>
         <script type="text/javascript">
-            function scrollUp() {
-                $('html,body').animate({
-                    scrollTop: 0
-                }, 250);
-            }
             function nuevoRumor(){
                 $.post("php/nuevoRumor.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
             }
+            $().ready(function(){
+                $("#nombre").val(nombre);
+                $("#apellido1").val(apellido1);
+                $("#apellido2").val(apellido2);
+                $("#correo").val(correo);
+                $("#usename").val(username);
+            });
         </script>
         <script src="js/nuevoRumor.js"></script>
 
@@ -81,7 +86,7 @@ if (isset($_GET['cerrar'])) {
                     <a class="brand" href="index.php">Scrab</a>
                     <div class="nav-collapse">
                         <ul class="nav">
-                            <li class="active"><a href="#"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
+                            <li><a href="inicio.php"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
                             <li><a href="#">Perfil</a></li>
                             <li><a href="#">Grupos&nbsp;<span class="badge">8</span></a></li>
                             <li><a href="#">Espiados</a></li>
@@ -97,12 +102,14 @@ if (isset($_GET['cerrar'])) {
                                 <a href="#nuevoRumor" data-toggle="modal" title="Nuevo rumor" class="btn-primary">
                                     <img src="img/scrab.png" style="height:17px;" />
                                 </a>
+
                             </li>
+
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="fperfil" src="img/cosas.jpg">&nbsp;&nbsp;<?php echo $_SESSION['user']; ?></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Ayuda</a></li>
-                                    <li><a href="configuracion.php">Configuración</a></li>
+                                    <li><a href="#">Configuración</a></li>
                                     <li class="divider"></li>
                                     <li><a href="inicio.php?cerrar=1" name="cerrar">Cerrar sesión</a></li>
                                 </ul>
@@ -139,79 +146,40 @@ if (isset($_GET['cerrar'])) {
             </div>
             <div class="tabbable tabs-left todoInicio">
                 <ul class="nav nav-tabs listaInicio" style="position:fixed;">
-                    <li class="active"><a onclick="scrollUp();" href="#publico" data-toggle="tab">Público</a></li>
-                    <li><a href="#grupo1" data-toggle="tab" onclick="scrollUp();">Grupo1</a></li>
-                    <li><a href="#grupo2" data-toggle="tab" onclick="scrollUp();">Grupo2</a></li>
+                    <li class="active">
+                        <a href="#datos" data-toggle="tab">Datos</a>
+                    </li>
+                    <li>
+                        <a href="#privacidad" data-toggle="tab">Privacidad</a>
+                    </li>
+                    <li>
+                        <a href="#contraseña" data-toggle="tab">Contraseña</a>
+                    </li>
                 </ul>
-                <div class="tab-content centroInicio">
-                    <div class="tab-pane active" id="publico">
-                        <div class="caja">texto1.1</div>
-                        <div class="caja">texto1.2</div>
-                        <div class="caja">texto1.3</div>
-                        <div class="caja">texto1.4</div>
-                        <div class="caja">texto1.5</div>
-                        <div class="caja">texto1.6</div>
-                        <div class="caja">texto1.7</div>
-                        <div class="caja">texto1.8</div>
-                        <div class="caja">texto1.9</div>
-                        <div class="caja">texto1.10</div>
-                        <div class="caja">texto1.11</div>
-                        <div class="caja">texto1.12</div>
-                        <div class="caja">texto1.13</div>
-                        <div class="caja">texto1.14</div>
-                        <div class="caja">texto1.15</div>
-                        <div class="caja">texto1.16</div>
-                        <div class="caja">texto1.17</div>
-                        <div class="caja">texto1.18</div>
-                        <div class="caja">texto1.19</div>
-                        <div class="caja">texto1.20</div>
-                        <div class="caja">texto1.21</div>
+                <div class="tab-content centroInicio" id="centroInicioJs">
+                    <div class="tab-pane active" id="datos">
+                        <h3>Datos</h3>
+                        <form name="datos" action="configuracion.php" method="POST">
+                            <br><br>
+                            <input id="nombre" type="text" placeholder="Nombre"><br>
+                            <input id="apellido1" type="text" placeholder="Primer apellido"><br>
+                            <input id="apellido2" type="text" placeholder="Segundo apellido"><br>
+                            <input id="correo" type="text" placeholder="Correo electrónico"><br>
+                            <input id="username" type="text" placeholder="Nombre de usuario"><br>
+                            <input type="submit" class="btn btn-primary">
+                        </form>
                     </div>
-                    <div class="tab-pane" id="grupo1">
-                        <div class="caja">texto2.1</div>
-                        <div class="caja">texto2.2</div>
-                        <div class="caja">texto2.3</div>
-                        <div class="caja">texto2.4</div>
-                        <div class="caja">texto2.5</div>
-                        <div class="caja">texto2.6</div>
-                        <div class="caja">texto2.7</div>
-                        <div class="caja">texto2.8</div>
-                        <div class="caja">texto2.9</div>
-                        <div class="caja">texto2.10</div>
-                        <div class="caja">texto2.11</div>
-                        <div class="caja">texto2.12</div>
-                        <div class="caja">texto2.13</div>
-                        <div class="caja">texto2.14</div>
-                        <div class="caja">texto2.15</div>
-                        <div class="caja">texto2.16</div>
-                        <div class="caja">texto2.17</div>
-                        <div class="caja">texto2.18</div>
-                        <div class="caja">texto2.19</div>
-                        <div class="caja">texto2.20</div>
-                        <div class="caja">texto2.21</div>
+                    <div class="tab-pane" id="privacidad">
+                        <h3>Privacidad</h3>
+                        <form name="privacidad" action="configuracion.php" method="POST">
+                            
+                        </form>
                     </div>
-                    <div class="tab-pane" id="grupo2">
-                        <div class="caja">texto3.1</div>
-                        <div class="caja">texto3.2</div>
-                        <div class="caja">texto3.3</div>
-                        <div class="caja">texto3.4</div>
-                        <div class="caja">texto3.5</div>
-                        <div class="caja">texto3.6</div>
-                        <div class="caja">texto3.7</div>
-                        <div class="caja">texto3.8</div>
-                        <div class="caja">texto3.9</div>
-                        <div class="caja">texto3.10</div>
-                        <div class="caja">texto3.11</div>
-                        <div class="caja">texto3.12</div>
-                        <div class="caja">texto3.13</div>
-                        <div class="caja">texto3.14</div>
-                        <div class="caja">texto3.15</div>
-                        <div class="caja">texto3.16</div>
-                        <div class="caja">texto3.17</div>
-                        <div class="caja">texto3.18</div>
-                        <div class="caja">texto3.19</div>
-                        <div class="caja">texto3.20</div>
-                        <div class="caja">texto3.21</div>
+                    <div class="tab-pane" id="contraseña">
+                        <h3>Contraseña</h3>
+                        <form name="contraseña" action="configuracion.php" method="POST">
+                            
+                        </form>
                     </div>
                 </div>
             </div>

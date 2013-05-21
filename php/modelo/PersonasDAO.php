@@ -49,7 +49,6 @@ class PersonasDAO {
         $query1 = "SELECT nombre,apellido,apellido2,IFNULL(foto,'noimage.jpg') FROM personas WHERE idpersonas = ?";
         $stm = $this->db->prepare($query1);
         if (1!=($stm->bind_param("i", $id))) {
-            
             throw new PersonasException("errores en el formato de los parametros");
         }
         $stm->execute();
