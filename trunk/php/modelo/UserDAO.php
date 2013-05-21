@@ -20,7 +20,7 @@ class UserDAO {
         $this->registroUsuario = $this->db->prepare("INSERT INTO usuarios (personas_idpersonas,nombreUser,email,fechaReg,pass) VALUES (?,?,?,now(),?)");
         $this->userName = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ?");
         $this->email = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE email = ?");
-        $this->dropUsuario = $this->db->prepare("DELETE FROM usuarios WHERE nombreUser = ?");
+        $this->dropUsuario = $this->db->prepare("UPDATE personas SET eliminado=1 WHERE id_personas = ?");
     }
 
     function userpass($user, $pass) {
@@ -99,10 +99,8 @@ class UserDAO {
     }
 
     private function dropUser($user) {
-        $this->dropPersona->bind_param("s", $user);
-        $this->dropUsuario->bind_param("s", $user);
+        $this->dropUsuario->bind_param("i",$user);
         $this->dropUsuario->execute();
-        $this->dropPersona->execute();
     }
 
     function getDatos() {
