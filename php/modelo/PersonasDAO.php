@@ -23,7 +23,7 @@ class PersonasDAO {
 
     public function registroPersonas($idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo) {
         $stm = $this->db->prepare("INSERT INTO personas (idpersonas,tipo,nombre,apellido,apellido2,fechaNac,sexo) VALUES(?,?,?,?,?,?,?)");
-        if (1!=($stm->bind_param("issssss", $idpersonas, $tipo, utf8_decode($nombre), utf8_decode($apellido), utf8_decode($apellido2), $fechaNac, $sexo))) {
+        if (1!=($stm->bind_param("issssss", $idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo))) {
             
             throw new PersonasException("errores en el formato de los parametros");
         }

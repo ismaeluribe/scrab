@@ -127,10 +127,10 @@ if (isset($_GET['cerrar'])) {
                     <select name="grupos" id="grupos">
                         <option value="1">Público</option>
                         <option value="2">Grupo1</option>
-                    </select>
-                    <textarea name="contenido" id="contenido" cols="30" rows="10" placeholder="Contenido"></textarea>
-                    <input type="text" name="lugar" id="lugar" placeholder="Lugar">
-                    <input type="text" name="enlace" id="enlace" placeholder="Enlace">
+                    </select><br>
+                    <textarea name="contenido" id="contenido" cols="30" rows="10" placeholder="Contenido"></textarea><br>
+                    <input type="text" name="lugar" id="lugar" placeholder="Lugar"><br>
+                    <input type="text" name="enlace" id="enlace" placeholder="Enlace"><br>
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn" data-dismiss="modal">Cerrar</a>

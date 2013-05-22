@@ -1,6 +1,6 @@
 <?php
 session_start();
-//si esta session ya contiene esta variable volvemos automaticamente a la pagina de inciio
+//si esta session ya contiene esta variable volvemos automaticamente a la pagina de inicio
 if (isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {
     //$objUser=new UserDAO() 
     header("location:inicio.php");
@@ -87,6 +87,8 @@ session_regenerate_id(true); //regeneramos el id por seguridad
                     </br>
                     <input type="email" placeholder="Email" name="email" required="required"/>
                     </br>
+                    <input type="file" name="image">
+                    <br>
                     <input type="password" id="pass1" placeholder="Contraseña" name="pass" required="required" oninput="checkPass(this.value);"/>
                     </br>
                     <input type="password" id="pass2" placeholder="Repita la contraseña" name="pass2" required="required" disabled="disabled" oninput="getPass(this.value);"/>

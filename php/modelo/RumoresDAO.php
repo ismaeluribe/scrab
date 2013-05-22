@@ -17,11 +17,8 @@ class rumoresDAO{
 	function registroRumor($anillosIDgrupo,$lugar,$enlace,$trata){
 		$idPersona =1;
 		$foto = null;
-		/*$query = "INSERT INTO rumores (anillos_grupos_idgrupos,anillos_usuarios_idpersonas,contenido,foto,lugar,enlace,personas_idpersonas) VALUES ($anillosIDgrupo,$idPersona,\"$trata\",\"\",\"$lugar\",\"$enlace\",$idPersona)";
-		echo $query;*/
-		$this->registroRumor->bind_param("iissssi", $anillosIDgrupo, $idPersona, utf8_decode($trata), $foto, utf8_decode($lugar), utf8_decode($enlace), $idPersona);
+		$this->registroRumor->bind_param("iissssi", $anillosIDgrupo, $idPersona, $trata, $foto, $lugar, $enlace, $idPersona);
 		$this->registroRumor->execute();
-		/*$this->db->query($query);*/
 	}
 }
 

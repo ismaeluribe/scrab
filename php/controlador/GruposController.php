@@ -40,7 +40,7 @@ if (($_POST['image']!='null') && ($_POST['imageName']!='null')) {
     $encodedData = str_replace(' ', '+', $data[1]);
     $decodedData = base64_decode($encodedData);
     //le ponermos nombre al archivo del grupo
-    $nameImage=$nameGroup.'.'.$mime;
+    $nameImage=utf8_decode($nameGroup).'.'.$mime;
     //cargamos la imagen en el servidor
     if (file_put_contents( '../../image/grupo/'.$nameImage, $decodedData)) {
         //si ha salido bien la carga le damos este valor a esta variable
