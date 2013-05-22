@@ -22,6 +22,7 @@ body{
     overflow: hidden;
     padding-bottom: 80px;
     height: auto;
+    min-height: 500px;
 }
 
 .listaInicio{
@@ -80,7 +81,7 @@ body{
     text-align: left;
     padding-left: 10px;
 }
-#drop-files {
+.drop-files-generic {
     width: 300px;
     height: 150px;
     background: #cccccc;
@@ -94,7 +95,7 @@ body{
     font-family: arial;
     margin:  60px auto;
 }
-#not-drop-files {
+.not-drop-files-generic {
     width: 400px;
     height: 300px;
     background-color: #ffffff;
@@ -115,9 +116,72 @@ body{
     height: 180px;
     resize: none;
 }
-#response{
-    width: 50%;
+.response-generic{
+    width: 100%;
     float: left;
-   /* margin-left: 200px;*/
-    margin-top: 150px;
+    margin-top: 50px;
+    text-align: center;
+    /* background-color: red;*/
+}
+.content-drop-and-form{
+    width: 100%;
+    float: left;
+    height: auto;
+
+}
+#groupList {
+    /*background-color: blue;*/
+    float: left;
+    height: auto;
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 400px;
+    border: 1px solid #cccccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 14px -11px #000;
+    -webkit-box-shadow: 0 0 14px -11px #000;
+    box-shadow: 0 0 14px -11px #000;
+}
+#groupList p {
+    /*background-color: red;*/
+    display: inline-block;
+    height: auto;
+    margin: 5px;
+    overflow: hidden;
+    padding: 6px;
+    width: auto;
+    border: 1px solid #cccccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.overGroup {
+    /*
+-moz-box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);
+-webkit-box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);
+box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
+-moz-box-shadow:inset 0px 0px 4px 1px rgba(119, 119, 119, 0.4);
+-webkit-box-shadow:inset 0px 0px 4px 1px rgba(119, 119, 119, 0.4);
+box-shadow:inset 0px 0px 4px 1px rgba(119, 119, 119, 0.4);
+
+
+}
+.selectedGroup{
+    background-color: #0074CC;
+    background-image: -moz-linear-gradient(center top , #0088CC, #0055CC);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    font-weight: normal;
+    color: #ffffff;
+}
+.content-drop-and-form >h4{
+    width: 400px;
+    float: left;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 0;
 }
