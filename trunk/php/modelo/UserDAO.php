@@ -141,8 +141,10 @@ class UserDAO {
 
 }
 
-/*
-  $obj=new UserDAO();
+
+  //$obj=new UserDAO();
+  //$obj->registroUsuario(1, 'nico', 'nicoqb@gmail.com', '123456789');
+  /*
   $pass='123456';
   $pass=hash("sha512", $pass);
   $user='nico3';

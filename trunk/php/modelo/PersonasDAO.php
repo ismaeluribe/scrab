@@ -11,9 +11,12 @@ require_once("{$base_dir}/commons/bd.php");
 require_once ('modeloException/PersonasException.php');
 
 class PersonasDAO {
+
     //put your code here
 
     private $db;
+
+    const tablaPersonas = 'personas';
 
     public function __construct() {
         $obj = new bd();
@@ -22,13 +25,13 @@ class PersonasDAO {
     }
 
     public function registroPersonas($idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo) {
-        $stm = $this->db->prepare("INSERT INTO personas (idpersonas,tipo,nombre,apellido,apellido2,fechaNac,sexo) VALUES(?,?,?,?,?,?,?)");
-        if (1!=($stm->bind_param("issssss", $idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo))) {
-            
+        $stm = $this->db->prepare("INSERT INTO " . self::tablaPersonas . " (idpersonas,tipo,nombre,apellido,apellido2,fechaNac,sexo) VALUES(?,?,?,?,?,?,?)");
+        if (1 != ($stm->bind_param("issssss", $idpersonas, $tipo, $nombre, $apellido, $apellido2, $fechaNac, $sexo))) {
+
             throw new PersonasException("errores en el formato de los parametros");
         }
         $stm->execute();
-        if (1!=$stm->affected_rows) {
+        if (1 != $stm->affected_rows) {
 
             throw new PersonasException("errores en la inseccion de los datos");
         }
@@ -36,7 +39,7 @@ class PersonasDAO {
     }
 
     public function getUltimoId() {
-        $query1 = "SELECT MAX(idpersonas) AS \"mayor\" FROM personas ";
+        $query1 = "SELECT MAX(idpersonas) AS \"mayor\" FROM " . self::tablaPersonas;
         $result1 = $this->db->query($query1);
         $mayor = $result1->fetch_assoc();
         $id = $mayor['mayor'] + 1;
@@ -44,38 +47,47 @@ class PersonasDAO {
         return $id;
     }
 
-    public function getDataById($id){
-        $var=null;
-        $query1 = "SELECT nombre,apellido,apellido2,IFNULL(foto,'noimage.jpg') FROM personas WHERE idpersonas = ?";
+    public function getDataById($id) {
+        $var = null;
+        $query1 = "SELECT nombre,apellido,apellido2,IFNULL(foto,'noimage.jpg') FROM " . self::tablaPersonas . " WHERE idpersonas = ?";
         $stm = $this->db->prepare($query1);
-        if (1!=($stm->bind_param("i", $id))) {
+        if (1 != ($stm->bind_param("i", $id))) {
             throw new PersonasException("errores en el formato de los parametros");
         }
         $stm->execute();
-        $stm->bind_result($nom,$ape1,$ape2,$image);
-        if($stm->fetch()){
-            $var=array('nombre'=>$nom,'apellido'=>$ape1,'apellido2'=>$ape2,'imagen'=>$image);
-        }
-        else{
+        $stm->bind_result($nom, $ape1, $ape2, $image);
+        if ($stm->fetch()) {
+            $var = array('nombre' => $nom, 'apellido' => $ape1, 'apellido2' => $ape2, 'imagen' => $image);
+        } else {
             throw new PersonasException("errores en el formato de los parametros");
         }
         $stm->close();
         return $var;
     }
+
+    public function insertImage($nameImage, $id) {
+        $query = "UPDATE " . self::tablaPersonas . " SET foto=? WHERE idpersonas=?";
+        $stm = $this->db->prepare($query);
+        if (1 != ($stm->bind_param("si", $nameImage, $id))) {
+            throw new PersonasException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        if (1 != $stm->affected_rows) {
+            throw new PersonasException("errores en la inseccion de los datos");
+        }
+        $stm->close();
+    }
+
 }
-    
-
-
-
 
 /*
-try {
-    $obj = new PersonasDAO();
-    $id = $obj->getUltimoId();
-    $obj->registroPersonas($id, 'user', 'vcxv', 'dfv', 'cvcxv', '1990-12-19', 'h');
-} catch (PersonasException $ep) {
-    echo $ep;
-} catch (Exception $exc) {
-    echo $exc->getMessage();
-}*/
+  try {
+  $obj = new PersonasDAO();
+  $id = $obj->getUltimoId();
+  $obj->registroPersonas($id, 'user', 'vcxv', 'dfv', 'cvcxv', '1990-12-19', 'h');
+  } catch (PersonasException $ep) {
+  echo $ep;
+  } catch (Exception $exc) {
+  echo $exc->getMessage();
+  } */
 ?>

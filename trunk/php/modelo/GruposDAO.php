@@ -35,14 +35,16 @@ class GruposDAO {
 
     public function insert_datos($id, $idUser, $name, $description,$nameFoto,$privacidad) {
        $query="INSERT INTO ".self::tablaGrupos." (idgrupos,usuarios_personas_idpersonas,nombre,fecha,descripcion,foto,privacidad)
-                 VALUES ($id,$idUser,'$name',NOW(),'$description','$nameFoto','$privacidad')";
-        if($this->bd->query($query)){
+                 VALUES ($id,$idUser,'".$name."',NOW(),'".$description."','$nameFoto','$privacidad')";
+        if ($this->bd->query($query)) {
             return true;
-        }else return false;
-       
+        }
+        else
+            return false;
     }
-  public function insert_fotos($foto){
-      $query="INSERT INTO ".self::tablaGrupos." (foto)
+
+    public function insert_fotos($foto) {
+        $query = "INSERT INTO " . self::tablaGrupos . " (foto)
                 VALUES ('$foto')";
       if($this->bd->query($query)) return true;
       else return false;
@@ -58,13 +60,33 @@ class GruposDAO {
       $query="SELECT nombre FROM ".self::tablaGrupos." where nombre = '$name'";
   }
 
-}/*
-$obj=new GruposDAO();
-$id=$obj->ultimoDato();
-if($obj->insert_datos($id, 1, 'j kljnk', 'kjnknjlk', 'kmlkm', 'secreto')){
-    echo 'liadaaaa';
-}
-else echo ' mal';
-*/
+    public function getGroupDataByUserId($id) {
+        $stm = $this->bd->prepare("SELECT nombre, idgrupos FROM grupos WHERE idgrupos IN (SELECT grupos_idgrupos FROM anillos WHERE usuarios_personas_idpersonas = ?) ORDER BY idgrupos ASC");
+        if (1 != ($stm->bind_param("i", $id))) {
+            throw new PersonasException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($nombre, $idgrupos);
+        $groupArray=array();
+        while ($stm->fetch()){
+            $groupArray[$idgrupos]=$nombre;
+        }
+        /*
+        echo '<pre>';
+        print_r($groupArray);
+        echo '</pre>';*/
+     return $groupArray;
+    }
 
+}
+
+
+  //$obj=new GruposDAO();
+  //$obj->getGroupDataByUserId(1);
+  //$id=$obj->ultimoDato();
+  //if($obj->insert_datos($id, 1, 'j kljnk', 'kjnknjlk', 'kmlkm', 'secreto')){
+  //echo 'liadaaaa';
+  //}
+  //else echo ' mal';
+ 
 ?>
