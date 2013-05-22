@@ -1,4 +1,7 @@
 #wrapper{width:1000px;overflow:hidden;margin-top:0;background-color:#fff}#wrapper1{width:1000px;height:700px;overflow:hidden;margin-top:0;background-color:#fff}
-body{background-color:#f7e4c7}.todoInicio{width:1000px;overflow:hidden}.listaInicio{padding-left:5px;padding-top:5px;width:200px;height:800px;text-align:right}
-.centroInicio{margin-left:240px;margin-top:20px}.caja{position:relative;float:left;height:300px;width:200px;background-color:#f7e4c7;margin:20px}#fperfil{height:17px;width:17px}
-.formulario{text-align:center;position:relative;top:15em;height:140px}.formularioReg{text-align:center;position:relative;top:10em;height:500px}
+body{background-color:#f7e4c7}.todoInicio{width:1000px;overflow:hidden;padding-bottom:80px;height:auto}.listaInicio{padding-left:5px;padding-top:5px;width:130px;height:auto;text-align:right;margin:0;float:left}
+.centroInicio{min-height:500px;overflow:hidden;float:right;width:864px;margin:0;text-align:center}.caja{float:left;height:350px;width:200px;background-color:#f7e4c7;margin-left:66px;margin-top:70px}
+#fperfil{height:17px;width:17px}.formulario{text-align:center;position:relative;top:15em;height:140px}.formularioReg{text-align:center;position:relative;top:10em;height:550px}
+.formularioGrupos{margin:40px;width:300px;float:left;text-align:left;padding-left:10px}#drop-files{width:300px;height:150px;background:#ccc;border-radius:10px;border:4px dashed rgba(0,0,0,0.2);padding:25px 0 0 0;text-align:center;font-size:2em;font-weight:bold;font-family:arial;margin:60px auto}
+#not-drop-files{width:400px;height:300px;background-color:#fff;border-radius:10px;border:4px dashed rgba(0,0,0,0.2);float:left;margin-top:55px}.imagen{width:auto;height:100px;max-width:300px;opacity:.4;margin:0 auto}
+.areaGroup{width:270px;height:180px;resize:none}#response{width:50%;float:left;margin-top:150px}
