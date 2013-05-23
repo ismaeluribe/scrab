@@ -47,6 +47,10 @@ body{
     text-align: center;
 }
 
+.pointer{
+    cursor:pointer;
+}
+
 .caja{
     float:left;
     height: 350px;

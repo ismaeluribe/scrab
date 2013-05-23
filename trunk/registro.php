@@ -86,8 +86,6 @@ session_regenerate_id(true); //regeneramos el id por seguridad
                     <input type="text" placeholder="Nombre de Usuario" name="user" required="required"/>
                     </br>
                     <input type="email" placeholder="Email" name="email" required="required"/>
-                    </br>
-                    <input type="file" name="image">
                     <br>
                     <input type="password" id="pass1" placeholder="Contraseña" name="pass" required="required" oninput="checkPass(this.value);"/>
                     </br>
