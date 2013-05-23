@@ -164,7 +164,7 @@ if (isset($_GET['cerrar'])) {
                         <h1>Aqui puedes crear grupos y personajes</h1>
                     </div>
 
-                    <!----------------------------------------------------------------------------------->
+                    <!--*******************************************************-->
 
                     <div class="tab-pane" id="CrearGrupo">
                         <h3>Grupos</h3>
@@ -197,7 +197,7 @@ if (isset($_GET['cerrar'])) {
                     </div>
 
 
-                    <!------------------------------------------------------------------------------------------->
+                    <!--*********************************************-->
 
 
 
@@ -227,7 +227,7 @@ if (isset($_GET['cerrar'])) {
                                 </select>
                                 </br>
                                 <label>Mote, apodo, segundo nombre... *</label>
-                                <input type="text" placeholder="lo que te salga, se duro" id="motePer"  maxlength="30"/>
+                                <input type="text" placeholder="lo que te salga, se duro" id="motePer" maxlength="30"/>
                                 </br>
 
 
@@ -262,7 +262,7 @@ if (isset($_GET['cerrar'])) {
 
             var objG = null;//esta variable se carga cuando se haace una peeticion post con el nombre de
             //los grupos por usuario, de manera que solo se realiza una peticion al hacer un nuevo grupo
-            function notDrop(e) {            //funcion que impide el arrastre en el cuadro interno
+            function notDrop(e) {//funcion que impide el arrastre en el cuadro interno
                 e.dataTransfer.dropEffect = 'none';
                 return false;
             }
@@ -427,7 +427,7 @@ if (isset($_GET['cerrar'])) {
                     $.ajax({
                         url: 'php/controlador/GruposListController.php',
                         type: 'POST',
-                        data: 'groupListBy=<?php echo $_SESSION['id']; ?>',
+                        data: 'groupListBy=<?php //echo $_SESSION['id']; ?>',
                         success: printList,
                         error: errorListAjax
                     });
@@ -439,7 +439,7 @@ if (isset($_GET['cerrar'])) {
                 $("#groupList").empty();//borramos el contenido en caso de que haya algo
                 objG = JSON.parse(e);
                 for (var i in objG) {
-                    $("#groupList").append("<p onMouseOver=\"overGroup(this);\" onMouseOut=\"outGroup(this);\" onclick=\"selectedGroup(this);\">" + objG[i] + "</p>");
+                    $("#groupList").append("<p class=\"pointer\" onMouseOver=\"overGroup(this);\" onMouseOut=\"outGroup(this);\" onclick=\"selectedGroup(this);\">" + objG[i] + "</p>");
                 }
             }
             function errorListAjax(e) {
@@ -523,7 +523,7 @@ if (isset($_GET['cerrar'])) {
                 var v=obj.img;
                 for(var i in v){
                     if(v[i]){
-                            contS++;         
+                            contS++;
                     }else {
                         contN++;
                         }
