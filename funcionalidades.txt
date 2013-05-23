@@ -1,0 +1,24 @@
+***************************************************
+********	funcionalidades que nos faltan		***********
+*****************************************
+
+* comprobaacion de email ???
+* escapar html y sql de los datos
+* Terminar los formularios de configuracion
+* perfil de usuario
+		- Formulario para agregaar estado al usuario
+		- formulario para poner una foto al usuario
+
+* buscar a otros usuario
+* espiar a otros usuarios
+* buscar grupos
+* cambiar configuracion y datos de un grupo
+* poder abandonar grupos
+* rellenar pagina de inicio con los rumores
+* poder espiar personajes
+* poder eliminar personajes
+* añadir usuarios a un grupo
+* eliminar usuarios de un grupo
+* notificaciones de los rumores
+* poder apoyar y desmentir rumores
+* poder eliminar rumores creados
