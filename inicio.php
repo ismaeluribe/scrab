@@ -87,7 +87,8 @@ if (isset($_GET['cerrar'])) {
                             <li><a href="#">Espiados</a></li>
                         </ul>
                         <form class="navbar-search pull-left" action="">
-                            <input type="text" class="search-query span3" placeholder="Buscar" />
+                            <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar" />
+                            <button id="searchElem" class="btn btn-primary" onclick="searchElements();">Busca</button>
                         </form>
                         <ul class="nav pull-right">
                             <li>
@@ -112,6 +113,23 @@ if (isset($_GET['cerrar'])) {
                 </div>
             </nav>
         </header>
+        <script>
+            $("#searchElem").click(function (){
+                var ele=$("#searchContent").val();
+                if(ele){
+                    $.ajax({
+                        type: "POST",
+                        url: 'php/controlador/SearchController.php',
+                        data: 'data='+ ele,
+                        success: responseElements,
+                        error: errorElements
+                    });
+                }
+                else{
+                    alert("tiene que introducir algun texto para buscar algo");
+                }
+            });
+        </script>
 
         <!-- /Barra de navegación -->
 
