@@ -64,7 +64,6 @@ if (isset($_GET['cerrar'])) {
                 $
             }
         </script>
-        <script src="js/nuevoRumor.js"></script>
 
         <!--/Scripts -->
 
