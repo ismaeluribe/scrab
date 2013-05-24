@@ -11,15 +11,12 @@ class rumoresDAO{
 	function __construct(){
 		$obj = new bd();
 		$this->db = $obj->getDB();
-		$this->registroRumor = $this->db->prepare("INSERT INTO rumores (anillos_grupos_idgrupos,anillos_usuarios_idpersonas,contenido,foto,lugar,enlace,personas_idpersonas) VALUES (?,?,?,?,?,?,?)");
+		$this->registroRumor = $this->db->prepare("INSERT INTO rumores (anillos_grupos_idgrupos,anillos_usuarios_idpersonas,contenido,lugar,enlace,personas_idpersonas) VALUES (?,?,?,?,?,?)");
 	}
 
-	function registroRumor($anillosIDgrupo,$lugar,$enlace,$trata){
-		$idPersona = 1;
-		$foto = null;
-		$this->registroRumor->bind_param("iissssi", $anillosIDgrupo, $idPersona, $trata, $foto, $lugar, $enlace, $idPersona);
+	function registroRumor($anillosIDgrupo,$lugar,$enlace,$trata,$id){
+		$this->registroRumor->bind_param("iisssi", $anillosIDgrupo, $id, $trata, $lugar, $enlace, $id);
 		$this->registroRumor->execute();
-		echo $this->db->connect_error;
 	}
 }
 
