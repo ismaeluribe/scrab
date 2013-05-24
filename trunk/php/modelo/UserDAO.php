@@ -90,7 +90,7 @@ class UserDAO {
     public function conexion($id) {
         $bool = false;
         $datos = $this->getDatos();
-        $idconexiones= $this->getConnById($id);
+        $idconexiones = $this->getConnById($id);
         $query = "INSERT INTO conexiones (usuarios_personas_idpersonas,idconexiones,navegador,sistema,ip,fecha) VALUES ($id, $idconexiones, \"" . $datos['2'] . "\",\"" . $datos['1'] . "\",\"" . $datos['0'] . "\",now())";
         if ($this->db->query($query))
             $bool = true;
@@ -99,7 +99,7 @@ class UserDAO {
     }
 
     private function dropUser($user) {
-        $this->dropUsuario->bind_param("i",$user);
+        $this->dropUsuario->bind_param("i", $user);
         $this->dropUsuario->execute();
     }
 
@@ -128,8 +128,8 @@ class UserDAO {
             array_push($temp, "Navegador desconocido");
         return $temp;
     }
-    
-    private function getConnById($id){
+
+    private function getConnById($id) {
         $query1 = "SELECT MAX(idconexiones) AS \"last\" FROM conexiones WHERE usuarios_personas_idpersonas = $id";
         $result1 = $this->db->query($query1);
         $mayor = $result1->fetch_assoc();
@@ -139,12 +139,44 @@ class UserDAO {
         return $id;
     }
 
+    public function getUserDataByString($name) {
+        $stm = $this->db->prepare("SELECT p.idpersonas, u.nombreUser, p.nombre, p.apellido, p.apellido2 
+                                    FROM usuarios u, personas p 
+                                    WHERE u.personas_idpersonas=p.idpersonas   
+                                        AND u.privacidad=FALSE 
+                                        AND u.nombreUser LIKE ?
+                                    ORDER BY p.idpersonas ASC limit 3");
+
+        //concatenamos los valores
+        $name = '%' . $name . '%';
+        if (1 != ($stm->bind_param("s", $name))) {
+            throw new PersonajesException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($id, $userName, $name, $ape1, $ape2);
+        $userArray = array();
+        while ($stm->fetch()) {
+            $userArray[$id] = array($userName, $name . " " . $ape1 . " " . $ape2);
+        }
+        if (count($userArray)) {
+
+            return $userArray;
+        }
+        else
+            return FALSE;
+        
+       /* echo '<meta charset="UTF-8">';
+        echo '<pre>';
+        print_r($userArray);
+        echo '</pre>';*/
+    }
+
 }
 
-
-  //$obj=new UserDAO();
-  //$obj->registroUsuario(1, 'nico', 'nicoqb@gmail.com', '123456789');
-  /*
+//$obj = new UserDAO();
+//$obj->getUserDataByString('i');
+//$obj->registroUsuario(1, 'nico', 'nicoqb@gmail.com', '123456789');
+/*
   $pass='123456';
   $pass=hash("sha512", $pass);
   $user='nico3';
