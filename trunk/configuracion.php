@@ -61,6 +61,7 @@ if (isset($_GET['cerrar'])) {
                 $.post("php/nuevoRumor.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
             }
             $().ready(function(){
+                $.post("");
                 $("#nombre").val(nombre);
                 $("#apellido1").val(apellido1);
                 $("#apellido2").val(apellido2);

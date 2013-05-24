@@ -15,10 +15,11 @@ class rumoresDAO{
 	}
 
 	function registroRumor($anillosIDgrupo,$lugar,$enlace,$trata){
-		$idPersona =1;
+		$idPersona = 1;
 		$foto = null;
 		$this->registroRumor->bind_param("iissssi", $anillosIDgrupo, $idPersona, $trata, $foto, $lugar, $enlace, $idPersona);
 		$this->registroRumor->execute();
+		echo $this->db->connect_error;
 	}
 }
 
