@@ -60,7 +60,8 @@ if (isset($_GET['cerrar'])) {
                 }, 250);
             }
             function nuevoRumor(){
-                $.post("php/nuevoRumor.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
+                $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
+                $
             }
         </script>
         <script src="js/nuevoRumor.js"></script>
