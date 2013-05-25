@@ -194,6 +194,7 @@ class UserDAO {
         while ($stm->fetch()) {
             $userArray[$id] = array($userName, $name . " " . $ape1 . " " . $ape2,$foto);
         }
+        $stm->close();
         if (count($userArray)) {
 
             return $userArray;

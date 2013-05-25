@@ -61,6 +61,7 @@ class PersonajesDAO {
         while ($stm->fetch()) {
             $personajesArray[$id] = array($mote, $name . " " . $ape1 . " " . $ape2,$foto);
         }
+        $stm->close();
         if (count($personajesArray)) {
 
             return $personajesArray;

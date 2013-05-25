@@ -149,7 +149,7 @@ if (isset($_GET['cerrar'])) {
                         $("#" + i + "p").append("<img src=\"image/personaje/"+v_personajes[i][2]+"\" class=\"search-image\">");
                         $("#" + i + "p").append("<span>" + v_personajes[i][0] + "</span>");
                         $("#" + i + "p").append("<p>" + v_personajes[i][1] + "</p>");
-                        $("#" + i + "p").append("<button value=\"" + i + "p\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                        $("#" + i + "p").append("<button id=\"" + i + "pboton\" value=\"" + i + "p\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
                     }
                 }
                 if (v_usuarios) {
@@ -159,7 +159,7 @@ if (isset($_GET['cerrar'])) {
                         $("#" + i + "u").append("<img src=\"image/usuario/"+v_usuarios[i][2]+"\" class=\"search-image\">");
                         $("#" + i + "u").append("<span>" + v_usuarios[i][0] + "</span>");
                         $("#" + i + "u").append("<p>" + v_usuarios[i][1] + "</p>");
-                        $("#" + i + "u").append("<button value=\"" + i + "u\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                        $("#" + i + "u").append("<button id=\"" + i + "uboton\" value=\"" + i + "u\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
                     }
                 }
                 if (v_grupos) {
@@ -169,7 +169,7 @@ if (isset($_GET['cerrar'])) {
                         $("#" + i + "g").append("<img src=\"image/grupo/"+v_grupos[i][2]+"\" class=\"search-image\">");
                         $("#" + i + "g").append("<span>" + v_grupos[i][0] + "</span>");
                         $("#" + i + "g").append("<p>" + v_grupos[i][1] + "</p>");
-                        $("#" + i + "g").append("<button value=\"" + i + "g\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">auto invitarme</button>");
+                        $("#" + i + "g").append("<button id=\"" + i + "gboton\" value=\"" + i + "\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">auto invitarme</button>");
                     }
                 }
 
@@ -184,6 +184,32 @@ if (isset($_GET['cerrar'])) {
             function hideSearch(){
                  $("#container-serch-result").addClass("searchResultOculto");
             }
+            var idAction=null;
+            function spyPeople(e){
+                //console.log(e);
+                idAction=e;
+                var num=e.charAt(0);
+                //var tabla=e.charAt(1);
+                $.ajax({
+                        type: "POST",
+                        url: 'php/controlador/spyPeopleController.php',
+                        data: 'data=' + num,
+                        success: spyReport,
+                        error: errorElements
+                    });
+            }
+            function spyReport(e){
+                console.log(e);
+                console.log(idAction);
+                if(e && idAction){
+                    console.log('entra');
+                    var idboton="#"+idAction+'boton';
+                    $(idboton).text('hecho');
+                }else{
+                    alert('liada');
+                }
+            }
+            
         </script>
 
         <!-- /Barra de navegación -->

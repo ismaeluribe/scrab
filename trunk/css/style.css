@@ -269,6 +269,9 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
 .search-image{
     height: 95%;
     width: 18%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 .position-cerrar-search{
    left: 25.2%;
