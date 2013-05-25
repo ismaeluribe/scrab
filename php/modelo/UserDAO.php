@@ -22,6 +22,7 @@ class UserDAO {
         $this->email = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE email = ?");
         $this->dropUsuario = $this->db->prepare("UPDATE personas SET eliminado=1 WHERE id_personas = ?");
         $this->getUserInfo = $this->db->prepare("SELECT nombreUser,email FROM usuarios WHERE personas_idpersonas = ?");
+        $this->getPrivacidad = $this->db->prepare("SELECT privacidad FROM usuarios WHERE personas_idpersonas = ?");
     }
 
     function userpass($user, $pass) {
@@ -81,6 +82,7 @@ class UserDAO {
         $this->getUserInfo->bind_result($nombre,$mail);
         $this->getUserInfo->fetch();
         return array("nombre"=>$nombre,"mail"=>$mail);
+        $this->getUserInfo->free_result();
     }
 
     public function emailUser($email) {
@@ -105,6 +107,19 @@ class UserDAO {
             $bool = true;
         return $bool;
         // echo $this->db->error;
+    }
+
+    function formPrivacidad($id){
+        $this->getPrivacidad->bind_param("i",$id);
+        $this->getPrivacidad->execute();
+        $this->getPrivacidad->bind_result($result);
+        $this->getPrivacidad->fetch();
+        if($result==0){
+            echo "<input type=\"radio\" name=\"privacidad\" checked value=\"0\"> Público<br>\n<input type=\"radio\" name=\"privacidad\" value=\"1\"> Privado<br><br><br>";
+         }else{
+            echo "<input type=\"radio\" name=\"privacidad\" value=\"0\"> Público<br>\n<input type=\"radio\" name=\"privacidad\" checked value=\"1\"> Privado<br><br><br>";
+        }
+        $this->getPrivacidad->free_result();
     }
 
     private function dropUser($user) {
@@ -136,6 +151,16 @@ class UserDAO {
         else
             array_push($temp, "Navegador desconocido");
         return $temp;
+    }
+
+    function modificaMail($mail, $id, $privacidad){
+        if($mail != ""){
+            $query = "UPDATE usuarios SET email = \"$mail\" WHERE personas_idpersonas = $id";
+            $result = $this->db->query($query);
+            var_dump($query);
+        }
+        $queryPrivacidad = "UPDATE usuarios SET privacidad = \"$privacidad\" WHERE personas_idpersonas = $id";
+        $this->db->query($queryPrivacidad);
     }
 
     private function getConnById($id) {
