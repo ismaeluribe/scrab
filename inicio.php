@@ -134,39 +134,42 @@ if (isset($_GET['cerrar'])) {
                 $("#searchResult").empty();
                 $("#container-serch-result").removeClass("searchResultOculto");
                 var obj = JSON.parse(e);
-                console.log(obj);
+                //console.log(obj);
                 var v_grupos = obj.grupos;
-                console.log(v_grupos);
+                //console.log(v_grupos);
                 var v_personajes = obj.personajes;
-                console.log(v_personajes);
+                //console.log(v_personajes);
                 var v_usuarios = obj.usuarios;
-                console.log(v_usuarios);
+                //console.log(v_usuarios);
                 //escribimos los personajes
                 if (v_personajes) {
+                    $("#searchResult").append("<h5>personajes</h5>");
                     for (var i in v_personajes) {
                         $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultPersonajes\"></div>");
-                        $("#" + i + "p").append("<img src=\"image/grupo/noimage.jpg\" class=\"search-image\">");
+                        $("#" + i + "p").append("<img src=\"image/personaje/"+v_personajes[i][2]+"\" class=\"search-image\">");
                         $("#" + i + "p").append("<span>" + v_personajes[i][0] + "</span>");
                         $("#" + i + "p").append("<p>" + v_personajes[i][1] + "</p>");
-                        $("#" + i + "p").append("<button value=\"" + i + "\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">aceptar</button>");
+                        $("#" + i + "p").append("<button value=\"" + i + "p\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">espiar</button>");
                     }
                 }
                 if (v_usuarios) {
+                    $("#searchResult").append("<h5>usuarios</h5>");
                     for (var i in v_usuarios) {
-                        $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultUser\"></div>");
-                        $("#" + i + "p").append("<img src=\"image/grupo/noimage.jpg\" class=\"search-image\">");
-                        $("#" + i + "p").append("<span>" + v_usuarios[i][0] + "</span>");
-                        $("#" + i + "p").append("<p>" + v_usuarios[i][1] + "</p>");
-                        $("#" + i + "p").append("<button value=\"" + i + "\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">aceptar</button>");
+                        $("#searchResult").append("<div id=\"" + i + "u\" class=\"searchResultUser\"></div>");
+                        $("#" + i + "u").append("<img src=\"image/usuario/"+v_usuarios[i][2]+"\" class=\"search-image\">");
+                        $("#" + i + "u").append("<span>" + v_usuarios[i][0] + "</span>");
+                        $("#" + i + "u").append("<p>" + v_usuarios[i][1] + "</p>");
+                        $("#" + i + "u").append("<button value=\"" + i + "u\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">espiar</button>");
                     }
                 }
-                if (v_personajes) {
+                if (v_grupos) {
+                    $("#searchResult").append("<h5>grupos</h5>");
                     for (var i in v_grupos) {
-                        $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultGrupos\"></div>");
-                        $("#" + i + "p").append("<img src=\"image/grupo/noimage.jpg\" class=\"search-image\">");
-                        $("#" + i + "p").append("<span>" + v_grupos[i][0] + "</span>");
-                        $("#" + i + "p").append("<p>" + v_grupos[i][1] + "</p>");
-                        $("#" + i + "p").append("<button value=\"" + i + "\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">aceptar</button>");
+                        $("#searchResult").append("<div id=\"" + i + "g\" class=\"searchResultGrupos\"></div>");
+                        $("#" + i + "g").append("<img src=\"image/grupo/"+v_grupos[i][2]+"\" class=\"search-image\">");
+                        $("#" + i + "g").append("<span>" + v_grupos[i][0] + "</span>");
+                        $("#" + i + "g").append("<p>" + v_grupos[i][1] + "</p>");
+                        $("#" + i + "g").append("<button value=\"" + i + "g\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">auto invitarme</button>");
                     }
                 }
 

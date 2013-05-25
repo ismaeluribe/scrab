@@ -43,12 +43,12 @@ class PersonajesDAO {
     //funcion para busccar los personajes pertenecienetes al grupo publico
     //en funcion de que su mote este contenido dentro de una cadena
     public function getPersonajeDataByString($name) {
-        $stm = $this->db->prepare("SELECT p.idpersonas, f.mote, p.nombre, p.apellido, p.apellido2 
+        $stm = $this->db->prepare("SELECT p.idpersonas, f.mote, p.nombre, p.apellido, p.apellido2, p.foto
                                         FROM personajes f, personas p
                                                 WHERE f.personas_idpersonas = p.idpersonas 
                                                         AND f.mote LIKE ? 
                                                         AND f.anillos_grupos_idgrupos = 1
-                                        ORDER BY f.mote ASC LIMIT 3");
+                                        ORDER BY f.mote DESC LIMIT 3");
 
 //concatenamos los valores
         $name = '%' . $name . '%';
@@ -56,10 +56,10 @@ class PersonajesDAO {
             throw new PersonajesException("errores en el formato de los parametros");
         }
         $stm->execute();
-        $stm->bind_result($id, $mote, $name, $ape1, $ape2);
+        $stm->bind_result($id, $mote, $name, $ape1, $ape2,$foto);
         $personajesArray = array();
         while ($stm->fetch()) {
-            $personajesArray[$id] = array($mote, $name . " " . $ape1 . " " . $ape2);
+            $personajesArray[$id] = array($mote, $name . " " . $ape1 . " " . $ape2,$foto);
         }
         if (count($personajesArray)) {
 

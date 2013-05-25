@@ -151,12 +151,12 @@ class UserDAO {
     //funcion para la busqueda de los datos de un usuaario por una parte de la cadena de su nombre
     //el usuario no se ha podido seleccionar como privado
     public function getUserDataByString($name) {
-        $stm = $this->db->prepare("SELECT p.idpersonas, u.nombreUser, p.nombre, p.apellido, p.apellido2 
+        $stm = $this->db->prepare("SELECT p.idpersonas, u.nombreUser, p.nombre, p.apellido, p.apellido2, p.foto
                                     FROM usuarios u, personas p 
                                     WHERE u.personas_idpersonas=p.idpersonas   
                                         AND u.privacidad=FALSE 
                                         AND u.nombreUser LIKE ?
-                                    ORDER BY p.idpersonas ASC limit 3");
+                                    ORDER BY p.idpersonas DESC limit 3");
 
         //concatenamos los valores
         $name = '%' . $name . '%';
@@ -164,10 +164,10 @@ class UserDAO {
             throw new PersonajesException("errores en el formato de los parametros");
         }
         $stm->execute();
-        $stm->bind_result($id, $userName, $name, $ape1, $ape2);
+        $stm->bind_result($id, $userName, $name, $ape1, $ape2,$foto);
         $userArray = array();
         while ($stm->fetch()) {
-            $userArray[$id] = array($userName, $name . " " . $ape1 . " " . $ape2);
+            $userArray[$id] = array($userName, $name . " " . $ape1 . " " . $ape2,$foto);
         }
         if (count($userArray)) {
 

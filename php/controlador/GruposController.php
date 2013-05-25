@@ -25,7 +25,7 @@ $nameGroup = $_POST['name'];
 $description = $_POST['description'];
 $idUser=$_SESSION['id'];
 $privacidad=$_POST['privacidad'];
-$nameImage=null;
+$nameImage='noimage.png';
 $img=null;
 $obj = new GruposDAO();
 //si es distinto de null significa que han subido fotos

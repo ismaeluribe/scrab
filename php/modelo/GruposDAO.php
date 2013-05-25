@@ -81,22 +81,22 @@ class GruposDAO {
 
     //metodo para buscar los grupos que sean publicos en funcion de que su nombre este contenido en una cadena
     public function getGroupDataByString($name, $id) {
-        $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion FROM grupos 
+        $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion, foto FROM grupos 
                                         WHERE nombre LIKE ? 
                                             AND idgrupos NOT IN
-                                                (SELECT idgrupos FROM  anillos WHERE usuarios_personas_idpersonas = ?) 
+                                                (SELECT grupos_idgrupos FROM  anillos WHERE usuarios_personas_idpersonas = ?) 
                                             AND privacidad LIKE 'publico'
-                                         ORDER BY idgrupos ASC limit 3");
+                                         ORDER BY idgrupos DESC limit 3");
         //concatenamos los valores
         $name = '%' . $name . '%';
         if (1 != ($stm->bind_param("si", $name, $id))) {
             throw new GruposException("errores en el formato de los parametros");
         }
         $stm->execute();
-        $stm->bind_result($idgrupos, $nombre, $descripcion);
+        $stm->bind_result($idgrupos, $nombre, $descripcion,$foto);
         $groupArray = array();
         while ($stm->fetch()) {
-            $groupArray[$idgrupos] = array($nombre, $descripcion);
+            $groupArray[$idgrupos] = array($nombre, $descripcion, $foto);
         }
         if (count($groupArray)) {
 
