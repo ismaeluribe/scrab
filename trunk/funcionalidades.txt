@@ -1,5 +1,5 @@
 ***************************************************
-********	funcionalidades que nos faltan		***********
+********    funcionalidades que nos faltan      ***********
 *****************************************
 
 * comprobaacion de email ???
@@ -43,3 +43,17 @@ eliminar grupos
 
 
 //falta controlar que no se repita el personaje ne funcion del grupo
+
+
+
+/////////////////
+ismael
+    pagina de inicio
+    terminar configuracion
+nico
+    ponia fotos en rumores
+    ponia fotos en perfil user
+    terminar grupos rumores
+    terminar espiar
+    hacer perfil user
+    

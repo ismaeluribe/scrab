@@ -208,6 +208,9 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     background-color: white;
 
 }
+#searchResult > h5{
+    margin-left: 10px;
+}
 .searchResultOculto{
     visibility: hidden;
     display: none;
@@ -265,9 +268,10 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
 
 .search-image{
     height: 95%;
+    width: 18%;
 }
 .position-cerrar-search{
-   left: 27%;
+   left: 25.2%;
     position: absolute;
     z-index: 3;
     background-color: #0074CC;
