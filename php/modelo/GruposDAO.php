@@ -13,9 +13,9 @@
  * formar parte del grupo
  * 
  */
-define('base_dir', realpath(dirname(__FILE__) . '/..'));
+define('base_dirGD', realpath(dirname(__FILE__) . '/..'));
 //definimos como directorio base el directorio en el que estamos en este caso es /php
-require_once base_dir . "/commons/bd.php";
+require_once base_dirGD . "/commons/bd.php";
 require_once 'modeloException/GruposException.php';
 
 class GruposDAO {
@@ -79,6 +79,7 @@ class GruposDAO {
         return $groupArray;
     }
 
+    //metodo para buscar los grupos que sean publicos en funcion de que su nombre este contenido en una cadena
     public function getGroupDataByString($name, $id) {
         $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion FROM grupos 
                                         WHERE nombre LIKE ? 

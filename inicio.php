@@ -86,10 +86,9 @@ if (isset($_GET['cerrar'])) {
                             <li><a href="#">Grupos&nbsp;<span class="badge">8</span></a></li>
                             <li><a href="#">Espiados</a></li>
                         </ul>
-                        <form class="navbar-search pull-left" action="">
+                        
                             <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar" />
-                            <button id="searchElem" class="btn btn-primary" onclick="searchElements();">Busca</button>
-                        </form>
+                            <button id="searchElem" class="btn btn-primary" >Busca</button>
                         <ul class="nav pull-right">
                             <li>
                                 <a href="crear.php">Crear</a>
@@ -129,6 +128,17 @@ if (isset($_GET['cerrar'])) {
                     alert("tiene que introducir algun texto para buscar algo");
                 }
             });
+            function responseElements(e){
+                console.log(e);
+                var obj = JSON.parse(e);
+                console.log(obj);
+            }
+            function errorElements (e){
+                alert('liada');
+                console.log(e);
+                var obj = JSON.parse(e);
+                console.log(obj);
+            }
         </script>
 
         <!-- /Barra de navegación -->

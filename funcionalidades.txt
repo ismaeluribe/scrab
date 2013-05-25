@@ -40,3 +40,6 @@ eliminar grupos
 * buscar a otros usuario
 * espiar a otros usuarios
 * buscar grupos
+
+
+//falta controlar que no se repita el personaje ne funcion del grupo

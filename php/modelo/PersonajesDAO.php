@@ -40,6 +40,8 @@ class PersonajesDAO {
         $stm->close();
     }
 
+    //funcion para busccar los personajes pertenecienetes al grupo publico
+    //en funcion de que su mote este contenido dentro de una cadena
     public function getPersonajeDataByString($name) {
         $stm = $this->db->prepare("SELECT p.idpersonas, f.mote, p.nombre, p.apellido, p.apellido2 
                                         FROM personajes f, personas p
@@ -55,16 +57,16 @@ class PersonajesDAO {
         }
         $stm->execute();
         $stm->bind_result($id, $mote, $name, $ape1, $ape2);
-        $userArray = array();
+        $personajesArray = array();
         while ($stm->fetch()) {
-            $userArray[$id] = array($mote, $name . " " . $ape1 . " " . $ape2);
+            $personajesArray[$id] = array($mote, $name . " " . $ape1 . " " . $ape2);
         }
-       /* if (count($userArray)) {
+        if (count($personajesArray)) {
 
-            return $userArray;
+            return $personajesArray;
         }
         else
-            return FALSE;*/
+            return FALSE;
 
         /* echo '<meta charset="UTF-8">';
           echo '<pre>';
