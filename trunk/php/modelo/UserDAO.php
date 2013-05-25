@@ -61,6 +61,12 @@ class UserDAO {
         header("location:index.php");
     }
 
+    function cambiarContra($pass,$id){
+        $query = "UPDATE usuarios SET pass = \"$pass\" WHERE personas_idpersonas = $id";
+        echo $query;
+        $this->db->query($query);
+    }
+
     public function nombreUser($user) {// Comprueba si el nombre de usuario está libre
         // Se inicializan las ? con los parametros dependiendo s - string, b - blob, i - int, etc...
         $bool = false;

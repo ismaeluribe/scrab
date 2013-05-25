@@ -10,6 +10,7 @@
 	$user = new UserDAO();
 	if(hash("sha512", $_POST['antigua']) == $_SESSION['pass']){
 		$user->cambiarContra(hash("sha512", $_POST['nueva1']),$_SESSION['id']);
+		$_SESSION['pass'] = hash("sha512", $_POST['nueva1']);
 	}
 	header("location: ../../configuracion.php");
 
