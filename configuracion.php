@@ -13,6 +13,7 @@ if (!isset($_SESSION['user'], $_SESSION['id'], $_SESSION['pass'], $_SESSION['ema
 
 try {
     $bd = new UserDAO();
+    $privacidad = new UserDAO();
     $objPersonas = new PersonasDAO();
     //obtenemos los datos relativos a las personas
     $arrayPersonas = $objPersonas->getDataById($_SESSION['id']);
@@ -60,6 +61,27 @@ if (isset($_GET['cerrar'])) {
         <script type="text/javascript">
             function nuevoRumor(){
                 $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
+            }
+            function configurar(){
+                var val1 = $("#nombre").val();
+                var val2 = $("#apellido1").val();
+                var val3 = $("#apellido2").val();
+                var val4 = $("#correo").val();
+                var val5 = $("input[name='privacidad']:checked").val();
+                $.ajax({
+                    url: 'php/controlador/ConfiguracionController.php',
+                    type: 'POST',
+                    data: 'name=' + val1 + '&apellido=' + val2 + '&apellido2=' + val3 + '&mail=' + val4 + '&privacidad=' + val5,
+                    success: successfullAjaxResponse,
+                    error: errorAjax
+                });
+            }
+
+            function successfullAjaxResponse() {//respuesta a la creacion del grupo
+                    $("#responseG").append("<div class=\"alert alert-success\">Se ha guardado la configuración</div>");
+            }
+            function errorAjax() {//si ha habido un problema con la peticion
+                $("#responseG").html('<h3>Upsss hay un problema en el sevidor<h3>');
             }
         </script>
 
@@ -143,9 +165,6 @@ if (isset($_GET['cerrar'])) {
                         <a href="#datos" data-toggle="tab">Datos</a>
                     </li>
                     <li>
-                        <a href="#privacidad" data-toggle="tab">Privacidad</a>
-                    </li>
-                    <li>
                         <a href="#contraseña" data-toggle="tab">Contraseña</a>
                     </li>
                 </ul>
@@ -159,16 +178,12 @@ if (isset($_GET['cerrar'])) {
                             <input id="apellido2" type="text" placeholder="Segundo apellido" value="<?php echo $arrayPersonas['apellido2']; ?>"><br>
                             <input id="correo" type="text" placeholder="Correo electrónico" value="<?php echo $arrayUser['mail']; ?>"><br>
                             <h3>Privacidad</h3>
-                            <input type="radio" name="privacidad" value="publico">Público<br>
-                            <input type="radio" name="privacidad" value="privador">Privado<br><br><br>
-                            <input type="submit" class="btn btn-primary">
+                            <?php
+                                $privacidad->formPrivacidad($_SESSION['id']);
+                            ?>
+                            <input onclick="configurar()" type="button" class="btn btn-primary" value="Enviar">
                         </form>
-                    </div>
-                    <div class="tab-pane" id="privacidad">
-                        <h3>Privacidad</h3>
-                        <form name="privacidad" action="configuracion.php" method="POST">
-                            
-                        </form>
+                        <div id="responseG" class="response-generic"></div>
                     </div>
                     <div class="tab-pane" id="contraseña">
                         <h3>Contraseña</h3>
