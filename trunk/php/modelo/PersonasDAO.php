@@ -78,6 +78,22 @@ class PersonasDAO {
         $stm->close();
     }
 
+    public function modificaPersona($nombre,$ape1,$ape2,$id){
+        if($nombre != ""){
+            $queryNombre = "UPDATE personas SET nombre = \"$nombre\" WHERE idpersonas = $id";
+            $this->db->query($queryNombre);
+        }
+        if($ape1 != ""){
+            $queryApe1 = "UPDATE personas SET apellido = \"$ape1\" WHERE idpersonas = $id";
+            $this->db->query($queryApe1);
+        }
+        if($ape2 != ""){
+            $queryApe2 = "UPDATE personas SET apellido2 = \"$ape2\" WHERE idpersonas = $id";
+            $this->db->query($queryApe2);
+        }
+        
+    }
+
 }
 
 /*

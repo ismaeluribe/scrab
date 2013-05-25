@@ -363,18 +363,18 @@ if (isset($_GET['cerrar'])) {
                     $("#responseG").append("<div class=\"alert alert-success\">Se ha guardado el grupo</div>");
                 }
                 else {
-                    $("#responseG").append("<div class=\"alert alert-error\">ha ocurrido un error</div>");
+                    $("#responseG").append("<div class=\"alert alert-error\">Ha ocurrido un error</div>");
                 }
                 if (obj.img) {//si la imagen se ha posido guardar en el servidor
                     $("#responseG").append("<div class=\"alert alert-success\">Se ha guardado el la imagen</div>");
                 } else if (obj.img === null) {//si no habia imagen
-                    $("#responseG").append("<div class=\"alert alert-block\">un grupo sin imagen es como un jardin sin flores</div>");
+                    $("#responseG").append("<div class=\"alert alert-block\">Un grupo sin imagen es como un jardin sin flores</div>");
                 } else {
-                    $("#responseG").append("<div class=\"alert alert-error\">ha ocurrido un error</div>");
+                    $("#responseG").append("<div class=\"alert alert-error\">Ha ocurrido un error</div>");
                 }
             }
             function errorAjax(e) {//si ha habido un problema con la peticion
-                $("#responseG").html('<h3>upsss hay un problema en el sevidor<h3>');
+                $("#responseG").html('<h3>Upsss hay un problema en el sevidor<h3>');
             }
         </script>
 
