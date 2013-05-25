@@ -76,6 +76,7 @@ class GruposDAO {
         while ($stm->fetch()) {
             $groupArray[$idgrupos] = $nombre;
         }
+        $stm->close();
         return $groupArray;
     }
 
@@ -83,9 +84,9 @@ class GruposDAO {
     public function getGroupDataByString($name, $id) {
         $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion, foto FROM grupos 
                                         WHERE nombre LIKE ? 
-                                            AND idgrupos NOT IN
+                                            AND privacidad LIKE 'publico' 
+                                            AND idgrupos NOT IN 
                                                 (SELECT grupos_idgrupos FROM  anillos WHERE usuarios_personas_idpersonas = ?) 
-                                            AND privacidad LIKE 'publico'
                                          ORDER BY idgrupos DESC limit 3");
         //concatenamos los valores
         $name = '%' . $name . '%';
@@ -98,6 +99,7 @@ class GruposDAO {
         while ($stm->fetch()) {
             $groupArray[$idgrupos] = array($nombre, $descripcion, $foto);
         }
+        $stm->close();
         if (count($groupArray)) {
 
             return $groupArray;
