@@ -211,7 +211,6 @@ if (isset($_GET['cerrar'])) {
                             <input name="antigua" type="password" placeholder="Antigua contraseña"><br><br>
                             <input type="submit" class="btn btn-primary" value="Enviar">
                         </form>
-                        
                     </div>
                 </div>
             </div>
