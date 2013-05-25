@@ -4,7 +4,7 @@ require_once '/php/modelo/UserDAO.php';
 require_once '/php/modelo/PersonasDAO.php';
 //iniciamos secion
 session_start();
-if (!isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])) {
+if (!isset($_SESSION['user'], $_SESSION['id'], $_SESSION['pass'], $_SESSION['email'])) {
     header("location: index.php");
 }
 
@@ -59,9 +59,9 @@ if (isset($_GET['cerrar'])) {
                     scrollTop: 0
                 }, 250);
             }
-            function nuevoRumor(){
-                $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
-                $
+            function nuevoRumor() {
+                $.post("php/controlador/RumoresController.php", {grupo: $("#grupos").val(), contenido: $("#contenido").val(), lugar: $("#lugar").val(), enlace: $("#enlace").val()});
+                //$
             }
         </script>
 
@@ -86,9 +86,9 @@ if (isset($_GET['cerrar'])) {
                             <li><a href="#">Grupos&nbsp;<span class="badge">8</span></a></li>
                             <li><a href="#">Espiados</a></li>
                         </ul>
-                        
-                            <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar" />
-                            <button id="searchElem" class="btn btn-primary" >Busca</button>
+
+                        <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar" />
+                        <button id="searchElem" class="btn btn-primary" >Busca</button>
                         <ul class="nav pull-right">
                             <li>
                                 <a href="crear.php">Crear</a>
@@ -113,31 +113,73 @@ if (isset($_GET['cerrar'])) {
             </nav>
         </header>
         <script>
-            $("#searchElem").click(function (){
-                var ele=$("#searchContent").val();
-                if(ele){
+            $("#searchElem").click(function() {
+                var ele = $("#searchContent").val();
+                if (ele) {
                     $.ajax({
                         type: "POST",
                         url: 'php/controlador/SearchController.php',
-                        data: 'data='+ ele,
+                        data: 'data=' + ele,
                         success: responseElements,
                         error: errorElements
                     });
                 }
-                else{
+                else {
                     alert("tiene que introducir algun texto para buscar algo");
                 }
             });
-            function responseElements(e){
-                console.log(e);
+
+            function responseElements(e) {
+                //*console.log(e);
+                $("#searchResult").empty();
+                $("#container-serch-result").removeClass("searchResultOculto");
                 var obj = JSON.parse(e);
                 console.log(obj);
+                var v_grupos = obj.grupos;
+                console.log(v_grupos);
+                var v_personajes = obj.personajes;
+                console.log(v_personajes);
+                var v_usuarios = obj.usuarios;
+                console.log(v_usuarios);
+                //escribimos los personajes
+                if (v_personajes) {
+                    for (var i in v_personajes) {
+                        $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultPersonajes\"></div>");
+                        $("#" + i + "p").append("<img src=\"image/grupo/noimage.jpg\" class=\"search-image\">");
+                        $("#" + i + "p").append("<span>" + v_personajes[i][0] + "</span>");
+                        $("#" + i + "p").append("<p>" + v_personajes[i][1] + "</p>");
+                        $("#" + i + "p").append("<button value=\"" + i + "\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">aceptar</button>");
+                    }
+                }
+                if (v_usuarios) {
+                    for (var i in v_usuarios) {
+                        $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultUser\"></div>");
+                        $("#" + i + "p").append("<img src=\"image/grupo/noimage.jpg\" class=\"search-image\">");
+                        $("#" + i + "p").append("<span>" + v_usuarios[i][0] + "</span>");
+                        $("#" + i + "p").append("<p>" + v_usuarios[i][1] + "</p>");
+                        $("#" + i + "p").append("<button value=\"" + i + "\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">aceptar</button>");
+                    }
+                }
+                if (v_personajes) {
+                    for (var i in v_grupos) {
+                        $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultGrupos\"></div>");
+                        $("#" + i + "p").append("<img src=\"image/grupo/noimage.jpg\" class=\"search-image\">");
+                        $("#" + i + "p").append("<span>" + v_grupos[i][0] + "</span>");
+                        $("#" + i + "p").append("<p>" + v_grupos[i][1] + "</p>");
+                        $("#" + i + "p").append("<button value=\"" + i + "\" onclick=\"alert(this.value);\" class=\"btn btn-primary\">aceptar</button>");
+                    }
+                }
+
+
             }
-            function errorElements (e){
+            function errorElements(e) {
                 alert('liada');
                 console.log(e);
                 var obj = JSON.parse(e);
                 console.log(obj);
+            }
+            function hideSearch(){
+                 $("#container-serch-result").addClass("searchResultOculto");
             }
         </script>
 
@@ -146,6 +188,12 @@ if (isset($_GET['cerrar'])) {
         <br/>
         <br/>
         <div class="container" id="wrapper">
+            <div id="container-serch-result" class="searchResultOculto">
+                <div id="searchResult">
+
+                </div>
+                <button onclick="hideSearch();" class="position-cerrar-search">cerrar</button>
+            </div>
             <div class="modal hide fade" id="nuevoRumor">
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal">x</a>
