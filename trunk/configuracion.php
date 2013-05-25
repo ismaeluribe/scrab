@@ -16,6 +16,7 @@ try {
     $objPersonas = new PersonasDAO();
     //obtenemos los datos relativos a las personas
     $arrayPersonas = $objPersonas->getDataById($_SESSION['id']);
+    $arrayUser = $bd->getUserInfo($_SESSION['id']);
     //si el array esta vacio salta esta exepcion
     if (!$arrayPersonas)
         throw new ModeloException('no existe el id del usuario en personas');
@@ -58,18 +59,9 @@ if (isset($_GET['cerrar'])) {
         <script src="js/libs/bootstrap/bootstrap-typeahead.js"></script>
         <script type="text/javascript">
             function nuevoRumor(){
-                $.post("php/nuevoRumor.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
+                $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
             }
-            $().ready(function(){
-                $.post("");
-                $("#nombre").val(nombre);
-                $("#apellido1").val(apellido1);
-                $("#apellido2").val(apellido2);
-                $("#correo").val(correo);
-                $("#usename").val(username);
-            });
         </script>
-        <script src="js/nuevoRumor.js"></script>
 
         <!--/Scripts -->
 
@@ -162,11 +154,11 @@ if (isset($_GET['cerrar'])) {
                         <h3>Datos</h3>
                         <form name="datos" action="configuracion.php" method="POST">
                             <br><br>
-                            <input id="nombre" type="text" placeholder="Nombre"><br>
-                            <input id="apellido1" type="text" placeholder="Primer apellido"><br>
-                            <input id="apellido2" type="text" placeholder="Segundo apellido"><br>
-                            <input id="correo" type="text" placeholder="Correo electrónico"><br>
-                            <input id="username" type="text" placeholder="Nombre de usuario"><br>
+                            <input id="nombre" type="text" placeholder="Nombre" value="<?php echo $arrayPersonas['nombre']; ?>"><br>
+                            <input id="apellido1" type="text" placeholder="Primer apellido" value="<?php echo $arrayPersonas['apellido']; ?>"><br>
+                            <input id="apellido2" type="text" placeholder="Segundo apellido" value="<?php echo $arrayPersonas['apellido2']; ?>"><br>
+                            <input id="correo" type="text" placeholder="Correo electrónico" value="<?php echo $arrayUser['mail']; ?>"><br>
+                            <input id="username" type="text" placeholder="Nombre de usuario" value="<?php echo $arrayUser['nombre']; ?>"><br>
                             <input type="submit" class="btn btn-primary">
                         </form>
                     </div>

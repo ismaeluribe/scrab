@@ -21,6 +21,7 @@ class UserDAO {
         $this->userName = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE nombreUser = ?");
         $this->email = $this->db->prepare("SELECT nombreUser FROM usuarios WHERE email = ?");
         $this->dropUsuario = $this->db->prepare("UPDATE personas SET eliminado=1 WHERE id_personas = ?");
+        $this->getUserInfo = $this->db->prepare("SELECT nombreUser,email FROM usuarios WHERE personas_idpersonas = ?");
     }
 
     function userpass($user, $pass) {
@@ -72,6 +73,14 @@ class UserDAO {
         }
         $this->userName->close();
         return $bool;
+    }
+
+    function getUserInfo($id){
+        $this->getUserInfo->bind_param("i", $id);
+        $this->getUserInfo->execute();
+        $this->getUserInfo->bind_result($nombre,$mail);
+        $this->getUserInfo->fetch();
+        return array("nombre"=>$nombre,"mail"=>$mail);
     }
 
     public function emailUser($email) {
