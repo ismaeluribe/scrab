@@ -99,7 +99,7 @@ if (isset($_GET['cerrar'])) {
                             </li>
 
                             <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="fperfil" src="img/cosas.jpg">&nbsp;&nbsp;<?php echo $_SESSION['user']; ?></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="fperfil" src="image/usuario/<?php echo $arrayPersonas['imagen']; ?>">&nbsp;&nbsp;<?php echo $_SESSION['user']; ?></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Ayuda</a></li>
                                     <li><a href="#">Configuración</a></li>
@@ -158,7 +158,9 @@ if (isset($_GET['cerrar'])) {
                             <input id="apellido1" type="text" placeholder="Primer apellido" value="<?php echo $arrayPersonas['apellido']; ?>"><br>
                             <input id="apellido2" type="text" placeholder="Segundo apellido" value="<?php echo $arrayPersonas['apellido2']; ?>"><br>
                             <input id="correo" type="text" placeholder="Correo electrónico" value="<?php echo $arrayUser['mail']; ?>"><br>
-                            <input id="username" type="text" placeholder="Nombre de usuario" value="<?php echo $arrayUser['nombre']; ?>"><br>
+                            <h3>Privacidad</h3>
+                            <input type="radio" name="privacidad" value="publico">Público<br>
+                            <input type="radio" name="privacidad" value="privador">Privado<br><br><br>
                             <input type="submit" class="btn btn-primary">
                         </form>
                     </div>
