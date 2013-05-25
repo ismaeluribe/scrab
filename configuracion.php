@@ -59,10 +59,12 @@ if (isset($_GET['cerrar'])) {
         <script src="js/libs/bootstrap/bootstrap-tooltip.js"></script>
         <script src="js/libs/bootstrap/bootstrap-typeahead.js"></script>
         <script type="text/javascript">
+
             function nuevoRumor(){
                 $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
             }
-            function configurar(){
+
+            function configurarDatos(){
                 var val1 = $("#nombre").val();
                 var val2 = $("#apellido1").val();
                 var val3 = $("#apellido2").val();
@@ -80,9 +82,24 @@ if (isset($_GET['cerrar'])) {
             function successfullAjaxResponse() {//respuesta a la creacion del grupo
                     $("#responseG").append("<div class=\"alert alert-success\">Se ha guardado la configuración</div>");
             }
+
             function errorAjax() {//si ha habido un problema con la peticion
                 $("#responseG").html('<h3>Upsss hay un problema en el sevidor<h3>');
             }
+
+            function compruebaContra(){
+                var nueva1 = $("#nueva1").val();
+                var nueva2 = $("#nueva2").val();
+                if((/^\w{6,20}$/.test(nueva1)) && (/^\w{6,20}$/.test(nueva2)) && (nueva1 == nueva2)){
+                    $("#nueva1").css("color","black");
+                    $("#nueva2").css("color","black");
+                }else{
+                    $("#nueva1").css("color","red");
+                    $("#nueva2").css("color","red");
+                }
+            }
+
+
         </script>
 
         <!--/Scripts -->
@@ -181,15 +198,20 @@ if (isset($_GET['cerrar'])) {
                             <?php
                                 $privacidad->formPrivacidad($_SESSION['id']);
                             ?>
-                            <input onclick="configurar()" type="button" class="btn btn-primary" value="Enviar">
+                            <input onclick="configurarDatos()" type="button" class="btn btn-primary" value="Enviar">
                         </form>
                         <div id="responseG" class="response-generic"></div>
                     </div>
                     <div class="tab-pane" id="contraseña">
                         <h3>Contraseña</h3>
-                        <form name="contraseña" action="configuracion.php" method="POST">
-                            
+                        <form name="contraseña" action="php/controlador/ContraController.php" method="POST">
+                            <br><br>
+                            <input oninput="compruebaContra()" id="nueva1" name="nueva1" type="password" placeholder="Nueva contraseña"><br>
+                            <input oninput="compruebaContra()" id="nueva2" name="nueva2" type="password" placeholder="Repetir nueva Contraseña"><br>
+                            <input name="antigua" type="password" placeholder="Antigua contraseña"><br><br>
+                            <input type="submit" class="btn btn-primary" value="Enviar">
                         </form>
+                        
                     </div>
                 </div>
             </div>
