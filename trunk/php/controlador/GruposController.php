@@ -6,10 +6,10 @@
  */
 session_start();
 //const  base_dir = realpath(dirname(__FILE__) . '/..');
-define('base_dir', realpath(dirname(__FILE__) . '/..'));
+define('base_dirA', realpath(dirname(__FILE__) . '/..'));
 //definimos como directorio base el directorio en el que estamos en este caso es /php
-require_once base_dir."/modelo/gruposDAO.php";
-require_once base_dir."/commons/CaracteresRaros.php";
+require_once base_dirA."/modelo/gruposDAO.php";
+require_once base_dirA."/commons/CaracteresRaros.php";
 
 //si no esta definida la session vamos al formulario de entrada
 if(!isset($_SESSION['user'],$_SESSION['id'],$_SESSION['pass'],$_SESSION['email'])){

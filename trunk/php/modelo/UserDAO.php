@@ -139,6 +139,8 @@ class UserDAO {
         return $id;
     }
 
+    //funcion para la busqueda de los datos de un usuaario por una parte de la cadena de su nombre
+    //el usuario no se ha podido seleccionar como privado
     public function getUserDataByString($name) {
         $stm = $this->db->prepare("SELECT p.idpersonas, u.nombreUser, p.nombre, p.apellido, p.apellido2 
                                     FROM usuarios u, personas p 
