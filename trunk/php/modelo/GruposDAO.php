@@ -92,7 +92,7 @@ class GruposDAO {
             throw new GruposException("errores en el formato de los parametros");
         }
         $stm->execute();
-        $stm->bind_result($idgrupos,$nombre, $descripcion);
+        $stm->bind_result($idgrupos, $nombre, $descripcion);
         $groupArray = array();
         while ($stm->fetch()) {
             $groupArray[$idgrupos] = array($nombre, $descripcion);
@@ -104,15 +104,13 @@ class GruposDAO {
         else
             return FALSE;
         /*
-      echo '<meta charset="UTF-8">';
-      echo '<pre>';
-      //var_dump($groupArray);
-      print_r($groupArray);
-      echo '</pre>';*/
-     
+          echo '<meta charset="UTF-8">';
+          echo '<pre>';
+          //var_dump($groupArray);
+          print_r($groupArray);
+          echo '</pre>'; */
     }
 
-    
 }
 
 //$obj = new GruposDAO();
