@@ -277,15 +277,15 @@ if (isset($_GET['cerrar'])) {
             </div>
             <div class="tabbable tabs-left todoInicio">
                 <ul class="nav nav-tabs listaInicio" style="position:fixed;">
-                    <li class="active"><a onclick="scrollUp();" href="#publico" data-toggle="tab">Público</a></li>
-                    <li><a href="#grupo1" data-toggle="tab" onclick="scrollUp();">Grupo1</a></li>
-                    <li><a href="#grupo2" data-toggle="tab" onclick="scrollUp();">Grupo2</a></li>
+                    <li class="active"><a onclick="scrollUp();" href="#publico" data-toggle="tab">Usuarios</a></li>
+                    <li><a href="#grupo1" data-toggle="tab" onclick="scrollUp();">Grupos</a></li>
+                    <li><a href="#grupo2" data-toggle="tab" onclick="scrollUp();">Rumores</a></li>
                 </ul>
                 <div class="tab-content centroInicio">
                     <div class="tab-pane active" id="publico">
-                        <div class="caja">
-                            <div class="fotoCaja">
-                                <img class="fotoCajaImg" src="image/usuario/lisma.jpg" />
+                        <div class="caja cajaUser">
+                            <div class="fotoCajaUser">
+                                <img class="fotoCajaUserImg" src="image/grupo/prueba2.jpg" />
                             </div>
                             <div class="textosCaja">
                                 <div class="nombreCaja">
@@ -299,9 +299,41 @@ if (isset($_GET['cerrar'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="caja">
-                            <div class="fotoCaja">
-                                <img class="fotoCajaImg" src="image/usuario/lisma.jpg" />
+                        <div class="caja cajaUser">
+                            <div class="fotoCajaUser">
+                                <img class="fotoCajaUserImg" src="image/usuario/lisma.jpg" />
+                            </div>
+                            <div class="textosCaja">
+                                <div class="nombreCaja">
+                                    <span>Ismael</span>
+                                </div>
+                                <div class="nombreCaja">
+                                    <span>Uribe Pachón</span>
+                                </div>
+                                <div class="nombreCaja descripcionCaja">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caja cajaUser">
+                            <div class="fotoCajaUser">
+                                <img class="fotoCajaUserImg" src="image/grupo/solitario.jpg" />
+                            </div>
+                            <div class="textosCaja">
+                                <div class="nombreCaja">
+                                    <span>Ismael</span>
+                                </div>
+                                <div class="nombreCaja">
+                                    <span>Uribe Pachón</span>
+                                </div>
+                                <div class="nombreCaja descripcionCaja">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caja cajaUser">
+                            <div class="fotoCajaUser">
+                                <img class="fotoCajaUserImg" src="image/grupo/Público.jpg" />
                             </div>
                             <div class="textosCaja">
                                 <div class="nombreCaja">
@@ -315,78 +347,52 @@ if (isset($_GET['cerrar'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="caja">
-                            <div class="fotoCaja">
-                                <img class="fotoCajaImg" src="image/usuario/lisma.jpg" />
-                            </div>
-                            <div class="textosCaja">
-                                <div class="nombreCaja">
-                                    <span>Ismael</span>
-                                </div>
-                                <div class="nombreCaja">
-                                    <span>Uribe Pachón</span>
-                                </div>
-                                <div class="nombreCaja descripcionCaja">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="caja">
-                            <div class="fotoCaja">
-                                <img class="fotoCajaImg" src="image/usuario/lisma.jpg" />
-                            </div>
-                            <div class="textosCaja">
-                                <div class="nombreCaja">
-                                    <span>Ismael</span>
-                                </div>
-                                <div class="nombreCaja">
-                                    <span>Uribe Pachón</span>
-                                </div>
-                                <div class="nombreCaja descripcionCaja">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="caja">texto1.5</div>
-                        <div class="caja">texto1.6</div>
-                        <div class="caja">texto1.7</div>
-                        <div class="caja">texto1.8</div>
-                        <div class="caja">texto1.9</div>
-                        <div class="caja">texto1.10</div>
-                        <div class="caja">texto1.11</div>
-                        <div class="caja">texto1.12</div>
-                        <div class="caja">texto1.13</div>
-                        <div class="caja">texto1.14</div>
-                        <div class="caja">texto1.15</div>
-                        <div class="caja">texto1.16</div>
-                        <div class="caja">texto1.17</div>
-                        <div class="caja">texto1.18</div>
-                        <div class="caja">texto1.19</div>
-                        <div class="caja">texto1.20</div>
-                        <div class="caja">texto1.21</div>
                     </div>
                     <div class="tab-pane" id="grupo1">
-                        <div class="caja">texto2.1</div>
-                        <div class="caja">texto2.2</div>
-                        <div class="caja">texto2.3</div>
-                        <div class="caja">texto2.4</div>
-                        <div class="caja">texto2.5</div>
-                        <div class="caja">texto2.6</div>
-                        <div class="caja">texto2.7</div>
-                        <div class="caja">texto2.8</div>
-                        <div class="caja">texto2.9</div>
-                        <div class="caja">texto2.10</div>
-                        <div class="caja">texto2.11</div>
-                        <div class="caja">texto2.12</div>
-                        <div class="caja">texto2.13</div>
-                        <div class="caja">texto2.14</div>
-                        <div class="caja">texto2.15</div>
-                        <div class="caja">texto2.16</div>
-                        <div class="caja">texto2.17</div>
-                        <div class="caja">texto2.18</div>
-                        <div class="caja">texto2.19</div>
-                        <div class="caja">texto2.20</div>
-                        <div class="caja">texto2.21</div>
+                        <div class="caja cajaGrupo">
+                            <div>
+                                <span>Prueba2</span>
+                            </div>
+                            <div class="fotoCajaGrupo">
+                                <img class="fotoCajaGrupoImg" src="image/grupo/prueba2.jpg" />
+                            </div>
+                            <div class="descripcionGrupo">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
+                            </div>
+                        </div>
+                        <div class="caja cajaGrupo">
+                            <div>
+                                <span>lisma</span>
+                            </div>
+                            <div class="fotoCajaGrupo">
+                                <img class="fotoCajaGrupoImg" src="image/usuario/lisma.jpg" />
+                            </div>
+                            <div class="descripcionGrupo">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
+                            </div>
+                        </div>
+                        <div class="caja cajaGrupo">
+                            <div>
+                                <span>Solitario</span>
+                            </div>
+                            <div class="fotoCajaGrupo">
+                                <img class="fotoCajaGrupoImg" src="image/grupo/solitario.jpg" />
+                            </div>
+                            <div class="descripcionGrupo">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
+                            </div>
+                        </div>
+                        <div class="caja cajaGrupo">
+                            <div>
+                                <span>Público</span>
+                            </div>
+                            <div class="fotoCajaGrupo">
+                                <img class="fotoCajaGrupoImg" src="image/grupo/Público.jpg" />
+                            </div>
+                            <div class="descripcionGrupo">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="grupo2">
                         <div class="caja">texto3.1</div>

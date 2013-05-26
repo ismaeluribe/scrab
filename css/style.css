@@ -57,16 +57,51 @@ body{
     width:200px;
     margin-left: 66px;
     margin-top: 70px;
-    margin-bottom: 55px;
-    
 }
 
-.fotoCaja{
-    height: 150px;
+.cajaUser{
+    margin-bottom: 100px;
+}
+
+.cajaGrupo{
+    margin-bottom: 20px;
+}
+
+.fotoCajaUser{
+    height: 200px;
     width:200px;
 }
 
-.fotoCajaImg{
+.fotoCajaGrupoImg{
+    height: 200px;
+    -webkit-border-top-right-radius: 20px;
+    -moz-border-radius-topright: 20px;
+    border-top-right-radius: 20px;
+}
+
+.descripcionGrupo{
+    overflow:hidden;
+    height: 122px;
+    width:200px;
+}
+
+.cajaGrupo{
+    border-style:solid;
+    border-color:black;
+    border-width: 1px;
+    -webkit-border-top-right-radius: 20px;
+    -moz-border-radius-topright: 20px;
+    border-top-right-radius: 20px;
+}
+
+.fotoCajaGrupo{
+    height: 200px;
+    width:200px;
+}
+
+.fotoCajaUserImg{
+    height: 200px;
+    width:auto;
     -webkit-border-top-right-radius: 20px;
     -moz-border-radius-topright: 20px;
     border-top-right-radius: 20px;
@@ -75,10 +110,11 @@ body{
 .textosCaja{
     position:relative;
     z-index:1;
-    top:30px;
+    top:-20px;
     left:20px;
     height: 200px;
     width:200px;
+
 }
 
 .nombreCaja{
