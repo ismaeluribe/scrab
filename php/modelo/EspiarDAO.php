@@ -10,9 +10,9 @@
  *
  * @author nico
  */
-define('base_dirGD', realpath(dirname(__FILE__) . '/..'));
+define('base_dirEs', realpath(dirname(__FILE__) . '/..'));
 //definimos como directorio base el directorio en el que estamos en este caso es /php
-require_once base_dirGD . "/commons/bd.php";
+require_once base_dirEs . "/commons/bd.php";
 require_once 'modeloException/EspiarException.php';
 class EspiarDAO {
     /*
@@ -28,10 +28,10 @@ class EspiarDAO {
         $obj = new bd();
         $this->db = $obj->getDB();
     }
-    public function espiarPeople($id_user,$id_espiado){
-        $stm = $this->db->prepare("INSERT INTO " . self::tablaEspiar . " (usuarios_personas_idpersonas, personas_idpersonas, fecha) 
-                    VALUES(?,?,NOW())");
-        if (1 != ($stm->bind_param("ii",$id_user,$id_espiado ))) {
+    public function espiarPeople($id_user,$id_espiado,$espiar){
+        $stm = $this->db->prepare("INSERT INTO " . self::tablaEspiar . " (usuarios_personas_idpersonas, personas_idpersonas, fecha,espiar) 
+                    VALUES(?,?,NOW(),?)");
+        if (1 != ($stm->bind_param("iii",$id_user,$id_espiado,$espiar))) {
 
             throw new EspiarException("errores en el formato de los parametros");
         }
@@ -43,9 +43,28 @@ class EspiarDAO {
         $stm->close();
     }
     
+    public function getSpyByids($id_user,$id_espiado){
+        $stm = $this->db->prepare("SELECT espiar FROM usuarios_has_personas 
+                                            WHERE usuarios_personas_idpersonas = ?
+                                                AND personas_idpersonas = ?
+                                            ORDER BY fecha DESC LIMIT 1");
+        if (1 != ($stm->bind_param("ii",$id_user,$id_espiado))) {
+
+            throw new EspiarException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($espiar);
+        $stm->fetch();
+        $stm->close();
+        if($espiar)
+            return $espiar;
+        else return 0;
+    }
+    
 
 }
 //$obj=new EspiarDAO();
+//$obj->getSpyByids(1, 80);
 //$obj->espiarPeople(1, 2);
 
 ?>
