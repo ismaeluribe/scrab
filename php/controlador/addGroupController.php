@@ -7,7 +7,7 @@ session_start();
 
 define('base_dirGCA', realpath(dirname(__FILE__) . '/..'));
 //definimos como directorio base el directorio en el que estamos en este caso es /php
-require_once base_dirGCA . "/modelo/GruposDAO.php";
+require_once base_dirGCA . "/modelo/AnillosDAO.php";
 require_once base_dirGCA . '/modelo/modeloException/GruposException.php';
 require_once base_dirGCA . '/modelo/modeloException/ModeloException.php';
 
@@ -24,8 +24,8 @@ elseif (!isset($_POST['data'], $_POST['action'])) {
 try {
     $idUser = $_SESSION['id'];
     $idGroup = $_POST['data'];
-    $objG = new GruposDAO();
-    $i = $objG->insertUserInAnillos($idUser, $idGroup);
+    $objA = new AnillosDAO();
+    $i = $objA->insertUserInAnillos($idUser, $idGroup);
 } catch (GruposException $eg) {
     echo $eg;
 } catch (ModeloException $em) {

@@ -96,7 +96,7 @@ class GruposDAO {
             throw new GruposException("errores en el formato de los parametros");
         }
         $stm->execute();
-        $stm->bind_result($idgrupos, $nombre, $descripcion,$foto);
+        $stm->bind_result($idgrupos, $nombre, $descripcion ,$foto);
         $groupArray = array();
         while ($stm->fetch()) {
             $groupArray[$idgrupos] = array($nombre, $descripcion, $foto);
@@ -131,17 +131,7 @@ class GruposDAO {
             return $fecha;
         else return 0;
     }
-    
-    public function insertUserInAnillos($idUser,$idGroup){
-        $query = "INSERT INTO " . self::tablaAnillos . " (usuarios_personas_idpersonas,grupos_idgrupos,miembroDesde)
-                 VALUES ($idUser,$idGroup,NOW())";
-        if ($this->bd->query($query)) {
-            return true;
-        }
-        else
-            return false;
-        
-    }
+
 
 }
 

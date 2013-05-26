@@ -366,3 +366,16 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     padding-left: 10px;
     padding-right: 10px;
 }
+#fotosModal{
+    background-color: #FFFFFF;
+    border: 4px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 10px 10px 10px 10px;
+    float: right;
+    height: 300px;
+    margin-right: 30px;
+    margin-top: 25px;
+    width: 400px;
+}
+#contenido{
+    margin-top: 25px;
+}
