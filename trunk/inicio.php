@@ -115,6 +115,8 @@ if (isset($_GET['cerrar'])) {
         <script>
             $("#searchElem").click(function() {
                 var ele = $("#searchContent").val();
+                $("#searchResult").empty();
+                //$("#searchResult").empty()
                 if (ele) {
                     $.ajax({
                         type: "POST",
@@ -131,7 +133,7 @@ if (isset($_GET['cerrar'])) {
 
             function responseElements(e) {
                 //*console.log(e);
-                $("#searchResult").empty();
+                
                 $("#container-serch-result").removeClass("searchResultOculto");
                 var obj = JSON.parse(e);
                 //console.log(obj);
@@ -142,37 +144,54 @@ if (isset($_GET['cerrar'])) {
                 var v_usuarios = obj.usuarios;
                 //console.log(v_usuarios);
                 //escribimos los personajes
+                $("#searchResult").append("<h5>personajes</h5>");
                 if (v_personajes) {
-                    $("#searchResult").append("<h5>personajes</h5>");
+                    //console.log(v_personajes);
+                
+                    //$("#searchResult").append("<h5>personajes</h5>");
                     for (var i in v_personajes) {
                         $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultPersonajes\"></div>");
                         $("#" + i + "p").append("<img src=\"image/personaje/"+v_personajes[i][2]+"\" class=\"search-image\">");
                         $("#" + i + "p").append("<span>" + v_personajes[i][0] + "</span>");
                         $("#" + i + "p").append("<p>" + v_personajes[i][1] + "</p>");
-                        $("#" + i + "p").append("<button id=\"" + i + "pboton\" value=\"" + i + "p\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                        if(v_personajes[i][3]!=0){
+                           // console.log('entra '+ v_personajes[i][3]);
+                            $("#" + i + "p").append("<button id=\"" + i + "p0boton\" value=\"" + i + "p0\" onclick=\"spyPeople(this.value);\" class=\"btn btn-success\">No espiar</button>");
+                        }else {
+                            $("#" + i + "p").append("<button id=\"" + i + "p1boton\" value=\"" + i + "p1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                        }
+                        
                     }
-                }
+                } else $("#searchResult").append("<h5>No se han encontrado personaajes</h5>");
+                ////////////////////////////////////////////
+                $("#searchResult").append("<h5>usuarios</h5>");
                 if (v_usuarios) {
-                    $("#searchResult").append("<h5>usuarios</h5>");
+                    //$("#searchResult").append("<h5>usuarios</h5>");
                     for (var i in v_usuarios) {
                         $("#searchResult").append("<div id=\"" + i + "u\" class=\"searchResultUser\"></div>");
                         $("#" + i + "u").append("<img src=\"image/usuario/"+v_usuarios[i][2]+"\" class=\"search-image\">");
                         $("#" + i + "u").append("<span>" + v_usuarios[i][0] + "</span>");
                         $("#" + i + "u").append("<p>" + v_usuarios[i][1] + "</p>");
-                        $("#" + i + "u").append("<button id=\"" + i + "uboton\" value=\"" + i + "u\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                        if(v_usuarios[i][3]!=0){
+                            $("#" + i + "u").append("<button id=\"" + i + "u0boton\" value=\"" + i + "u0\" onclick=\"spyPeople(this.value);\" class=\"btn btn-success\">No espiar</button>");
+                        }else {
+                            $("#" + i + "u").append("<button id=\"" + i + "u1boton\" value=\"" + i + "u1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                        }
+                        
                     }
-                }
+                }else $("#searchResult").append("<h5>No se han encontrado usuarios</h5>");
+                ///////////////////////////////////////////////
+                $("#searchResult").append("<h5>grupos</h5>");
                 if (v_grupos) {
-                    $("#searchResult").append("<h5>grupos</h5>");
+                    
                     for (var i in v_grupos) {
                         $("#searchResult").append("<div id=\"" + i + "g\" class=\"searchResultGrupos\"></div>");
                         $("#" + i + "g").append("<img src=\"image/grupo/"+v_grupos[i][2]+"\" class=\"search-image\">");
                         $("#" + i + "g").append("<span>" + v_grupos[i][0] + "</span>");
                         $("#" + i + "g").append("<p>" + v_grupos[i][1] + "</p>");
-                        $("#" + i + "g").append("<button id=\"" + i + "gboton\" value=\"" + i + "\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">auto invitarme</button>");
+                        $("#" + i + "g").append("<button id=\"" + i + "gboton\" value=\"" + i + "g\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">auto invitarme</button>");
                     }
-                }
-
+                }else $("#searchResult").append("<h5>No se han encontrado grupos</h5>");
 
             }
             function errorElements(e) {
@@ -189,27 +208,42 @@ if (isset($_GET['cerrar'])) {
                 //console.log(e);
                 idAction=e;
                 var num=e.charAt(0);
+                var controlador=e.charAt(1);
+                var action=null;
+                if(controlador == 'p' || controlador=='u'){
+                    var action=e.charAt(2);
+                    controlador='spyPeopleController.php';
+                }else{
+                    controlador='addGroupController.php';
+                }
+                
+                //alert(action);
                 //var tabla=e.charAt(1);
                 $.ajax({
                         type: "POST",
-                        url: 'php/controlador/spyPeopleController.php',
-                        data: 'data=' + num,
+                        url: 'php/controlador/'+controlador,
+                        data: 'data=' + num+"&action="+action,
                         success: spyReport,
                         error: errorElements
                     });
             }
             function spyReport(e){
-                console.log(e);
-                console.log(idAction);
-                if(e && idAction){
-                    console.log('entra');
-                    var idboton="#"+idAction+'boton';
-                    $(idboton).text('hecho');
+                var obj=JSON.parse(e);
+                //console.log(e);
+                //var r=parseInt(e);
+                //console.log(r);
+                var idboton="#"+idAction+'boton';
+                $(idboton).removeAttr('onclick');
+                $(idboton).bind("click", hideSearch);
+                $(idboton).removeClass('btn-primary');
+                if(obj=="1"){
+                    $(idboton).html('Hecho');
+                    $(idboton).addClass('btn-success');
                 }else{
-                    alert('liada');
+                    $(idboton).html('Listo');
+                    $(idboton).addClass('btn-success');
                 }
             }
-            
         </script>
 
         <!-- /Barra de navegación -->
