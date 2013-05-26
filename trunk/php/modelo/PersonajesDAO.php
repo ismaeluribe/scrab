@@ -51,6 +51,7 @@ class PersonajesDAO {
                                         ORDER BY f.mote DESC LIMIT 3");
 
 //concatenamos los valores
+        $name=$this->db->real_escape_string($name);
         $name = '%' . $name . '%';
         if (1 != ($stm->bind_param("s", $name))) {
             throw new PersonajesException("errores en el formato de los parametros");

@@ -26,6 +26,7 @@ class GruposDAO {
     //const tablaPersonas = "personas";
 
     const tablaGrupos = "grupos";
+    const tablaAnillos= "anillos";
 
     private $bd;
 
@@ -66,7 +67,7 @@ class GruposDAO {
     }
 
     public function getGroupDataByUserId($id) {
-        $stm = $this->bd->prepare("SELECT nombre, idgrupos FROM grupos WHERE idgrupos IN (SELECT grupos_idgrupos FROM anillos WHERE usuarios_personas_idpersonas = ?) ORDER BY idgrupos ASC");
+        $stm = $this->bd->prepare("SELECT nombre, idgrupos FROM " . self::tablaGrupos . " WHERE idgrupos IN (SELECT grupos_idgrupos FROM anillos WHERE usuarios_personas_idpersonas = ?) ORDER BY idgrupos ASC");
         if (1 != ($stm->bind_param("i", $id))) {
             throw new GruposException("errores en el formato de los parametros");
         }
@@ -82,13 +83,14 @@ class GruposDAO {
 
     //metodo para buscar los grupos que sean publicos en funcion de que su nombre este contenido en una cadena
     public function getGroupDataByString($name, $id) {
-        $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion, foto FROM grupos 
+        $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion, foto FROM " . self::tablaGrupos . " 
                                         WHERE nombre LIKE ? 
                                             AND privacidad LIKE 'publico' 
                                             AND idgrupos NOT IN 
                                                 (SELECT grupos_idgrupos FROM  anillos WHERE usuarios_personas_idpersonas = ?) 
                                          ORDER BY idgrupos DESC limit 3");
         //concatenamos los valores
+        $name=$this->bd->real_escape_string($name);
         $name = '%' . $name . '%';
         if (1 != ($stm->bind_param("si", $name, $id))) {
             throw new GruposException("errores en el formato de los parametros");
@@ -112,6 +114,33 @@ class GruposDAO {
           //var_dump($groupArray);
           print_r($groupArray);
           echo '</pre>'; */
+    }
+    public function getPerteneceByIds($idUser,$idGrupo){
+        $stm = $this->bd->prepare("SELECT miembroDesde FROM anillos 
+                                        WHERE usuarios_personas_idpersonas = ? 
+                                        AND grupos_idgrupos = ?");
+        if (1 != ($stm->bind_param("ii",$idUser,$idGrupo))) {
+
+            throw new EspiarException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($fecha);
+        $stm->fetch();
+        $stm->close();
+        if($fecha)
+            return $fecha;
+        else return 0;
+    }
+    
+    public function insertUserInAnillos($idUser,$idGroup){
+        $query = "INSERT INTO " . self::tablaAnillos . " (usuarios_personas_idpersonas,grupos_idgrupos,miembroDesde)
+                 VALUES ($idUser,$idGroup,NOW())";
+        if ($this->bd->query($query)) {
+            return true;
+        }
+        else
+            return false;
+        
     }
 
 }
