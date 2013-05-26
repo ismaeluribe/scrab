@@ -53,12 +53,12 @@ body{
 
 .caja{
     float:left;
-    z-index: -1;
     height: 350px;
     width:200px;
     margin-left: 66px;
     margin-top: 70px;
     margin-bottom: 40px;
+    
 }
 
 .fotoCaja{
@@ -74,6 +74,7 @@ body{
 
 .textosCaja{
     position:relative;
+    z-index:1;
     top:30px;
     left:20px;
     height: 200px;
@@ -228,6 +229,7 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     min-height: 300px;
     max-height: 500px;
     overflow: auto;
+    z-index:3;
     /* overflow: hidden;*/
     position: absolute;
     border-left: 1px solid #D44413;
