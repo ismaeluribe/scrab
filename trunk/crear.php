@@ -9,6 +9,7 @@ require_once 'php/modelo/UserDAO.php';
 require_once 'php/modelo/PersonasDAO.php';
 require_once 'php/modelo/modeloException/UserException.php';
 require_once 'php/modelo/modeloException/ModeloException.php';
+require_once 'php/modelo/GruposDAO.php';
 
 
 session_start();
@@ -22,6 +23,12 @@ try {
     //obtenemos los datos relativos a las personas
     $arrayPersonas = $objPersonas->getDataById($_SESSION['id']);
     //si el array esta vacio salta esta exepcion
+
+    /********************************************************/
+    $objG=new GruposDAO();
+    $g_array = $objG->getGroupDataByUserId($_SESSION['id']);
+
+    /*******************************************************/
     if (!$arrayPersonas)
         throw new ModeloException('no existe el id del usuario en personas');
 } catch (UserException $eu) {
@@ -63,8 +70,38 @@ if (isset($_GET['cerrar'])) {
         <script src="js/libs/bootstrap/bootstrap-typeahead.js"></script>
         <script type="text/javascript">
             function nuevoRumor(){
-                $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val()});
+                $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val(),tratade:$("#modalSearchUser").val(),imageFileM : imageModal,imageNameM : imageNameModal});
             }
+
+                function notDrop(e) {//funcion que impide el arrastre en el cuadro interno
+                    e.dataTransfer.dropEffect = 'none';
+                    return false;
+                }
+
+                //funcion para cambiar a copi la accionllevada acabo por elemento arrastrado
+                function copyDrop(e) {
+                    e.dataTransfer.dropEffect = 'copy';
+                    return false;
+                }
+
+
+                //funciones para cambiar el estado de los elemntos
+                function over() {
+                    document.getElementById("centroInicioJs").ondragover = copyDrop;
+                    document.getElementById("dropModal").ondragover = copyDrop;
+
+                    $(".drop-files-generic").css("color", "#006699");
+                    $(".drop-files-generic").css("background-color", "#cccfff");
+                }
+                function leave() {
+                    $(".drop-files-generic").css("background-color", "#cccccc");
+                    $(".drop-files-generic").css("color", "black");
+                    document.getElementById("centroInicioJs").ondragover = notDrop;
+                    document.getElementById("dropModal").ondragover = notDrop;
+                }
+
+
+
         </script>
 
         <!--/Scripts -->
@@ -122,6 +159,8 @@ if (isset($_GET['cerrar'])) {
         <br/>
         <br/>
         <div class="container" id="wrapper">
+
+
             <div class="modal hide fade" id="nuevoRumor">
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal">x</a>
@@ -129,20 +168,128 @@ if (isset($_GET['cerrar'])) {
                 </div>
 
 
-                <div class="modal-body">
+                <div id="dropModal" class="modal-body">
                     <select name="grupos" id="grupos">
-                        <option value="1">Público</option>
-                        <option value="2">Grupo1</option>
-                    </select><br>
+                        <option value="0">elige un grupo</option>
+                    <?php
+                    foreach($g_array as $key=>$value) {
+                        echo "<option value=\"$key\">$value</option>";
+                    }
+                    ?>
+                    </select>
+                    <input type="text" name="modalSearchText" id="modalSearchText" placeholder="busca tu presa">
+                    <button class="btn btn-primary" id="modalSearchButton">buscar</button>
+
+                    <select name="modalSearchUser" id="modalSearchUser" class="searchResultOculto">
+                        <option value="0">elige uno</option>
+                    </select>
+                    <div id="fotosModal" class="not-drop-files-generic">
+                        <div id="fotosModalContent" class="drop-files-generic">
+                            Arrastra una imagen
+                        </div>
+                    </div>
+
+                        <br>
                     <textarea name="contenido" id="contenido" cols="30" rows="10" placeholder="Contenido"></textarea><br>
                     <input type="text" name="lugar" id="lugar" placeholder="Lugar"><br>
                     <input type="text" name="enlace" id="enlace" placeholder="Enlace"><br>
                 </div>
+
                 <div class="modal-footer">
                     <a href="#" class="btn" data-dismiss="modal">Cerrar</a>
                     <button onclick="nuevoRumor();" class="btn btn-primary" data-dismiss="modal">Enviar rumor</button>
                 </div>
             </div>
+            <script>
+                document.getElementById("dropModal").ondragover = notDrop;
+                document.getElementById("fotosModalContent").ondragover = over;
+                document.getElementById("fotosModalContent").ondragleave = leave;
+
+                var imageModal = null;
+                var imageNameModal = null;
+                // var imgBool=false;
+
+                function dropImageModal(e) {//script para controlar el drag and drop de la imagen
+                    e.stopPropagation(); // para la propagacion
+                    e.preventDefault();
+                    //aciones al arrastrar la imagen
+                    //imagen
+                    var files = e.dataTransfer.files;
+                    if (!files[0].type.match('image.*')) {//si no ess una imegen
+                        $("#fotosModalContent").html("tienes que arrastrar una imagen");
+                        return false;
+                    }
+                    else {//si es una imagen
+                        var reader = new FileReader();
+                        reader.onload = (function(theFile) {//le asignamos un clouster a la carga de la iamgen
+                            return function(e) {
+                                imageModal = this.result;
+
+                                $("#fotosModalContent").empty();
+
+                                $("#fotosModalContent").append("<img class=\"imagen\" src=\"" + e.target.result + "\" alt=\"" + theFile.name + "\">");
+
+                            };
+
+                        })(files[0]);//parametros para el clouster autoinvocado
+                        imageNameModal = files[0].name;//obtenemos el nombre de la imagen
+                        reader.readAsDataURL(files[0]);
+                    }
+                    $(".drop-files-generic").css("background-color", "#cccccc");
+                    $(".drop-files-generic").css("color", "black");
+                    document.getElementById("dropModal").ondragover = notDrop;
+                }
+                document.getElementById("fotosModalContent").ondrop = dropImageModal;
+
+                /****************************************************/
+                $("#modalSearchButton").click(function() {
+                    var ele = $("#modalSearchText").val();
+                    var group=$("#grupos").val();
+                    if (ele && group!=0){
+                       if($(".modalResultSearchUser")){
+
+                       $(".modalResultSearchUser").empty();
+                       }
+                        $.ajax({
+                            type: "POST",
+                            url: 'php/controlador/SearchInAnillosController.php',
+                            data: 'data=' + ele+'&group='+group,
+                            success: responseSearch,
+                            error: errorSearch
+                        });
+                    }
+                    else {
+                        alert("tiene que introducir algun texto para buscar algo o selecciona un grupos");
+                    }
+                });
+                function errorSearch(e){
+                    alert('upss ha ocurrido algo inesperado');
+                    console.log(e);
+                }
+                function responseSearch(e){
+
+                    $('#modalSearchUser').removeClass('searchResultOculto');
+                    var obj = JSON.parse(e);
+                    var v_personajes = obj.personajes;
+                    //console.log(v_personajes);
+
+                    var v_usuarios = obj.usuarios;
+                    //console.log(v_usuarios);
+                    if(v_personajes){
+                        for (var i in v_personajes){
+                            $("#modalSearchUser").append("<option class='modalResultSearchUser' value=\""+i+"\">"+v_personajes[i]+"</option>");
+                        }
+                    }
+
+                    if(v_usuarios){
+                        for (var i in v_usuarios){
+                            $("#modalSearchUser").append("<option class='modalResultSearchUser' value=\""+i+"\">"+v_usuarios[i]+"</option>")
+                        }
+                    }
+
+                }
+
+            </script>
 
 
 
@@ -261,31 +408,9 @@ if (isset($_GET['cerrar'])) {
 
             var objG = null;//esta variable se carga cuando se haace una peeticion post con el nombre de
             //los grupos por usuario, de manera que solo se realiza una peticion al hacer un nuevo grupo
-            function notDrop(e) {//funcion que impide el arrastre en el cuadro interno
-                e.dataTransfer.dropEffect = 'none';
-                return false;
-            }
-
-            //funcion para cambiar a copi la accionllevada acabo por elemento arrastrado
-            function copyDrop(e) {
-                e.dataTransfer.dropEffect = 'copy';
-                return false;
-            }
-
             //asignamos la funcion al manejador del evento del tag señalado
             document.getElementById("centroInicioJs").ondragover = notDrop;
 
-            //funciones para cambiar el estado de los elemntos
-            function over() {
-                document.getElementById("centroInicioJs").ondragover = copyDrop;
-                $(".drop-files-generic").css("color", "#006699");
-                $(".drop-files-generic").css("background-color", "#cccfff");
-            }
-            function leave() {
-                $(".drop-files-generic").css("background-color", "#cccccc");
-                $(".drop-files-generic").css("color", "black");
-                document.getElementById("centroInicioJs").ondragover = notDrop;
-            }
 
             //asinamos a los manejadores las funciones para cambiar los elemtnos 
             //demanera que se permita dejar el elemento 
@@ -511,7 +636,7 @@ if (isset($_GET['cerrar'])) {
             function personajeAjax(e){
                // alert(e);
                var obj = JSON.parse(e);
-                console.log(obj);
+                //console.log(obj);
                 if(obj.cont>0){
                     $("#responseP").append("<div class=\"alert alert-success\">Se han creado "+obj.cont+"</div>");
                 }else{

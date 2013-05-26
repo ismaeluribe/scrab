@@ -27,6 +27,10 @@ require_once base_dir . '/modelo/modeloException/ModeloException.php';
 
 
 $name = $_POST['data'];
+if(isset($_POST['user'])){
+    $user=true;
+}else $user=false;
+
 $id = $_SESSION['id'];
 
 $objG = new GruposDAO();
@@ -56,7 +60,12 @@ try {
     //en los grupos no hace falta controlar si perteneces ya
     //que la propia consulta es discriminatoria pera no mostrar los grupos 
     //a los que pertenece el usuario
-    $v_grupos = $objG->getGroupDataByString($name, $id);
+    if(!$user){
+        $v_grupos = $objG->getGroupDataByString($name, $id);
+    }
+    else{
+        $v_grupos=null;
+    }
     /* foreach ($v_grupos as $clave=>$valor){
       //$valor[]=$objEs->getSpyByids($id, $clave);
       $v_grupos[$clave][]=$objG->getPerteneceByIds($id, $clave);
