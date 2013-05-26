@@ -21,25 +21,26 @@ if (!isset($_SESSION['user'], $_SESSION['id'], $_SESSION['pass'], $_SESSION['ema
     header("location: ../../index.php");
 }
 //si no estan definidas las variables del post vamos a la pagina de inicio
-elseif (!isset($_POST['data'])) {
+elseif (!isset($_POST['data'],$_POST['action'])) {
     header("location: ../../inicio.php");
 }
-$action=true;
+$result=true;
 
 try {
     $objE=new EspiarDAO();
     $id_user=$_SESSION['id'];
     $id_espiado=$_POST['data'];
-    $objE->espiarPeople($id_user, $id_espiado);
+    $action=$_POST['action'];
+    $objE->espiarPeople($id_user, $id_espiado, $action);
     
 }  catch (EspiarException $es){
-    $action=false;
+    $result=false;
 } catch (ModeloException $em){
-    $action=false;
+    $result=false;
 } catch (RuntimeException $er){
-    $action=false;
+    $result=false;
 } catch (Exception $e){
-    $action=false;
+    $result=false;
 }
 //$actionArray=array("respuesta"=>$action,"id"=>);
 echo json_encode($action);
