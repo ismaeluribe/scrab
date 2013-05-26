@@ -1,6 +1,6 @@
 #wrapper{width:1000px;overflow:hidden;margin-top:0;background-color:#fff}#wrapper1{width:1000px;height:700px;overflow:hidden;margin-top:0;background-color:#fff}
 body{background-color:#f7e4c7}.todoInicio{width:1000px;overflow:hidden;padding-bottom:80px;height:auto;min-height:500px}.listaInicio{padding-left:5px;padding-top:5px;width:130px;height:auto;text-align:right;margin:0;float:left}
-.centroInicio{min-height:500px;overflow:hidden;float:right;width:864px;margin:0;text-align:center}.pointer{cursor:pointer}.caja{float:left;height:350px;width:200px;margin-left:66px;margin-top:70px;margin-bottom:40px}
+.centroInicio{min-height:500px;overflow:hidden;float:right;width:864px;margin:0;text-align:center}.pointer{cursor:pointer}.caja{float:left;height:350px;width:200px;margin-left:66px;margin-top:70px;margin-bottom:55px}
 .fotoCaja{height:150px;width:200px}.fotoCajaImg{-webkit-border-top-right-radius:20px;-moz-border-radius-topright:20px;border-top-right-radius:20px}.textosCaja{position:relative;z-index:1;top:30px;left:20px;height:200px;width:200px}
 .nombreCaja{margin-top:3px;background-color:white;border-style:solid;border-width:2px;border-color:black}.descripcionCaja{height:205px}#fperfil{height:17px;width:17px}
 .formulario{text-align:center;position:relative;top:15em;height:140px}.formularioReg{text-align:center;position:relative;top:10em;height:550px}.formularioGrupos{margin:40px;width:300px;float:left;text-align:left;padding-left:10px}
