@@ -1,4 +1,4 @@
-***************************************************
+﻿***************************************************
 ********    funcionalidades que nos faltan      ***********
 *****************************************
 
@@ -49,7 +49,7 @@ eliminar grupos
 /////////////////
 ismael
     pagina de inicio
-    terminar configuracion
+    terminar configuracion: Hecho
 nico
     ponia fotos en rumores
     ponia fotos en perfil user
