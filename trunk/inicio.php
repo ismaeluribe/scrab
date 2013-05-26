@@ -299,9 +299,54 @@ if (isset($_GET['cerrar'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="caja">texto1.2</div>
-                        <div class="caja">texto1.3</div>
-                        <div class="caja">texto1.4</div>
+                        <div class="caja">
+                            <div class="fotoCaja">
+                                <img class="fotoCajaImg" src="image/usuario/lisma.jpg" />
+                            </div>
+                            <div class="textosCaja">
+                                <div class="nombreCaja">
+                                    <span>Ismael</span>
+                                </div>
+                                <div class="nombreCaja">
+                                    <span>Uribe Pachón</span>
+                                </div>
+                                <div class="nombreCaja descripcionCaja">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caja">
+                            <div class="fotoCaja">
+                                <img class="fotoCajaImg" src="image/usuario/lisma.jpg" />
+                            </div>
+                            <div class="textosCaja">
+                                <div class="nombreCaja">
+                                    <span>Ismael</span>
+                                </div>
+                                <div class="nombreCaja">
+                                    <span>Uribe Pachón</span>
+                                </div>
+                                <div class="nombreCaja descripcionCaja">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caja">
+                            <div class="fotoCaja">
+                                <img class="fotoCajaImg" src="image/usuario/lisma.jpg" />
+                            </div>
+                            <div class="textosCaja">
+                                <div class="nombreCaja">
+                                    <span>Ismael</span>
+                                </div>
+                                <div class="nombreCaja">
+                                    <span>Uribe Pachón</span>
+                                </div>
+                                <div class="nombreCaja descripcionCaja">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="caja">texto1.5</div>
                         <div class="caja">texto1.6</div>
                         <div class="caja">texto1.7</div>
