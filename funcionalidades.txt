@@ -42,18 +42,16 @@ eliminar grupos
 * buscar grupos
 
 
-//falta controlar que no se repita el personaje ne funcion del grupo
-
-
-
-/////////////////
-ismael
-    pagina de inicio
-    terminar configuracion: Hecho
-nico
-    ponia fotos en rumores
-    ponia fotos en perfil user
-    terminar grupos rumores
-    terminar espiar
-    hacer perfil user
+//falta controlar que no se repita el personaje en funcion del grupo
+  
+   
+    falta
     
+    haacer apoyos sobre rumores
+    la pagina entera perfil de usuario
+    terminar pagina de inicio
+    pagina de grupos con la opcion de borrar grupos
+    opcionalmente :     añadir gente a los grupos
+                        eliminar participantes de un grupo
+                        notificaciones de los rumores
+                        eliminar rumores
