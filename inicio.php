@@ -61,7 +61,6 @@ if (isset($_GET['cerrar'])) {
             }
             function nuevoRumor() {
                 $.post("php/controlador/RumoresController.php", {grupo: $("#grupos").val(), contenido: $("#contenido").val(), lugar: $("#lugar").val(), enlace: $("#enlace").val()});
-                //$
             }
         </script>
 
@@ -284,7 +283,22 @@ if (isset($_GET['cerrar'])) {
                 </ul>
                 <div class="tab-content centroInicio">
                     <div class="tab-pane active" id="publico">
-                        <div class="caja">texto1.1</div>
+                        <div class="caja">
+                            <div class="fotoCaja">
+                                <img class="fotoCajaImg" src="image/usuario/lisma.jpg" />
+                            </div>
+                            <div class="textosCaja">
+                                <div class="nombreCaja">
+                                    <span>Ismael</span>
+                                </div>
+                                <div class="nombreCaja">
+                                    <span>Uribe Pachón</span>
+                                </div>
+                                <div class="nombreCaja descripcionCaja">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="caja">texto1.2</div>
                         <div class="caja">texto1.3</div>
                         <div class="caja">texto1.4</div>
