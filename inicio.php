@@ -359,6 +359,7 @@ if (isset($_GET['cerrar'])) {
                             <div class="descripcionGrupo">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
                             </div>
+                            <button class="btn btn-small btn-primary verMas">Ver más</button>
                         </div>
                         <div class="caja cajaGrupo">
                             <div>
@@ -370,6 +371,7 @@ if (isset($_GET['cerrar'])) {
                             <div class="descripcionGrupo">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
                             </div>
+                            <button class="btn btn-small btn-primary verMas">Ver más</button>
                         </div>
                         <div class="caja cajaGrupo">
                             <div>
@@ -381,6 +383,7 @@ if (isset($_GET['cerrar'])) {
                             <div class="descripcionGrupo">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
                             </div>
+                            <button class="btn btn-small btn-primary verMas">Ver más</button>
                         </div>
                         <div class="caja cajaGrupo">
                             <div>
@@ -392,10 +395,13 @@ if (isset($_GET['cerrar'])) {
                             <div class="descripcionGrupo">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
                             </div>
+                            <button class="btn btn-small btn-primary verMas">Ver más</button>
                         </div>
                     </div>
                     <div class="tab-pane" id="grupo2">
-                        <div class="caja">texto3.1</div>
+                        <div class="caja cajaRumor">
+                            
+                        </div>
                         <div class="caja">texto3.2</div>
                         <div class="caja">texto3.3</div>
                         <div class="caja">texto3.4</div>
