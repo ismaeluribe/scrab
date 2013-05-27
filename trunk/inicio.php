@@ -243,6 +243,22 @@ if (isset($_GET['cerrar'])) {
                     $(idboton).addClass('btn-success');
                 }
             }
+            function verMas(elemento){
+                var padre = elemento.parentNode;
+                var nombre = padre.childNodes[1];
+                var imagen = padre.childNodes[3];
+                var descripcion = padre.childNodes[5];
+                var spanNombre = nombre.childNodes[1].childNodes[0];
+                var srcImage = imagen.childNodes[1].src;
+                var spanDescripcion = descripcion.childNodes[1].childNodes[0];
+                $("#nombreModal").append(document.createTextNode(spanNombre.nodeValue));
+                $(".fotoModal").attr("src",srcImage);
+                $("#descripcionModal").append(document.createTextNode(spanDescripcion.nodeValue));
+            }
+            function reiniciarModal(){
+                $("#nombreModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
+                $("#descripcionModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
+            }
         </script>
 
         <!-- /Barra de navegación -->
@@ -275,6 +291,24 @@ if (isset($_GET['cerrar'])) {
                     <button onclick="nuevoRumor();" class="btn btn-primary" data-dismiss="modal">Enviar rumor</button>
                 </div>
             </div>
+
+            <div class="modal hide fade" id="contenidoModal">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal" onclick="reiniciarModal()M">x</a>
+                    <h3>Grupo</h3>
+                </div>
+                <div class="modal-body">
+                    <div><span id="nombreModal"></span></div>
+                    <div class="fotoCajaGrupo">
+                        <img class="fotoModal"/>
+                    </div>
+                    <div><span id="descripcionModal"></span></div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn pointer" data-dismiss="modal" onclick="reiniciarModal();">Cerrar</a>
+                </div>
+            </div>
+
             <div class="tabbable tabs-left todoInicio">
                 <ul class="nav nav-tabs listaInicio" style="position:fixed;">
                     <li class="active"><a onclick="scrollUp();" href="#publico" data-toggle="tab">Usuarios</a></li>
@@ -351,7 +385,7 @@ if (isset($_GET['cerrar'])) {
                     <div class="tab-pane" id="grupo1">
                         <div class="caja cajaGrupo">
                             <div>
-                                <span>Prueba2</span>
+                                <span id="nombre">Prueba2</span>
                             </div>
                             <div class="fotoCajaGrupo">
                                 <img class="fotoCajaGrupoImg" src="image/grupo/prueba2.jpg" />
@@ -359,11 +393,11 @@ if (isset($_GET['cerrar'])) {
                             <div class="descripcionGrupo">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
                             </div>
-                            <button class="btn btn-small btn-primary verMas">Ver más</button>
+                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
                         </div>
                         <div class="caja cajaGrupo">
                             <div>
-                                <span>lisma</span>
+                                <span id="nombre">lisma</span>
                             </div>
                             <div class="fotoCajaGrupo">
                                 <img class="fotoCajaGrupoImg" src="image/usuario/lisma.jpg" />
@@ -371,11 +405,11 @@ if (isset($_GET['cerrar'])) {
                             <div class="descripcionGrupo">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
                             </div>
-                            <button class="btn btn-small btn-primary verMas">Ver más</button>
+                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
                         </div>
                         <div class="caja cajaGrupo">
                             <div>
-                                <span>Solitario</span>
+                                <span id="nombre">Solitario</span>
                             </div>
                             <div class="fotoCajaGrupo">
                                 <img class="fotoCajaGrupoImg" src="image/grupo/solitario.jpg" />
@@ -383,11 +417,11 @@ if (isset($_GET['cerrar'])) {
                             <div class="descripcionGrupo">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
                             </div>
-                            <button class="btn btn-small btn-primary verMas">Ver más</button>
+                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
                         </div>
                         <div class="caja cajaGrupo">
                             <div>
-                                <span>Público</span>
+                                <span id="nombre">Público</span>
                             </div>
                             <div class="fotoCajaGrupo">
                                 <img class="fotoCajaGrupoImg" src="image/grupo/Público.jpg" />
@@ -395,9 +429,10 @@ if (isset($_GET['cerrar'])) {
                             <div class="descripcionGrupo">
                                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
                             </div>
-                            <button class="btn btn-small btn-primary verMas">Ver más</button>
+                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
                         </div>
                     </div>
+
                     <div class="tab-pane" id="grupo2">
                         <div class="caja cajaRumor">
                             
