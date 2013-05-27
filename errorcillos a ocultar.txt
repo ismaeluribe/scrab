@@ -1,0 +1,1 @@
+Al mostrar el modal del de los grupos no pulsar fuera del cuadro, cerrar la ventana siempre en el boton cerrar o en la X

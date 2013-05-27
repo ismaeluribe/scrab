@@ -255,6 +255,7 @@ if (isset($_GET['cerrar'])) {
                 $(".fotoModal").attr("src",srcImage);
                 $("#descripcionModal").append(document.createTextNode(spanDescripcion.nodeValue));
             }
+            $("#contenidoModal").blur(reiniciarModal);
             function reiniciarModal(){
                 $("#nombreModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
                 $("#descripcionModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
