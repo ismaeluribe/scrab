@@ -81,6 +81,12 @@ class GruposDAO {
         return $groupArray;
     }
 
+    public function paraMostrar($id){
+        $query = "SELECT nombre, idgrupos, descripcion, foto FROM grupos WHERE idgrupos IN (SELECT grupos_idgrupos FROM anillos WHERE usuarios_personas_idpersonas = $id) ORDER BY idgrupos ASC";
+        $result = $this->bd->query($query);
+        return $result;
+    }
+
     //metodo para buscar los grupos que sean publicos en funcion de que su nombre este contenido en una cadena
     public function getGroupDataByString($name, $id) {
         $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion, foto FROM " . self::tablaGrupos . " 

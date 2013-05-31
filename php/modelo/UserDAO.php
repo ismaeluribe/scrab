@@ -25,6 +25,12 @@ class UserDAO {
         $this->getPrivacidad = $this->db->prepare("SELECT privacidad FROM usuarios WHERE personas_idpersonas = ?");
     }
 
+    function getEstado($id){
+        $query = "SELECT personas.nombre, personas.apellido, personas.apellido2, usuarios.estado, personas.foto FROM personas, usuarios, usuarios_has_personas WHERE usuarios_has_personas.personas_idpersonas = usuarios.personas_idpersonas AND usuarios_has_personas.usuarios_personas_idpersonas = $id AND usuarios.personas_idpersonas = personas.idpersonas AND usuarios_has_personas.espiar = 1 AND usuarios_has_personas.fecha IN (SELECT MAX(fecha) FROM usuarios_has_personas GROUP BY personas_idpersonas)";
+        $result = $this->db->query($query);
+        return $result;
+    }
+
     function userpass($user, $pass) {
         // Comprueba si el usuario y la contraseña introducidos son correctosy el correo electronico
         //si son correctos devuleve el id del usuario 
