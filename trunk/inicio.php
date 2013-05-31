@@ -2,6 +2,7 @@
 //los requires
 require_once '/php/modelo/UserDAO.php';
 require_once '/php/modelo/PersonasDAO.php';
+require_once '/php/modelo/GruposDAO.php';
 //iniciamos secion
 session_start();
 if (!isset($_SESSION['user'], $_SESSION['id'], $_SESSION['pass'], $_SESSION['email'])) {
@@ -318,120 +319,14 @@ if (isset($_GET['cerrar'])) {
                 </ul>
                 <div class="tab-content centroInicio">
                     <div class="tab-pane active" id="publico">
-                        <div class="caja cajaUser">
-                            <div class="fotoCajaUser">
-                                <img class="fotoCajaUserImg" src="image/grupo/prueba2.jpg" />
-                            </div>
-                            <div class="textosCaja">
-                                <div class="nombreCaja">
-                                    <span>Ismael</span>
-                                </div>
-                                <div class="nombreCaja">
-                                    <span>Uribe Pachón</span>
-                                </div>
-                                <div class="nombreCaja descripcionCaja">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="caja cajaUser">
-                            <div class="fotoCajaUser">
-                                <img class="fotoCajaUserImg" src="image/usuario/lisma.jpg" />
-                            </div>
-                            <div class="textosCaja">
-                                <div class="nombreCaja">
-                                    <span>Ismael</span>
-                                </div>
-                                <div class="nombreCaja">
-                                    <span>Uribe Pachón</span>
-                                </div>
-                                <div class="nombreCaja descripcionCaja">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="caja cajaUser">
-                            <div class="fotoCajaUser">
-                                <img class="fotoCajaUserImg" src="image/grupo/solitario.jpg" />
-                            </div>
-                            <div class="textosCaja">
-                                <div class="nombreCaja">
-                                    <span>Ismael</span>
-                                </div>
-                                <div class="nombreCaja">
-                                    <span>Uribe Pachón</span>
-                                </div>
-                                <div class="nombreCaja descripcionCaja">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="caja cajaUser">
-                            <div class="fotoCajaUser">
-                                <img class="fotoCajaUserImg" src="image/grupo/Público.jpg" />
-                            </div>
-                            <div class="textosCaja">
-                                <div class="nombreCaja">
-                                    <span>Ismael</span>
-                                </div>
-                                <div class="nombreCaja">
-                                    <span>Uribe Pachón</span>
-                                </div>
-                                <div class="nombreCaja descripcionCaja">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                            require_once("php/controlador/MuestraUsersController.php");
+                        ?>
                     </div>
                     <div class="tab-pane" id="grupo1">
-                        <div class="caja cajaGrupo">
-                            <div>
-                                <span id="nombre">Prueba2</span>
-                            </div>
-                            <div class="fotoCajaGrupo">
-                                <img class="fotoCajaGrupoImg" src="image/grupo/prueba2.jpg" />
-                            </div>
-                            <div class="descripcionGrupo">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
-                            </div>
-                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
-                        </div>
-                        <div class="caja cajaGrupo">
-                            <div>
-                                <span id="nombre">lisma</span>
-                            </div>
-                            <div class="fotoCajaGrupo">
-                                <img class="fotoCajaGrupoImg" src="image/usuario/lisma.jpg" />
-                            </div>
-                            <div class="descripcionGrupo">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
-                            </div>
-                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
-                        </div>
-                        <div class="caja cajaGrupo">
-                            <div>
-                                <span id="nombre">Solitario</span>
-                            </div>
-                            <div class="fotoCajaGrupo">
-                                <img class="fotoCajaGrupoImg" src="image/grupo/solitario.jpg" />
-                            </div>
-                            <div class="descripcionGrupo">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
-                            </div>
-                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
-                        </div>
-                        <div class="caja cajaGrupo">
-                            <div>
-                                <span id="nombre">Público</span>
-                            </div>
-                            <div class="fotoCajaGrupo">
-                                <img class="fotoCajaGrupoImg" src="image/grupo/Público.jpg" />
-                            </div>
-                            <div class="descripcionGrupo">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, ipsum dolor alias tenetur saepe. Ab, repudiandae, hic culpa velit fugit ea delectus esse distinctio voluptatibus... quae neque voluptates laboriosam vero bus quae neque voluptates laboriosam vero</span>
-                            </div>
-                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
-                        </div>
+                        <?php
+                            require_once("php/controlador/MuestraGruposController.php");
+                        ?>
                     </div>
 
                     <div class="tab-pane" id="grupo2">

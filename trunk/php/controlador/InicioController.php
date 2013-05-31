@@ -37,7 +37,7 @@ if (isset($_POST['user'], $_POST['pass']) && $_GET['id'] == session_id()) {
             $_SESSION['id'] = $arrayUser[0];
 
     } catch (UserException $eu) {
-        //el error es 1 si  ha habido un problema en laa bd
+        //el error es 1 si ha habido un problema en laa bd
         $error=1;
     } catch (ModeloException $em) {
         //si el usuario no existe

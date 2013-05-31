@@ -94,6 +94,10 @@ class PersonasDAO {
         
     }
 
+    function getForCaja(){
+        
+    }
+
 }
 
 /*
