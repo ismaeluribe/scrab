@@ -178,15 +178,25 @@ if (isset($_GET['cerrar'])) {
             </div>
             <div class="tabbable tabs-left todoInicio">
                 <ul class="nav nav-tabs listaInicio" style="position:fixed;">
-                    <li class="active">
+                    <?php
+                        if(isset($_GET['error'])){
+                            $contrasena = "active";
+                            $datos = "";
+                        }else{
+                            $contrasena = "";
+                            $datos = "active";
+                        }
+                    ?>
+                    <li class="<?php echo $datos; ?>">
                         <a href="#datos" data-toggle="tab">Datos</a>
                     </li>
-                    <li>
+                    <li class="<?php echo $contrasena; ?>">
                         <a href="#contraseña" data-toggle="tab">Contraseña</a>
                     </li>
                 </ul>
                 <div class="tab-content centroInicio" id="centroInicioJs">
-                    <div class="tab-pane active" id="datos">
+
+                    <div class="tab-pane <?php echo $datos; ?>" id="datos">
                         <h3>Datos</h3>
                         <form name="datos" action="configuracion.php" method="POST">
                             <br><br>
@@ -202,7 +212,7 @@ if (isset($_GET['cerrar'])) {
                         </form>
                         <div id="responseG" class="response-generic"></div>
                     </div>
-                    <div class="tab-pane" id="contraseña">
+                    <div class="tab-pane <?php echo $contrasena; ?>" id="contraseña">
                         <h3>Contraseña</h3>
                         <form name="contraseña" action="php/controlador/ContraController.php" method="POST">
                             <br><br>
@@ -211,6 +221,17 @@ if (isset($_GET['cerrar'])) {
                             <input name="antigua" type="password" placeholder="Antigua contraseña"><br><br>
                             <input type="submit" class="btn btn-primary" value="Enviar">
                         </form>
+                        <?php
+                            if(isset($_GET['error'])){
+                                if($_GET['error'] == 0){
+                                    echo "<div class=\"alert alert-success\">Contraseña cambiada con exito.</div>";
+                                }elseif($_GET['error'] == 1){
+                                    echo "<div class=\"alert alert-error\">Contraseña incorrecta.</div>";
+                                }else{
+                                    echo "<div class=\"alert\">Fallo en el servidor.</div>";
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
