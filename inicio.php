@@ -86,9 +86,9 @@ if (isset($_GET['cerrar'])) {
                             <li><a href="#">Grupos&nbsp;<span class="badge">8</span></a></li>
                             <li><a href="#">Espiados</a></li>
                         </ul>
-
-                        <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar" />
-                        <button id="searchElem" class="btn btn-primary" >Busca</button>
+                        <form class="navbar-search pull-left" action="">
+                            <input type="text" id="searchContent" oninput="Buscar()" class="search-query span3" placeholder="Buscar" />
+                        </form>
                         <ul class="nav pull-right">
                             <li>
                                 <a href="crear.php">Crear</a>
@@ -113,7 +113,36 @@ if (isset($_GET['cerrar'])) {
             </nav>
         </header>
         <script>
-            $("#searchElem").click(function() {
+            function Buscar(){
+                var ele = $("#searchContent").val();
+                $("#searchResult").empty();
+                $("#loader").show();
+                $("#container-serch-result").removeClass("searchResultOculto");
+                if (ele) {
+                    $.ajax({
+                        type: "POST",
+                        url: 'php/controlador/SearchController.php',
+                        data: 'data=' + ele,
+                        success: responseElements,
+                        error: errorElements
+                    });
+                }else{
+                    $("#searchContent").val("");
+                    $("#searchResult").empty(); 
+                    $("#container-serch-result").addClass("searchResultOculto");
+                }
+            }
+            /*$("#searchContent").bind("blur", function(){
+                $("#searchContent").val("");
+                $("#searchResult").empty(); 
+                $("#container-serch-result").addClass("searchResultOculto");
+            });*/
+            /*$("#searchContent").onblur = function(){
+                alert("Ha hecho blur");
+                $("#searchResult").empty();
+                $("#container-serch-result").addClass("searchResultOculto");
+            }*/
+            /*$("#searchElem").click(function() {
                 var ele = $("#searchContent").val();
                 $("#searchResult").empty();
                 //$("#searchResult").empty()
@@ -129,12 +158,12 @@ if (isset($_GET['cerrar'])) {
                 else {
                     alert("tiene que introducir algun texto para buscar algo");
                 }
-            });
+            });*/
 
             function responseElements(e) {
                 //*console.log(e);
-                
-                $("#container-serch-result").removeClass("searchResultOculto");
+                $("#loader").hide();
+                //$("#container-serch-result").removeClass("searchResultOculto");
                 var obj = JSON.parse(e);
                 //console.log(obj);
                 var v_grupos = obj.grupos;
@@ -201,7 +230,9 @@ if (isset($_GET['cerrar'])) {
                 console.log(obj);
             }
             function hideSearch(){
-                 $("#container-serch-result").addClass("searchResultOculto");
+                $("#searchContent").val("");
+                $("#searchResult").empty(); 
+                $("#container-serch-result").addClass("searchResultOculto");
             }
             var idAction=null;
             function spyPeople(e){
@@ -245,21 +276,18 @@ if (isset($_GET['cerrar'])) {
                 }
             }
             function verMas(elemento){
+                $("#nombreModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
+                $("#descripcionModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
                 var padre = elemento.parentNode;
                 var nombre = padre.childNodes[1];
                 var imagen = padre.childNodes[3];
                 var descripcion = padre.childNodes[5];
-                var spanNombre = nombre.childNodes[1].childNodes[0];
+                var spanNombre = nombre.childNodes[0];
                 var srcImage = imagen.childNodes[1].src;
                 var spanDescripcion = descripcion.childNodes[1].childNodes[0];
                 $("#nombreModal").append(document.createTextNode(spanNombre.nodeValue));
                 $(".fotoModal").attr("src",srcImage);
                 $("#descripcionModal").append(document.createTextNode(spanDescripcion.nodeValue));
-            }
-            $("#contenidoModal").blur(reiniciarModal);
-            function reiniciarModal(){
-                $("#nombreModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
-                $("#descripcionModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
             }
         </script>
 
@@ -270,8 +298,9 @@ if (isset($_GET['cerrar'])) {
         <div class="container" id="wrapper">
             <div id="container-serch-result" class="searchResultOculto">
                 <div id="searchResult">
-
+                    
                 </div>
+                <img class="imageLoading" id="loader" src="img/ajax-loader.gif" alt="Loader">
                 <button onclick="hideSearch();" class="position-cerrar-search">cerrar</button>
             </div>
             <div class="modal hide fade" id="nuevoRumor">
@@ -328,34 +357,34 @@ if (isset($_GET['cerrar'])) {
                             require_once("php/controlador/MuestraGruposController.php");
                         ?>
                     </div>
-
                     <div class="tab-pane" id="grupo2">
-                        <div class="caja cajaRumor">
-                            
+                        <div class="cajaUser caja">
+                            <div class="fotoCajaUser">
+                                <img class="fotoCajaUserImg" src="image/rumor/imageRumor_id_.10.jpg" />
+                            </div>
+                            <div class="textosCaja">
+                                <div class="nombreCaja">
+                                    <span>".$result->nombre."</span>
+                                </div>
+                                <div class="nombreCaja">
+                                    <span>".$result->apellido." ".$result->apellido2."</span>
+                                </div>
+                                <div class="nombreCaja descripcionCaja">
+                                    <span>".$estado."</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="caja">texto3.2</div>
-                        <div class="caja">texto3.3</div>
-                        <div class="caja">texto3.4</div>
-                        <div class="caja">texto3.5</div>
-                        <div class="caja">texto3.6</div>
-                        <div class="caja">texto3.7</div>
-                        <div class="caja">texto3.8</div>
-                        <div class="caja">texto3.9</div>
-                        <div class="caja">texto3.10</div>
-                        <div class="caja">texto3.11</div>
-                        <div class="caja">texto3.12</div>
-                        <div class="caja">texto3.13</div>
-                        <div class="caja">texto3.14</div>
-                        <div class="caja">texto3.15</div>
-                        <div class="caja">texto3.16</div>
-                        <div class="caja">texto3.17</div>
-                        <div class="caja">texto3.18</div>
-                        <div class="caja">texto3.19</div>
-                        <div class="caja">texto3.20</div>
-                        <div class="caja">texto3.21</div>
+                        <div class="cajaGrupo caja">
+                            <div id="nombre">$result->nombre</div>
+                            <div class="fotoCajaGrupo">
+                                <img class="fotoCajaGrupoImg" src="image/rumor/imageRumor_id_.10.jpg" />
+                            </div>
+                            <div class="descripcionGrupo">
+                                <span>".$result->descripcion."</span>
+                            </div>
+                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
+                        </div>
                     </div>
-                </div>
             </div>
-        </div>
     </body>
 </html>

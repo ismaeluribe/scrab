@@ -46,14 +46,15 @@ eliminar grupos
   
    
     falta
-    
+    	
+	Hacer la distribucion de la caja de rumor
 	Que el usuario pueda cambiar la foto de perfil
 	Mensajes de error en el cambio de contraseña
-    haacer apoyos sobre rumores
-    la pagina entera perfil de usuario
-    terminar pagina de inicio
-    pagina de grupos con la opcion de borrar grupos
-    opcionalmente :     añadir gente a los grupos
-                        eliminar participantes de un grupo
-                        notificaciones de los rumores
-                        eliminar rumores
+    	haacer apoyos sobre rumores
+    	la pagina entera perfil de usuario
+    	terminar pagina de inicio
+    	pagina de grupos con la opcion de borrar grupos
+    	opcionalmente:	añadir gente a los grupos
+                       	eliminar participantes de un grupo
+                       	notificaciones de los rumores
+                       	eliminar rumores
