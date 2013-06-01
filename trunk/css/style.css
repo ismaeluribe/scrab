@@ -53,7 +53,7 @@ body{
 
 .caja{
     float:left;
-    height: 350px;
+    height: 362px;
     width:200px;
     margin-left: 66px;
     margin-top: 70px;
@@ -114,7 +114,10 @@ body{
     left:20px;
     height: 200px;
     width:200px;
+}
 
+.descripcionCaja{
+    height:200px;
 }
 
 .nombreCaja{
@@ -262,12 +265,12 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
 /********************************************/
 #searchResult{
     width: 40%;
+    position:fixed;
     min-height: 300px;
     max-height: 500px;
     overflow: auto;
     z-index:3;
     /* overflow: hidden;*/
-    position: absolute;
     border-left: 1px solid #D44413;
     border-right: 1px solid #D44413;
     border-bottom: 1px solid #D44413;
@@ -344,8 +347,8 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     border-radius: 5px;
 }
 .position-cerrar-search{
-   left: 25.2%;
-    position: absolute;
+    left: 25.2%;
+    position: fixed;
     z-index: 3;
     background-color: #0074CC;
     background-image: -moz-linear-gradient(center top , #0088CC, #0055CC);
@@ -362,6 +365,13 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     padding-bottom: 5px;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.imageLoading{
+    position:fixed;
+    left:47%;
+    top:20%;
+    z-index:3;
 }
 #fotosModal{
     background-color: #FFFFFF;
