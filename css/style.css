@@ -53,8 +53,9 @@ body{
 
 .caja{
     float:left;
-    height: 362px;
+    height: 342px;
     width:200px;
+    padding-bottom: 20px;
     margin-left: 66px;
     margin-top: 70px;
 }
@@ -129,7 +130,8 @@ body{
 }
 
 .verMas{
-    margin-left:120px;
+    margin-left:125px;
+    margin-top:9px;
 }
 
 #fperfil{
@@ -169,7 +171,7 @@ body{
     font-size: 2em;
     font-weight: bold;
     font-family: arial;
-    margin:  60px auto;
+    margin: 60px auto;
 }
 .not-drop-files-generic {
     width: 400px;
@@ -270,6 +272,7 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     max-height: 500px;
     overflow: auto;
     z-index:3;
+    overflow-x:hidden;
     /* overflow: hidden;*/
     border-left: 1px solid #D44413;
     border-right: 1px solid #D44413;
@@ -291,7 +294,6 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
 #searchResult > div{
     width: 80%;
     height: 80px;
-    
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -304,7 +306,7 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     margin: 0;
     padding: 0;
     position: relative;
-    top: -20px;  
+    top: -20px;
     font-weight: bold;
 }
 #searchResult > div > p{
@@ -386,3 +388,42 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
 #contenido{
     margin-top: 25px;
 }
+
+
+/*
+    Caja rumor
+*/
+
+.cajaRumor{
+    -webkit-border-top-right-radius: 20px;
+    -moz-border-radius-topright: 20px;
+    border-top-right-radius: 20px;
+    border-style:solid;
+    border-width: 1px;
+    border-color:black;
+    margin-bottom: 20px;
+}
+
+.cajaRumor p{
+    margin-left: 10px;
+    text-align: left;
+}
+
+.lugarRumor{
+    margin-top:5px;
+    color:#dd4814;
+}
+
+.verMasRumor{
+    margin-left:125px;
+    margin-top:-25px;
+    z-index:10;
+}
+
+.fotoRumor{
+    height: 150px;
+}
+
+/*
+    /Caja rumor
+*/
