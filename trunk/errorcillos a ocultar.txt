@@ -1,0 +1,2 @@
+No poner estados y descripciones muy largos para no hacer lo de los puntos suspensivos
+Enlaces cortos para para no tener que hacer los puntos suspensivos

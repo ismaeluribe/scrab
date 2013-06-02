@@ -424,6 +424,33 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     height: 150px;
 }
 
+.descripcionRumor{
+    padding:1px;
+}
+
+.fotoModalRumor{
+    float:left;
+    height:200px;
+}
+
+.enlaceLugar span{
+    margin-left: 50px;
+}
+
+.enlaceLugar{
+    width:50%;
+    float:left;
+    height:200px;
+    margin-top: 30px;
+}
+
+.fotoCajaRumor{
+    height:200px;
+    width:45%;
+    float:left;
+    margin:0 auto;
+}
+
 /*
     /Caja rumor
 */
