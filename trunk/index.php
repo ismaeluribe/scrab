@@ -63,7 +63,7 @@ session_regenerate_id(true);
                     }
                     
                     ?>
-                    <input type="text" placeholder="Usuario" name="user" required="required"/>
+                    <input type="text" placeholder="Usuario" name="user" required="required" />
                     <input type="password" placeholder="Contraseña" name="pass" required="required" />
                     <br/>
                     <button type="submit" class="btn btn-primary">Enviar</button>

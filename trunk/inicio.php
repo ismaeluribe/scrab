@@ -289,6 +289,18 @@ if (isset($_GET['cerrar'])) {
                 $(".fotoModal").attr("src",srcImage);
                 $("#descripcionModal").append(document.createTextNode(spanDescripcion.nodeValue));
             }
+
+            function verMasRumor(elemento){
+                $("#tituloRumor").contents().filter(function(){return this.nodeType != 1;}).remove();
+                var padre = elemento.parentNode;
+                var usuario = padre.childNodes[1].childNodes[1].childNodes[0];
+                var grupo = padre.childNodes[1].childNodes[3].childNodes[0];
+                var image = padre.childNodes[3].childNodes[1].src;
+                var enlace = padre.childNodes[3].childNodes[3];
+                var descripcion = padre.childNodes[5].childNodes[1].childNodes[0];
+                var lugar = padre.childNodes[7].childNodes[1].childNodes[0];
+                console.log(lugar);
+            }
         </script>
 
         <!-- /Barra de navegación -->
@@ -325,7 +337,7 @@ if (isset($_GET['cerrar'])) {
 
             <div class="modal hide fade" id="contenidoModal">
                 <div class="modal-header">
-                    <a class="close" data-dismiss="modal" onclick="reiniciarModal()M">x</a>
+                    <a class="close" data-dismiss="modal" onclick="reiniciarModal()">x</a>
                     <h3>Grupo</h3>
                 </div>
                 <div class="modal-body">
@@ -340,14 +352,33 @@ if (isset($_GET['cerrar'])) {
                 </div>
             </div>
 
+            <div class="modal hide fade" id="contenidoModalRumor">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal" onclick="reiniciarModal()M">x</a>
+                    <h3 id="tituloRumor"></h3>
+                </div>
+                <div class="modal-body">
+                    <div><span id="nombreModalRumor"></span></div>
+                    <div class="fotoCajaRumor">
+                        <img class="fotoModalRumor"/>
+                    </div>
+                    <div><span id="descripcionModalRumor"></span></div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-success pointer" data-dismiss="modal" onclick="apoyar()">Apoyar</a>
+                    <a class="btn btn-danger pointer" data-dismiss="modal" onclick="desmentir()">Desmentir</a>
+                    <a class="btn pointer" data-dismiss="modal">Cerrar</a>
+                </div>
+            </div>
+
             <div class="tabbable tabs-left todoInicio">
                 <ul class="nav nav-tabs listaInicio" style="position:fixed;">
-                    <li class="active"><a onclick="scrollUp();" href="#publico" data-toggle="tab">Usuarios</a></li>
+                    <li><a onclick="scrollUp();" href="#publico" data-toggle="tab">Usuarios</a></li>
                     <li><a href="#grupo1" data-toggle="tab" onclick="scrollUp();">Grupos</a></li>
-                    <li><a href="#grupo2" data-toggle="tab" onclick="scrollUp();">Rumores</a></li>
+                    <li class="active"><a href="#grupo2" data-toggle="tab" onclick="scrollUp();">Rumores</a></li>
                 </ul>
                 <div class="tab-content centroInicio">
-                    <div class="tab-pane active" id="publico">
+                    <div class="tab-pane" id="publico">
                         <?php
                             require_once("php/controlador/MuestraUsersController.php");
                         ?>
@@ -357,32 +388,74 @@ if (isset($_GET['cerrar'])) {
                             require_once("php/controlador/MuestraGruposController.php");
                         ?>
                     </div>
-                    <div class="tab-pane" id="grupo2">
-                        <div class="cajaUser caja">
-                            <div class="fotoCajaUser">
-                                <img class="fotoCajaUserImg" src="image/rumor/imageRumor_id_.10.jpg" />
+                    <div class="tab-pane active" id="grupo2">
+                        <div class="cajaRumor caja">
+                            <div id="nombreRumor">
+                                <p>Usuario</p>
+                                <p>Grupo</p>
                             </div>
-                            <div class="textosCaja">
-                                <div class="nombreCaja">
-                                    <span>".$result->nombre."</span>
-                                </div>
-                                <div class="nombreCaja">
-                                    <span>".$result->apellido." ".$result->apellido2."</span>
-                                </div>
-                                <div class="nombreCaja descripcionCaja">
-                                    <span>".$estado."</span>
-                                </div>
+                            <div class="fotoRumorCaja">
+                                <img class="fotoRumor" src="image/rumor/imageRumor_id_.10.jpg" alt="fotoRumor">
+                                <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
                             </div>
+                            <div class="descripcionRumor">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum praesentium magni...</span>
+                            </div>
+                            <div class="lugarRumor">
+                                <p>Alcalá de Henares</p>
+                            </div>
+                            <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
                         </div>
-                        <div class="cajaGrupo caja">
-                            <div id="nombre">$result->nombre</div>
-                            <div class="fotoCajaGrupo">
-                                <img class="fotoCajaGrupoImg" src="image/rumor/imageRumor_id_.10.jpg" />
+                        <div class="cajaRumor caja">
+                            <div id="nombreRumor">
+                                <p>Usuario</p>
+                                <p>Grupo</p>
                             </div>
-                            <div class="descripcionGrupo">
-                                <span>".$result->descripcion."</span>
+                            <div class="fotoRumorCaja">
+                                <img class="fotoRumor" src="image/rumor/noimage.png" alt="fotoRumor">
+                                <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
                             </div>
-                            <a href="#contenidoModal" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMas" onclick="verMas(this)">Ver más</a>
+                            <div class="descripcionRumor">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum praesentium magni...</span>
+                            </div>
+                            <div class="lugarRumor">
+                                <p>Alcalá de Henares</p>
+                            </div>
+                            <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
+                        </div>
+                        <div class="cajaRumor caja">
+                            <div id="nombreRumor">
+                                <p>Usuario</p>
+                                <p>Grupo</p>
+                            </div>
+                            <div class="fotoRumorCaja">
+                                <img class="fotoRumor" src="image/rumor/imageRumor_id_.10.jpg" alt="fotoRumor">
+                                <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
+                            </div>
+                            <div class="descripcionRumor">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum praesentium magni...</span>
+                            </div>
+                            <div class="lugarRumor">
+                                <p>Alcalá de Henares</p>
+                            </div>
+                            <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
+                        </div>
+                        <div class="cajaRumor caja">
+                            <div id="nombreRumor">
+                                <p>Usuario</p>
+                                <p>Grupo</p>
+                            </div>
+                            <div class="fotoRumorCaja">
+                                <img class="fotoRumor" src="image/rumor/imageRumor_id_.11.jpg" alt="fotoRumor">
+                                <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
+                            </div>
+                            <div class="descripcionRumor">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum praesentium magni...</span>
+                            </div>
+                            <div class="lugarRumor">
+                                <p>Alcalá de Henares</p>
+                            </div>
+                            <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
                         </div>
                     </div>
             </div>

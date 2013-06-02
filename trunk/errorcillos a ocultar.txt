@@ -1,1 +1,0 @@
-No hacer click fuera del campo de texto de busqueda xk si no se oculta el div de resultado.
