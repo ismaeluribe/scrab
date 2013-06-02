@@ -276,7 +276,7 @@ if (isset($_GET['cerrar'])) {
                 }
             }
             function verMas(elemento){
-                $("#nombreModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
+                $("#tituloGrupo").contents().filter(function(){ return this.nodeType != 1;}).remove();
                 $("#descripcionModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
                 var padre = elemento.parentNode;
                 var nombre = padre.childNodes[1];
@@ -285,21 +285,42 @@ if (isset($_GET['cerrar'])) {
                 var spanNombre = nombre.childNodes[0];
                 var srcImage = imagen.childNodes[1].src;
                 var spanDescripcion = descripcion.childNodes[1].childNodes[0];
-                $("#nombreModal").append(document.createTextNode(spanNombre.nodeValue));
+                $("#tituloGrupo").append(document.createTextNode(spanNombre.nodeValue));
                 $(".fotoModal").attr("src",srcImage);
                 $("#descripcionModal").append(document.createTextNode(spanDescripcion.nodeValue));
             }
-
             function verMasRumor(elemento){
                 $("#tituloRumor").contents().filter(function(){return this.nodeType != 1;}).remove();
+                $("#enlaceRumorModal").contents().filter(function(){return this.nodeType != 1;}).remove();
+                $("#lugarRumor").contents().filter(function(){return this.nodeType != 1;}).remove();
+                $("#descripcionModalRumor").contents().filter(function(){return this.nodeType != 1;}).remove();
                 var padre = elemento.parentNode;
                 var usuario = padre.childNodes[1].childNodes[1].childNodes[0];
                 var grupo = padre.childNodes[1].childNodes[3].childNodes[0];
                 var image = padre.childNodes[3].childNodes[1].src;
                 var enlace = padre.childNodes[3].childNodes[3];
+                var url = enlace.childNodes[0];
                 var descripcion = padre.childNodes[5].childNodes[1].childNodes[0];
                 var lugar = padre.childNodes[7].childNodes[1].childNodes[0];
-                console.log(lugar);
+                var id = padre.childNodes[11].value;
+                console.log(id);
+                $("#tituloRumor").append(document.createTextNode(usuario.nodeValue + " - " + grupo.nodeValue));
+                $(".fotoModalRumor").attr("src",image);
+                $("#enlaceRumorModal").attr("href",enlace.href);
+                $("#idRumorModal").attr("value",id);
+                $("#enlaceRumorModal").append(document.createTextNode(url.nodeValue))
+                $("#lugarRumor").append(document.createTextNode(lugar.nodeValue));
+                $("#descripcionModalRumor").append(document.createTextNode(descripcion.nodeValue));
+            }
+            function apoyar(elemento){
+                var id = elemento.parentNode.parentNode.childNodes[3].childNodes[7].value;
+                $.ajax({
+                        type: "POST",
+                        url: 'php/controlador/apoyarController.php',
+                        data: 'id=' + id,
+                        success: responseElements,
+                        error: errorElements
+                    });
             }
         </script>
 
@@ -327,7 +348,7 @@ if (isset($_GET['cerrar'])) {
                     </select><br>
                     <textarea name="contenido" id="contenido" cols="30" rows="10" placeholder="Contenido"></textarea><br>
                     <input type="text" name="lugar" id="lugar" placeholder="Lugar"><br>
-                    <input type="text" name="enlace" id="enlace" placeholder="Enlace">
+                    <input type="url" name="enlace" id="enlace" placeholder="Enlace">
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn" data-dismiss="modal">Cerrar</a>
@@ -338,7 +359,7 @@ if (isset($_GET['cerrar'])) {
             <div class="modal hide fade" id="contenidoModal">
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal" onclick="reiniciarModal()">x</a>
-                    <h3>Grupo</h3>
+                    <h3 id="tituloGrupo">Grupo</h3>
                 </div>
                 <div class="modal-body">
                     <div><span id="nombreModal"></span></div>
@@ -358,15 +379,19 @@ if (isset($_GET['cerrar'])) {
                     <h3 id="tituloRumor"></h3>
                 </div>
                 <div class="modal-body">
-                    <div><span id="nombreModalRumor"></span></div>
                     <div class="fotoCajaRumor">
                         <img class="fotoModalRumor"/>
                     </div>
+                    <div class="enlaceLugar">
+                        <span>Enlace:</span><span id="enlaceRumor"><a id="enlaceRumorModal" target="_blank"></a></span><br>
+                        <span>Lugar:</span><span id="lugarRumor" class="lugarRumor"></span>
+                    </div>
                     <div><span id="descripcionModalRumor"></span></div>
+                    <input type="hidden" id="idRumorModal">
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-success pointer" data-dismiss="modal" onclick="apoyar()">Apoyar</a>
-                    <a class="btn btn-danger pointer" data-dismiss="modal" onclick="desmentir()">Desmentir</a>
+                    <a class="btn btn-success pointer" data-dismiss="modal" onclick="apoyar(this)">Apoyar</a>
+                    <a class="btn btn-danger pointer" data-dismiss="modal" onclick="desmentir(this)">Desmentir</a>
                     <a class="btn pointer" data-dismiss="modal">Cerrar</a>
                 </div>
             </div>
@@ -399,12 +424,13 @@ if (isset($_GET['cerrar'])) {
                                 <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
                             </div>
                             <div class="descripcionRumor">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum praesentium magni...</span>
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum...</span>
                             </div>
                             <div class="lugarRumor">
                                 <p>Alcalá de Henares</p>
                             </div>
                             <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
+                            <input type="hidden" id="idRumor" value="0">
                         </div>
                         <div class="cajaRumor caja">
                             <div id="nombreRumor">
@@ -416,12 +442,13 @@ if (isset($_GET['cerrar'])) {
                                 <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
                             </div>
                             <div class="descripcionRumor">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum praesentium magni...</span>
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum...</span>
                             </div>
                             <div class="lugarRumor">
                                 <p>Alcalá de Henares</p>
                             </div>
                             <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
+                            <input type="hidden" id="idRumor" value="1">
                         </div>
                         <div class="cajaRumor caja">
                             <div id="nombreRumor">
@@ -433,12 +460,13 @@ if (isset($_GET['cerrar'])) {
                                 <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
                             </div>
                             <div class="descripcionRumor">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum praesentium magni...</span>
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum...</span>
                             </div>
                             <div class="lugarRumor">
                                 <p>Alcalá de Henares</p>
                             </div>
                             <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
+                            <input type="hidden" id="idRumor" value="2">
                         </div>
                         <div class="cajaRumor caja">
                             <div id="nombreRumor">
@@ -447,15 +475,16 @@ if (isset($_GET['cerrar'])) {
                             </div>
                             <div class="fotoRumorCaja">
                                 <img class="fotoRumor" src="image/rumor/imageRumor_id_.11.jpg" alt="fotoRumor">
-                                <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
+                                <a id="enlaceRumorCaja" href="php/controlador/apoyarController.php" target="_blank">www.scrab.es</a>
                             </div>
                             <div class="descripcionRumor">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum praesentium magni...</span>
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum...</span>
                             </div>
                             <div class="lugarRumor">
                                 <p>Alcalá de Henares</p>
                             </div>
                             <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
+                            <input type="hidden" id="idRumor" value="3">
                         </div>
                     </div>
             </div>
