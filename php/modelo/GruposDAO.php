@@ -93,7 +93,7 @@ class GruposDAO {
                                         WHERE nombre LIKE ? 
                                             AND privacidad LIKE 'publico' 
                                             AND idgrupos NOT IN 
-                                                (SELECT grupos_idgrupos FROM  anillos WHERE usuarios_personas_idpersonas = ?) 
+                                                (SELECT grupos_idgrupos FROM anillos WHERE usuarios_personas_idpersonas = ?) 
                                          ORDER BY idgrupos DESC limit 3");
         //concatenamos los valores
         $name=$this->bd->real_escape_string($name);
@@ -121,6 +121,13 @@ class GruposDAO {
           print_r($groupArray);
           echo '</pre>'; */
     }
+
+    public function getGruposByUser($id){
+        $query = "SELECT idgrupos,nombre FROM grupos WHERE idgrupos IN (SELECT grupos_idgrupos FROM anillos WHERE usuarios_personas_idpersonas = $id) ORDER BY idgrupos ASC";
+        $result = $this->bd->query($query);
+        return $result;
+    }
+
     public function getPerteneceByIds($idUser,$idGrupo){
         $stm = $this->bd->prepare("SELECT miembroDesde FROM anillos 
                                         WHERE usuarios_personas_idpersonas = ? 

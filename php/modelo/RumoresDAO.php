@@ -8,28 +8,32 @@ class rumoresDAO{
 
 	// Alta de modificacion de rumores, sin comprobaciones ninguna
 
-    const tablaRumores='rumores';
-    private $db;
+	const tablaRumores='rumores';
+	private $db;
 
 	public function __construct(){
 		$obj = new bd();
 		$this->db = $obj->getDB();
-		$this->registroRumor = $this->db->prepare("INSERT INTO rumores (anillos_grupos_idgrupos, anillos_usuarios_idpersonas, contenido, lugar, enlace, personas_idpersonas, foto)
-		                                        VALUES (?,?,?,?,?,?,?)");
+		$this->registroRumor = $this->db->prepare("INSERT INTO rumores (anillos_grupos_idgrupos, anillos_usuarios_idpersonas, contenido, lugar, enlace, personas_idpersonas, foto) VALUES (?,?,?,?,?,?,?)");
 	}
 
 	public function registroRumor($anillosIDgrupo,$idpersona,$contenido,$lugar,$enlace,$trataDe,$foto){
 		$this->registroRumor->bind_param("iisssis", $anillosIDgrupo, $idpersona, $contenido, $lugar, $enlace, $trataDe,$foto);
 		$this->registroRumor->execute();
 	}
-    public function getLastId(){
-        $query = "SELECT MAX(idrumores) AS \"MAYOR\" FROM " . self::tablaRumores;
-        $stm = $this->db->query($query);
-        $dato = $stm->fetch_assoc();
-        $dato['MAYOR']++;
-        return $dato['MAYOR'];
-    }
+	public function getLastId(){
+		$query = "SELECT MAX(idrumores) AS \"MAYOR\" FROM " . self::tablaRumores;
+		$stm = $this->db->query($query);
+		$dato = $stm->fetch_assoc();
+		$dato['MAYOR']++;
+		return $dato['MAYOR'];
+	}
 
+	public function getRumoresFromGrupos($idUser, $idGrupo){
+		$query = "SELECT idrumores, anillos_grupos_idgrupos, anillos_usuarios_idpersonas, contenido, rumores.foto AS foto, lugar, enlace, rumores.personas_idpersonas AS persona, nombre FROM rumores, personas WHERE personas.idpersonas = rumores.anillos_usuarios_idpersonas AND anillos_usuarios_idpersonas != $idUser AND anillos_grupos_idgrupos = $idGrupo";
+		$result = $this->db->query($query);
+		return $result;
+	}
 }
 
 ?>

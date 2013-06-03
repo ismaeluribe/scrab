@@ -1,6 +1,7 @@
 <?php
 //los requires
 require_once '/php/modelo/UserDAO.php';
+require_once '/php/modelo/RumoresDAO.php';
 require_once '/php/modelo/PersonasDAO.php';
 require_once '/php/modelo/GruposDAO.php';
 //iniciamos secion
@@ -83,7 +84,7 @@ if (isset($_GET['cerrar'])) {
                         <ul class="nav">
                             <li class="active"><a href="#"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
                             <li><a href="#">Perfil</a></li>
-                            <li><a href="#">Grupos&nbsp;<span class="badge">8</span></a></li>
+                            <li><a href="#">Grupos<!--&nbsp;<span class="badge">8</span>--></a></li>
                             <li><a href="#">Espiados</a></li>
                         </ul>
                         <form class="navbar-search pull-left" action="">
@@ -298,12 +299,11 @@ if (isset($_GET['cerrar'])) {
                 var usuario = padre.childNodes[1].childNodes[1].childNodes[0];
                 var grupo = padre.childNodes[1].childNodes[3].childNodes[0];
                 var image = padre.childNodes[3].childNodes[1].src;
-                var enlace = padre.childNodes[3].childNodes[3];
+                var enlace = padre.childNodes[3].childNodes[4];
                 var url = enlace.childNodes[0];
                 var descripcion = padre.childNodes[5].childNodes[1].childNodes[0];
                 var lugar = padre.childNodes[7].childNodes[1].childNodes[0];
                 var id = padre.childNodes[11].value;
-                console.log(id);
                 $("#tituloRumor").append(document.createTextNode(usuario.nodeValue + " - " + grupo.nodeValue));
                 $(".fotoModalRumor").attr("src",image);
                 $("#enlaceRumorModal").attr("href",enlace.href);
@@ -395,98 +395,8 @@ if (isset($_GET['cerrar'])) {
                     <a class="btn pointer" data-dismiss="modal">Cerrar</a>
                 </div>
             </div>
-
-            <div class="tabbable tabs-left todoInicio">
-                <ul class="nav nav-tabs listaInicio" style="position:fixed;">
-                    <li><a onclick="scrollUp();" href="#publico" data-toggle="tab">Usuarios</a></li>
-                    <li><a href="#grupo1" data-toggle="tab" onclick="scrollUp();">Grupos</a></li>
-                    <li class="active"><a href="#grupo2" data-toggle="tab" onclick="scrollUp();">Rumores</a></li>
-                </ul>
-                <div class="tab-content centroInicio">
-                    <div class="tab-pane" id="publico">
-                        <?php
-                            require_once("php/controlador/MuestraUsersController.php");
-                        ?>
-                    </div>
-                    <div class="tab-pane" id="grupo1">
-                        <?php
-                            require_once("php/controlador/MuestraGruposController.php");
-                        ?>
-                    </div>
-                    <div class="tab-pane active" id="grupo2">
-                        <div class="cajaRumor caja">
-                            <div id="nombreRumor">
-                                <p>Usuario</p>
-                                <p>Grupo</p>
-                            </div>
-                            <div class="fotoRumorCaja">
-                                <img class="fotoRumor" src="image/rumor/imageRumor_id_.10.jpg" alt="fotoRumor">
-                                <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
-                            </div>
-                            <div class="descripcionRumor">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum...</span>
-                            </div>
-                            <div class="lugarRumor">
-                                <p>Alcalá de Henares</p>
-                            </div>
-                            <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
-                            <input type="hidden" id="idRumor" value="0">
-                        </div>
-                        <div class="cajaRumor caja">
-                            <div id="nombreRumor">
-                                <p>Usuario</p>
-                                <p>Grupo</p>
-                            </div>
-                            <div class="fotoRumorCaja">
-                                <img class="fotoRumor" src="image/rumor/noimage.png" alt="fotoRumor">
-                                <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
-                            </div>
-                            <div class="descripcionRumor">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum...</span>
-                            </div>
-                            <div class="lugarRumor">
-                                <p>Alcalá de Henares</p>
-                            </div>
-                            <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
-                            <input type="hidden" id="idRumor" value="1">
-                        </div>
-                        <div class="cajaRumor caja">
-                            <div id="nombreRumor">
-                                <p>Usuario</p>
-                                <p>Grupo</p>
-                            </div>
-                            <div class="fotoRumorCaja">
-                                <img class="fotoRumor" src="image/rumor/imageRumor_id_.10.jpg" alt="fotoRumor">
-                                <a href="http://www.scrab.es" target="_blank">www.scrab.es</a>
-                            </div>
-                            <div class="descripcionRumor">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum...</span>
-                            </div>
-                            <div class="lugarRumor">
-                                <p>Alcalá de Henares</p>
-                            </div>
-                            <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
-                            <input type="hidden" id="idRumor" value="2">
-                        </div>
-                        <div class="cajaRumor caja">
-                            <div id="nombreRumor">
-                                <p>Usuario</p>
-                                <p>Grupo</p>
-                            </div>
-                            <div class="fotoRumorCaja">
-                                <img class="fotoRumor" src="image/rumor/imageRumor_id_.11.jpg" alt="fotoRumor">
-                                <a id="enlaceRumorCaja" href="php/controlador/apoyarController.php" target="_blank">www.scrab.es</a>
-                            </div>
-                            <div class="descripcionRumor">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, adipisci, nisi, dolorem, voluptatibus eius necessitatibus harum...</span>
-                            </div>
-                            <div class="lugarRumor">
-                                <p>Alcalá de Henares</p>
-                            </div>
-                            <a href="#contenidoModalRumor" data-toggle="modal" title="Ver mas" class="btn btn-small btn-primary verMasRumor" onclick="verMasRumor(this)">Ver más</a>
-                            <input type="hidden" id="idRumor" value="3">
-                        </div>
-                    </div>
-            </div>
+            <?php
+                require_once 'php/controlador/MuestraRumoresPorGruposController.php';
+            ?>
     </body>
 </html>
