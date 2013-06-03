@@ -225,7 +225,6 @@ if (isset($_GET['cerrar'])) {
 
             }
             function errorElements(e) {
-                alert('liada');
                 console.log(e);
                 var obj = JSON.parse(e);
                 console.log(obj);
