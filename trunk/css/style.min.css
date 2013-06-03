@@ -21,5 +21,5 @@ body{background-color:#f7e4c7}.todoInicio{width:1000px;overflow:hidden;padding-b
 .imageLoading{position:fixed;left:47%;top:20%;z-index:3}#fotosModal{background-color:#fff;border:4px dashed rgba(0,0,0,0.2);border-radius:10px 10px 10px 10px;float:right;height:300px;margin-right:30px;margin-top:25px;width:400px}
 #contenido{margin-top:25px}.cajaRumor{-webkit-border-top-right-radius:20px;-moz-border-radius-topright:20px;border-top-right-radius:20px;border-style:solid;border-width:1px;border-color:black;margin-bottom:20px}
 .cajaRumor p{margin-left:10px;text-align:left}.lugarRumor{margin-top:5px;color:#dd4814}.verMasRumor{margin-left:125px;margin-top:-25px;z-index:10}.fotoRumor{height:150px}
-.descripcionRumor{padding:1px}.fotoModalRumor{float:left;height:200px}.enlaceLugar span{margin-left:50px}.enlaceLugar{width:50%;float:left;height:200px;margin-top:30px}
-.fotoCajaRumor{height:200px;width:45%;float:left;margin:0 auto}
+.descripcionRumor{height:100px;padding:1px}.fotoModalRumor{float:left;height:200px}.enlaceLugar span{margin-left:50px}.enlaceLugar{width:50%;float:left;height:200px;margin-top:30px}
+.fotoCajaRumor{height:200px;width:49%;float:left;margin:0 auto}

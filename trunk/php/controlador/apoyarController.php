@@ -4,5 +4,5 @@
 	$idRumor = $_POST['id'];
 	$idUsuario = $_SESSION['id'];
 	$apoyo = new ApoyosDAO();
-	$apoyo->apoyar(5,1);
+	$apoyo->apoyar($idRumor,$idUsuario);
 ?>

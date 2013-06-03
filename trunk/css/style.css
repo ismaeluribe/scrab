@@ -425,6 +425,7 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
 }
 
 .descripcionRumor{
+    height:100px;
     padding:1px;
 }
 
@@ -446,7 +447,7 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
 
 .fotoCajaRumor{
     height:200px;
-    width:45%;
+    width:49%;
     float:left;
     margin:0 auto;
 }

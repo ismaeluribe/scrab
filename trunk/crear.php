@@ -100,7 +100,176 @@ if (isset($_GET['cerrar'])) {
                     document.getElementById("dropModal").ondragover = notDrop;
                 }
 
+                function Buscar(){
+                var ele = $("#searchContent").val();
+                $("#searchResult").empty();
+                $("#loader").show();
+                $("#container-serch-result").removeClass("searchResultOculto");
+                if (ele) {
+                    $.ajax({
+                        type: "POST",
+                        url: 'php/controlador/SearchController.php',
+                        data: 'data=' + ele,
+                        success: responseElements,
+                        error: errorElements
+                    });
+                }else{
+                    $("#searchContent").val("");
+                    $("#searchResult").empty(); 
+                    $("#container-serch-result").addClass("searchResultOculto");
+                }
+            }
+            /*$("#searchContent").bind("blur", function(){
+                $("#searchContent").val("");
+                $("#searchResult").empty(); 
+                $("#container-serch-result").addClass("searchResultOculto");
+            });*/
+            /*$("#searchContent").onblur = function(){
+                alert("Ha hecho blur");
+                $("#searchResult").empty();
+                $("#container-serch-result").addClass("searchResultOculto");
+            }*/
+            /*$("#searchElem").click(function() {
+                var ele = $("#searchContent").val();
+                $("#searchResult").empty();
+                //$("#searchResult").empty()
+                if (ele) {
+                    $.ajax({
+                        type: "POST",
+                        url: 'php/controlador/SearchController.php',
+                        data: 'data=' + ele,
+                        success: responseElements,
+                        error: errorElements
+                    });
+                }
+                else {
+                    alert("tiene que introducir algun texto para buscar algo");
+                }
+            });*/
 
+            function responseElements(e) {
+                //*console.log(e);
+                $("#loader").hide();
+                //$("#container-serch-result").removeClass("searchResultOculto");
+                var obj = JSON.parse(e);
+                //console.log(obj);
+                var v_grupos = obj.grupos;
+                //console.log(v_grupos);
+                var v_personajes = obj.personajes;
+                //console.log(v_personajes);
+                var v_usuarios = obj.usuarios;
+                //console.log(v_usuarios);
+                //escribimos los personajes
+                $("#searchResult").append("<h5>personajes</h5>");
+                if (v_personajes) {
+                    //console.log(v_personajes);
+                
+                    //$("#searchResult").append("<h5>personajes</h5>");
+                    for (var i in v_personajes) {
+                        $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultPersonajes\"></div>");
+                        $("#" + i + "p").append("<img src=\"image/personaje/"+v_personajes[i][2]+"\" class=\"search-image\">");
+                        $("#" + i + "p").append("<span>" + v_personajes[i][0] + "</span>");
+                        $("#" + i + "p").append("<p>" + v_personajes[i][1] + "</p>");
+                        if(v_personajes[i][3]!=0){
+                           // console.log('entra '+ v_personajes[i][3]);
+                            $("#" + i + "p").append("<button id=\"" + i + "p0boton\" value=\"" + i + "p0\" onclick=\"spyPeople(this.value);\" class=\"btn btn-success\">No espiar</button>");
+                        }else {
+                            $("#" + i + "p").append("<button id=\"" + i + "p1boton\" value=\"" + i + "p1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                        }
+                        
+                    }
+                } else $("#searchResult").append("<h5>No se han encontrado personaajes</h5>");
+                ////////////////////////////////////////////
+                $("#searchResult").append("<h5>usuarios</h5>");
+                if (v_usuarios) {
+                    //$("#searchResult").append("<h5>usuarios</h5>");
+                    for (var i in v_usuarios) {
+                        $("#searchResult").append("<div id=\"" + i + "u\" class=\"searchResultUser\"></div>");
+                        $("#" + i + "u").append("<img src=\"image/usuario/"+v_usuarios[i][2]+"\" class=\"search-image\">");
+                        $("#" + i + "u").append("<span>" + v_usuarios[i][0] + "</span>");
+                        $("#" + i + "u").append("<p>" + v_usuarios[i][1] + "</p>");
+                        if(v_usuarios[i][3]!=0){
+                            $("#" + i + "u").append("<button id=\"" + i + "u0boton\" value=\"" + i + "u0\" onclick=\"spyPeople(this.value);\" class=\"btn btn-success\">No espiar</button>");
+                        }else {
+                            $("#" + i + "u").append("<button id=\"" + i + "u1boton\" value=\"" + i + "u1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                        }
+                        
+                    }
+                }else $("#searchResult").append("<h5>No se han encontrado usuarios</h5>");
+                ///////////////////////////////////////////////
+                $("#searchResult").append("<h5>grupos</h5>");
+                if (v_grupos) {
+                    
+                    for (var i in v_grupos) {
+                        $("#searchResult").append("<div id=\"" + i + "g\" class=\"searchResultGrupos\"></div>");
+                        $("#" + i + "g").append("<img src=\"image/grupo/"+v_grupos[i][2]+"\" class=\"search-image\">");
+                        $("#" + i + "g").append("<span>" + v_grupos[i][0] + "</span>");
+                        $("#" + i + "g").append("<p>" + v_grupos[i][1] + "</p>");
+                        $("#" + i + "g").append("<button id=\"" + i + "gboton\" value=\"" + i + "g\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">auto invitarme</button>");
+                    }
+                }else $("#searchResult").append("<h5>No se han encontrado grupos</h5>");
+
+            }
+            function errorElements(e) {
+                alert('liada');
+                console.log(e);
+                var obj = JSON.parse(e);
+                console.log(obj);
+            }
+            function hideSearch(){
+                $("#searchContent").val("");
+                $("#searchResult").empty(); 
+                $("#container-serch-result").addClass("searchResultOculto");
+            }
+            var idAction=null;
+            function spyPeople(e){
+                //console.log(e);
+                idAction=e;
+                var num=e.charAt(0);
+                var controlador=e.charAt(1);
+                var action=null;
+                if(controlador == 'p' || controlador=='u'){
+                    var action=e.charAt(2);
+                    controlador='spyPeopleController.php';
+                }else{
+                    controlador='addGroupController.php';
+                }
+                
+                //alert(action);
+                //var tabla=e.charAt(1);
+                $.ajax({
+                        type: "POST",
+                        url: 'php/controlador/'+controlador,
+                        data: 'data=' + num+"&action="+action,
+                        success: spyReport,
+                        error: errorElements
+                    });
+            }
+            function spyReport(e){
+                var obj=JSON.parse(e);
+                //console.log(e);
+                //var r=parseInt(e);
+                //console.log(r);
+                var idboton="#"+idAction+'boton';
+                $(idboton).removeAttr('onclick');
+                $(idboton).bind("click", hideSearch);
+                $(idboton).removeClass('btn-primary');
+                if(obj=="1"){
+                    $(idboton).html('Hecho');
+                    $(idboton).addClass('btn-success');
+                }else{
+                    $(idboton).html('Listo');
+                    $(idboton).addClass('btn-success');
+                }
+            }
+
+            function successfullAjaxResponse() {//respuesta a la creacion del grupo
+                    $("#responseG").append("<div class=\"alert alert-success\">Se ha guardado la configuración</div>");
+            }
+
+            function errorAjax() {//si ha habido un problema con la peticion
+                $("#responseG").html('<h3>Upsss hay un problema en el sevidor<h3>');
+            }
 
         </script>
 
@@ -126,7 +295,7 @@ if (isset($_GET['cerrar'])) {
                             <li><a href="#">Espiados</a></li>
                         </ul>
                         <form class="navbar-search pull-left" action="">
-                            <input type="text" class="search-query span3" placeholder="Buscar" />
+                            <input type="text" id="searchContent" oninput="Buscar()" class="search-query span3" placeholder="Buscar" />
                         </form>
                         <ul class="nav pull-right">
                             <li class="active">
@@ -159,8 +328,13 @@ if (isset($_GET['cerrar'])) {
         <br/>
         <br/>
         <div class="container" id="wrapper">
-
-
+            <div id="container-serch-result" class="searchResultOculto">
+                <div id="searchResult">
+                    
+                </div>
+                <img class="imageLoading" id="loader" src="img/ajax-loader.gif" alt="Loader">
+                <button onclick="hideSearch();" class="position-cerrar-search">cerrar</button>
+            </div>
             <div class="modal hide fade" id="nuevoRumor">
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal">x</a>
