@@ -120,6 +120,7 @@ if (isset($_GET['cerrar'])) {
                 $("#loader").show();
                 $("#container-serch-result").removeClass("searchResultOculto");
                 if (ele) {
+                    $.ajax().abort();
                     $.ajax({
                         type: "POST",
                         url: 'php/controlador/SearchController.php',
