@@ -47,10 +47,10 @@ eliminar grupos
    
     falta
     	
-	Que el usuario pueda cambiar la foto de perfil
+nico	Que el usuario pueda cambiar la foto de perfil
 	Hacer el resto de páginas
-	Hacer que un usuario no pueda desmentir ni apoyar un rumor 2 veces
-	Que el usuario pueda desmentir un rumor
+isma	Hacer que un usuario no pueda desmentir ni apoyar un rumor 2 veces
+isma	Que el usuario pueda desmentir un rumor
     	pagina de grupos con la opcion de borrar grupos
     	opcionalmente:	añadir gente a los grupos
                        	eliminar participantes de un grupo
