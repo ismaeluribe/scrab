@@ -1,6 +1,7 @@
 <?php
 	$grupos = new GruposDAO();
 	$rumores = new rumoresDAO();
+	$apoyos = new ApoyosDAO();
 	$tabbable = "";
 	$contenido = "";
 	$primero = true;
@@ -25,7 +26,8 @@
 		}
 		$rumors = $rumores->getRumoresFromGrupos($_SESSION['id'],$group->idgrupos);
 		while ($rum = $rumors->fetch_object()){
-			$contenido .= "<div class=\"cajaRumor caja\">\n<div id=\"nombreRumor\">\n<p>$rum->nombre</p>\n<p>$group->nombre</p>\n</div>\n<div class=\"fotoRumorCaja\">\n<img class=\"fotoRumor\" src=\"image/rumor/$rum->foto\" alt=\"$rum->foto\">\n<br><a href=\"http://$rum->enlace\" target=\"_blank\">$rum->enlace</a>\n</div>\n<div class=\"descripcionRumor\">\n<span>$rum->contenido</span>\n</div>\n<div class=\"lugarRumor\">\n<p>$rum->lugar</p>\n</div>\n<a href=\"#contenidoModalRumor\" data-toggle=\"modal\" title=\"Ver mas\" class=\"btn btn-small btn-primary verMasRumor\" onclick=\"verMasRumor(this)\">Ver más</a>\n<input type=\"hidden\" id=\"idRumor\" value=\"$rum->idrumores\">\n</div>\n";
+			$apoyar = $apoyos->checkApoyadoDesmentido($rum->idrumores,$_SESSION['id']);
+			$contenido .= "<div class=\"cajaRumor caja\">\n<div id=\"nombreRumor\">\n<p>$rum->nombre</p>\n<p>$group->nombre</p>\n</div>\n<div class=\"fotoRumorCaja\">\n<img class=\"fotoRumor\" src=\"image/rumor/$rum->foto\" alt=\"$rum->foto\">\n<br><a href=\"http://$rum->enlace\" target=\"_blank\">$rum->enlace</a>\n</div>\n<div class=\"descripcionRumor\">\n<span>$rum->contenido</span>\n</div>\n<div class=\"lugarRumor\">\n<p>$rum->lugar</p>\n</div>\n<a href=\"#contenidoModalRumor\" data-toggle=\"modal\" title=\"Ver mas\" class=\"btn btn-small btn-primary verMasRumor\" onclick=\"verMasRumor(this)\">Ver más</a>\n<input type=\"hidden\" id=\"idRumor\" value=\"$rum->idrumores\">\n<input id=\"$rum->idrumores\" type=\"hidden\" id=\"apoyado\" value=\"$apoyar\">\n</div>\n";
 		}
 		if($rumors->num_rows == 0){
 			$contenido .= "<h3>No hay rumores en este grupo</h3>";

@@ -50,6 +50,7 @@ eliminar grupos
 nico	Que el usuario pueda cambiar la foto de perfil
 	Hacer el resto de páginas
 isma	Hacer que un usuario no pueda desmentir ni apoyar un rumor 2 veces
+isma	Cambiar el script de base de datos en la clave primaria de las conexiones
 isma	Que el usuario pueda desmentir un rumor
     	pagina de grupos con la opcion de borrar grupos
     	opcionalmente:	añadir gente a los grupos

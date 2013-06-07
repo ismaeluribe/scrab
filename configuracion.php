@@ -156,7 +156,6 @@ if (isset($_GET['cerrar'])) {
                         }else {
                             $("#" + i + "p").append("<button id=\"" + i + "p1boton\" value=\"" + i + "p1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
                         }
-                        
                     }
                 } else $("#searchResult").append("<h5>No se han encontrado personaajes</h5>");
                 ////////////////////////////////////////////
@@ -173,7 +172,6 @@ if (isset($_GET['cerrar'])) {
                         }else {
                             $("#" + i + "u").append("<button id=\"" + i + "u1boton\" value=\"" + i + "u1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
                         }
-                        
                     }
                 }else $("#searchResult").append("<h5>No se han encontrado usuarios</h5>");
                 ///////////////////////////////////////////////
