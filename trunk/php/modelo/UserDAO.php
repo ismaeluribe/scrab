@@ -176,7 +176,7 @@ class UserDAO {
     }
 
     private function getConnById($id) {
-        $query1 = "SELECT MAX(idconexiones) AS \"last\" FROM conexiones WHERE usuarios_personas_idpersonas = $id";
+        $query1 = "SELECT MAX(idconexiones) AS \"last\" FROM conexiones";
         $result1 = $this->db->query($query1);
         $mayor = $result1->fetch_assoc();
         $id = $mayor['last'] + 1;
@@ -188,13 +188,7 @@ class UserDAO {
     //funcion para la busqueda de los datos de un usuaario por una parte de la cadena de su nombre
     //el usuario no se ha podido seleccionar como privado
     public function getUserDataByString($name) {
-        $stm = $this->db->prepare("SELECT p.idpersonas, u.nombreUser, p.nombre, p.apellido, p.apellido2, p.foto
-                                    FROM usuarios u, personas p 
-                                    WHERE u.personas_idpersonas=p.idpersonas   
-                                        AND u.privacidad=FALSE 
-                                        AND u.nombreUser LIKE ?
-                                    ORDER BY p.idpersonas DESC limit 3");
-
+        $stm = $this->db->prepare("SELECT p.idpersonas, u.nombreUser, p.nombre, p.apellido, p.apellido2, p.foto FROM usuarios u, personas p WHERE u.personas_idpersonas=p.idpersonas AND u.privacidad=FALSE AND u.nombreUser LIKE ? ORDER BY p.idpersonas DESC limit 3");
         //concatenamos los valores
         $name = '%' . $name . '%';
         if (1 != ($stm->bind_param("s", $name))) {
@@ -208,18 +202,10 @@ class UserDAO {
         }
         $stm->close();
         if (count($userArray)) {
-
             return $userArray;
-        }
-        else
+        } else
             return FALSE;
-        
-       /* echo '<meta charset="UTF-8">';
-        echo '<pre>';
-        print_r($userArray);
-        echo '</pre>';*/
     }
-
 }
 
 //$obj = new UserDAO();
@@ -232,7 +218,7 @@ class UserDAO {
   try{
   $var=$obj->userpass($user, $pass);
   var_dump($var);
-  }  catch (Exception $e){
+  } catch (Exception $e){
   echo "<br>$e<br>";
   }
  */

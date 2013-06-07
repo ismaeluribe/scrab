@@ -52,7 +52,7 @@ class AnillosDAO {
     public function getPersonajeDataByAnillosGroup($name,$idGroup){
         $stm=$this->db->prepare("SELECT personas_idpersonas, mote FROM personajes
 	                              WHERE anillos_grupos_idgrupos = ?
-		                          AND mote LIKE ?  ORDER BY personas_idpersonas DESC limit 3");
+		                          AND mote LIKE ? ORDER BY personas_idpersonas DESC limit 3");
         $name=$this->db->real_escape_string($name);
         $name = '%' . $name . '%';
         if (1 != ($stm->bind_param("is",$idGroup, $name))) {

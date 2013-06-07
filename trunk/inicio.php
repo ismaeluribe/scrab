@@ -1,6 +1,7 @@
 <?php
 //los requires
 require_once '/php/modelo/UserDAO.php';
+require_once '/php/modelo/ApoyosDAO.php';
 require_once '/php/modelo/RumoresDAO.php';
 require_once '/php/modelo/PersonasDAO.php';
 require_once '/php/modelo/GruposDAO.php';
@@ -304,6 +305,20 @@ if (isset($_GET['cerrar'])) {
                 var descripcion = padre.childNodes[5].childNodes[1].childNodes[0];
                 var lugar = padre.childNodes[7].childNodes[1].childNodes[0];
                 var id = padre.childNodes[11].value;
+                var apoyo = padre.childNodes[13].value;
+                if(apoyo == 0){
+                    console.log("estamos en 0");
+                    $("#desmentir").addClass('disabled');
+                    $("#apoyar").removeClass('disabled');
+                }else if(apoyo == 1){
+                    console.log("estamos en 1");
+                    $("#desmentir").removeClass('disabled');
+                    $("#apoyar").addClass('disabled');
+                }else{
+                    console.log("estamos en default");
+                    $("#desmentir").removeClass('disabled');
+                    $("#apoyar").removeClass('disabled');
+                }
                 $("#tituloRumor").append(document.createTextNode(usuario.nodeValue + " - " + grupo.nodeValue));
                 $(".fotoModalRumor").attr("src",image);
                 $("#enlaceRumorModal").attr("href",enlace.href);
@@ -314,12 +329,24 @@ if (isset($_GET['cerrar'])) {
             }
             function apoyar(elemento){
                 var id = elemento.parentNode.parentNode.childNodes[3].childNodes[7].value;
+                $("#"+id).attr("value",1);
+                $("#desmentir").removeClass('disabled');
+                $("#apoyar").addClass('disabled');
                 $.ajax({
                         type: "POST",
                         url: 'php/controlador/apoyarController.php',
-                        data: 'id=' + id,
-                        success: responseElements,
-                        error: errorElements
+                        data: 'id=' + id
+                    });
+            }
+            function desmentir(elemento){
+                var id = elemento.parentNode.parentNode.childNodes[3].childNodes[7].value;
+                $("#"+id).attr("value",0);
+                $("#desmentir").addClass('disabled');
+                $("#apoyar").removeClass('disabled');
+                $.ajax({
+                        type: "POST",
+                        url: 'php/controlador/desmentirController.php',
+                        data: 'id=' + id
                     });
             }
         </script>
@@ -390,8 +417,8 @@ if (isset($_GET['cerrar'])) {
                     <input type="hidden" id="idRumorModal">
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-success pointer" data-dismiss="modal" onclick="apoyar(this)">Apoyar</a>
-                    <a class="btn btn-danger pointer" data-dismiss="modal" onclick="desmentir(this)">Desmentir</a>
+                    <a id="apoyar" class="btn btn-success pointer disabled" data-dismiss="modal" onclick="apoyar(this)">Apoyar</a>
+                    <a id="desmentir" class="btn btn-danger pointer" data-dismiss="modal" onclick="desmentir(this)">Desmentir</a>
                     <a class="btn pointer" data-dismiss="modal">Cerrar</a>
                 </div>
             </div>

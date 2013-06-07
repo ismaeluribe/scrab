@@ -89,12 +89,7 @@ class GruposDAO {
 
     //metodo para buscar los grupos que sean publicos en funcion de que su nombre este contenido en una cadena
     public function getGroupDataByString($name, $id) {
-        $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion, foto FROM " . self::tablaGrupos . " 
-                                        WHERE nombre LIKE ? 
-                                            AND privacidad LIKE 'publico' 
-                                            AND idgrupos NOT IN 
-                                                (SELECT grupos_idgrupos FROM anillos WHERE usuarios_personas_idpersonas = ?) 
-                                         ORDER BY idgrupos DESC limit 3");
+        $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion, foto FROM grupos WHERE nombre LIKE ? AND privacidad LIKE 'publico' AND idgrupos NOT IN (SELECT grupos_idgrupos FROM anillos WHERE usuarios_personas_idpersonas = ?) ORDER BY idgrupos DESC limit 3");
         //concatenamos los valores
         $name=$this->bd->real_escape_string($name);
         $name = '%' . $name . '%';
@@ -109,10 +104,8 @@ class GruposDAO {
         }
         $stm->close();
         if (count($groupArray)) {
-
             return $groupArray;
-        }
-        else
+        } else
             return FALSE;
         /*
           echo '<meta charset="UTF-8">';
@@ -129,11 +122,8 @@ class GruposDAO {
     }
 
     public function getPerteneceByIds($idUser,$idGrupo){
-        $stm = $this->bd->prepare("SELECT miembroDesde FROM anillos 
-                                        WHERE usuarios_personas_idpersonas = ? 
-                                        AND grupos_idgrupos = ?");
+        $stm = $this->bd->prepare("SELECT miembroDesde FROM anillos WHERE usuarios_personas_idpersonas = ? AND grupos_idgrupos = ?");
         if (1 != ($stm->bind_param("ii",$idUser,$idGrupo))) {
-
             throw new EspiarException("errores en el formato de los parametros");
         }
         $stm->execute();
