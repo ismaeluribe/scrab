@@ -402,7 +402,7 @@ if (isset($_GET['cerrar'])) {
 
             <div class="modal hide fade" id="contenidoModalRumor">
                 <div class="modal-header">
-                    <a class="close" data-dismiss="modal" onclick="reiniciarModal()M">x</a>
+                    <a class="close" data-dismiss="modal" onclick="reiniciarModal();">x</a>
                     <h3 id="tituloRumor"></h3>
                 </div>
                 <div class="modal-body">
