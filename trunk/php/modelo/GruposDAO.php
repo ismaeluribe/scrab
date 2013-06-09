@@ -135,6 +135,7 @@ class GruposDAO {
         else return 0;
     }
     public function getNumGroupsByUserId($id){
+        //metodo para la obtencion del numero de grupos que ha creado el usuario
         $var = null;
         $query1 =  "SELECT COUNT(*) FROM grupos WHERE usuarios_personas_idpersonas = ? AND eliminado = 0";
         $stm = $this->bd->prepare($query1);
@@ -152,7 +153,30 @@ class GruposDAO {
         return $var;
     }
 
-
+    public function getGroupAllDataByUserId($id){
+        //metodo paara la obtencion de todos los datos que tiene el usuario
+        $query="SELECT idgrupos,nombre,fecha, descripcion, privacidad,foto
+                    FROM grupos
+                        WHERE usuarios_personas_idpersonas=?
+                        AND eliminado=0";
+        $stm=$this->bd->prepare($query);
+        $stm->bind_param('i',$id);
+        $stm->execute();
+        $stm->bind_result($idgrupos, $nombre, $fecha, $descripcion, $privacidad, $foto);
+        $groupArray = array();
+        while ($stm->fetch()) {
+            $groupArray[$idgrupos] = array('nombre'=>$nombre,
+                'foto'=> $foto,
+                'privacidad'=>$privacidad ,
+                'fecha'=>$fecha,
+                'description'=> $descripcion);
+        }
+        $stm->close();
+        if (count($groupArray)) {
+            return $groupArray;
+        } else
+            return FALSE;
+    }
 
 }
 

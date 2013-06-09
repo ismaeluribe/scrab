@@ -14,6 +14,7 @@ require_once 'php/modelo/GruposDAO.php';
 require_once 'php/modelo/EspiarDAO.php';
 
 
+
 session_start();
 if (!isset($_SESSION['user'], $_SESSION['id'], $_SESSION['pass'], $_SESSION['email'])) {
     header("location: index.php");
@@ -31,6 +32,7 @@ try {
     $arrayUserPerfil=$objUser->getUserPerfilDataById($_SESSION['id']);
     $arrayRumores=$objRumores->getNumRumoresAllByUserId($_SESSION['id']);
     $arrayNumEspio=$objEspiar->getNumEspiarById($_SESSION['id']);
+    $arrayAllDataGroup=$objGrupos->getGroupAllDataByUserId($_SESSION['id']);
 
     //si el array esta vacio salta esta exepcion
     /*echo '<pre>';
@@ -618,7 +620,22 @@ if (isset($_GET['cerrar'])) {
 
         <div class="tab-pane" id="misGrupos">
             <h1>Mis Grupos</h1>
-
+            <?php
+            foreach($arrayAllDataGroup as $key1=>$value){
+                echo "<div id='g".$key1."' class='groups-user' >";
+                    echo "<h2>".$value['nombre']."</h2>";
+                echo'<div class="content-img">';
+                    echo "<img src='image/grupo/".$value['foto']."'/>";
+                echo '</div>';
+                    echo "<h5>".$value['privacidad']."</h5>";
+                    echo "<h4>Haciendo daño desde </h4>";
+                    echo "<p>".$value['fecha']."</p>";
+                    echo "<h4>Descripcion</h4>";
+                    echo "<p class=\"p-description\">".$value['description']."</p>";
+                    echo "<button value='b".$key1."' onclick='eliminaGroup(this.value);' class='btn btn-danger group-btn-eli'>eliminar</button>";
+                echo "</div>";
+            }
+            ?>
         </div>
 
 
