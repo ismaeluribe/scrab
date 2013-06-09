@@ -529,7 +529,105 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     display: block;
     float: left;
 }
+.groups-user{
+    width: 230px;
+    height: auto;
+    border: 3px solid #9F340E;
+    margin-left: 31.5px;
+    margin-top: 100px;
+    float: left;
+    text-align: left;
+    padding: 5px;
+    -webkit-border-radius: 3px;
+    -webkit-border-top-right-radius: 50px;
+    -moz-border-radius: 3px;
+    -moz-border-radius-topright: 50px;
+    border-radius: 3px;
+    border-top-right-radius: 50px;
+    /*
+    background-image: linear-gradient(bottom, rgb(230,133,14) 16%, rgb(255,224,145) 58%, rgb(255,245,196) 79%);
+    background-image: -o-linear-gradient(bottom, rgb(230,133,14) 16%, rgb(255,224,145) 58%, rgb(255,245,196) 79%);
+    background-image: -moz-linear-gradient(bottom, rgb(230,133,14) 16%, rgb(255,224,145) 58%, rgb(255,245,196) 79%);
+    background-image: -webkit-linear-gradient(bottom, rgb(230,133,14) 16%, rgb(255,224,145) 58%, rgb(255,245,196) 79%);
+    background-image: -ms-linear-gradient(bottom, rgb(230,133,14) 16%, rgb(255,224,145) 58%, rgb(255,245,196) 79%);
 
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, rgb(230,133,14)),
+        color-stop(0.58, rgb(255,224,145)),
+        color-stop(0.79, rgb(255,245,196))
+    );*/
+    height: 400px;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    background: none repeat scroll 0 0 #F5F5DC;
+
+    /*864
+
+*/
+}
+
+.groups-user > h2{
+    font-size: 20px;
+    color: #D24413;
+    margin-bottom: 0;
+}
+.groups-user > img{
+    width: 70%;
+    float: left;
+}
+.groups-user > h4{
+    clear: both;
+    color: #D24413;
+    font-size: 16px;
+    margin: 10px 0 0;
+}
+
+.groups-user > h5 {
+    background-color: #D24413;
+    color: white;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    left: -5px;
+    padding: 3px;
+    position: relative;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+}
+.group-btn-eli{
+    position: relative;
+    right: -160px;
+    top: 10px;
+    z-index: 8;
+}
+.content-img{
+    height: 161px;
+    width: 70%;
+    float: left;
+}
+.p-description{
+    min-height: 80px;
+}
 /*
     /Caja rumor
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
