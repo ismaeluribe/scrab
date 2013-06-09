@@ -60,7 +60,59 @@ class EspiarDAO {
             return $espiar;
         else return 0;
     }
-    
+
+
+    private function getNumMeEspianById($id){
+        $var = null;
+        $query1 = "SELECT COUNT(*) FROM usuarios_has_personas
+	            WHERE espiar=1
+                AND personas_idpersonas= ?
+                AND fecha IN (SELECT MAX(fecha)
+                            FROM usuarios_has_personas
+                                GROUP BY personas_idpersonas,usuarios_personas_idpersonas)";
+        $stm = $this->db->prepare($query1);
+        if (1 != ($stm->bind_param("i", $id))) {
+            throw new PersonasException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($nom);
+        if ($stm->fetch()) {
+            $var = $nom;
+        } else {
+            throw new ModeloException("errores en el formato de los parametros");
+        }
+        $stm->close();
+        return $var;
+    }
+    private function getNumEspioById($id){
+        $var = null;
+        $query1 =  "SELECT COUNT(*) FROM usuarios_has_personas
+                            WHERE espiar=1
+                                AND usuarios_personas_idpersonas= ?
+                                AND fecha IN (SELECT MAX(fecha)
+                                            FROM usuarios_has_personas
+                                            GROUP BY personas_idpersonas,usuarios_personas_idpersonas)";
+        $stm = $this->db->prepare($query1);
+        if (1 != ($stm->bind_param("i", $id))) {
+            throw new PersonasException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($nom);
+        if ($stm->fetch()) {
+            $var = $nom;
+        } else {
+            throw new ModeloException("errores en el formato de los parametros");
+        }
+        $stm->close();
+        return $var;
+    }
+
+    public function getNumEspiarById($id){
+        $espio=$this->getNumEspioById($id);
+        $meEspian=$this->getNumMeEspianById($id);
+        return array('espio'=> $espio, 'meEspian'=>$meEspian);
+    }
+
 
 }
 //$obj=new EspiarDAO();

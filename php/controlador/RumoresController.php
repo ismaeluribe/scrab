@@ -25,7 +25,7 @@ $imageName=$_POST['imageNameM'];
 
 $rumor = new rumoresDAO();
 $idR=$rumor->getLastId();
-$slug='imageRumor_id_';
+$slug='imageRumor_id';
 
 if ($imageName!='null'&& $imageFile!='null') {
 
@@ -41,7 +41,7 @@ if ($imageName!='null'&& $imageFile!='null') {
     $encodedData = str_replace(' ', '+', $data[1]);
     $decodedData = base64_decode($encodedData);
     //le ponermos nombre al archivo del grupo
-    $nameImage = $slug . '.' .$idR.'.'. $mime;
+    $nameImage = $slug . '_' .$idR.'.'. $mime;
     if (file_put_contents( '../../image/rumor/'.$nameImage, $decodedData)) {
         //si ha salido bien la carga le damos este valor a esta variable
 

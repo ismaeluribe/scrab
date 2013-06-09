@@ -93,6 +93,21 @@ class PersonasDAO {
         }
         
     }
+    public function setImageByUserId($id,$foto){
+
+        $query="UPDATE personas SET foto = ?
+                  WHERE idpersonas=?";
+
+        $stm=$this->db->prepare($query);
+        if (1 != $stm->bind_param("si", $foto, $id)) {
+            throw new \PersonasException('error en la asignacion de parametros');
+        }
+        $stm->execute();
+        if (1 != $stm->affected_rows) {
+            throw new \PersonasException('error en la en la inserccion en la bd');
+        }
+        //$this->registroUsuario->close()
+    }
 
     function getForCaja(){
         

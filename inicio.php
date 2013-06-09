@@ -16,6 +16,8 @@ try {
     $objPersonas = new PersonasDAO();
     //obtenemos los datos relativos a las personas
     $arrayPersonas = $objPersonas->getDataById($_SESSION['id']);
+    $objG=new GruposDAO();
+    $g_array = $objG->getGroupDataByUserId($_SESSION['id']);
     //si el array esta vacio salta esta exepcion
     if (!$arrayPersonas)
         throw new ModeloException('no existe el id del usuario en personas');
@@ -63,12 +65,43 @@ if (isset($_GET['cerrar'])) {
                 }, 250);
             }
             function nuevoRumor() {
-                $.post("php/controlador/RumoresController.php", {grupo: $("#grupos").val(), contenido: $("#contenido").val(), lugar: $("#lugar").val(), enlace: $("#enlace").val()});
+                $("#fotosModalContent").val('');
+                $("#contenido").val('');
+                $("#lugar").val('');
+                $("#enlace").val('');
+                $("#modalSearchText").val('');
+                $(".modalResultSearchUser").remove();
+                $("#modalSearchUser").addClass('searchResultOculto');
+                $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val(),tratade:$("#modalSearchUser").val(),imageFileM : imageModal,imageNameM : imageNameModal});
             }
-        </script>
 
-        <!--/Scripts -->
+                function notDrop(e) {//funcion que impide el arrastre en el cuadro interno
+                    e.dataTransfer.dropEffect = 'none';
+                    return false;
+                }
 
+                //funcion para cambiar a copi la accionllevada acabo por elemento arrastrado
+                function copyDrop(e) {
+                    e.dataTransfer.dropEffect = 'copy';
+                    return false;
+                }
+
+
+            //funciones para cambiar el estado de los elemntos
+            function over() {
+               // document.getElementById("centroInicioJs").ondragover = copyDrop;
+                document.getElementById("dropModal").ondragover = copyDrop;
+
+                $(".drop-files-generic").css("color", "#006699");
+                $(".drop-files-generic").css("background-color", "#cccfff");
+            }
+            function leave() {
+                $(".drop-files-generic").css("background-color", "#cccccc");
+                $(".drop-files-generic").css("color", "black");
+                //document.getElementById("centroInicioJs").ondragover = notDrop;
+                document.getElementById("dropModal").ondragover = notDrop;
+            }
+</script>
         <title>Scrab</title>
     </head>
     <body>
@@ -84,13 +117,12 @@ if (isset($_GET['cerrar'])) {
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li class="active"><a href="#"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
-                            <li><a href="#">Perfil</a></li>
+                            <li><a href="perfil.php">Perfil</a></li>
                             <li><a href="#">Grupos<!--&nbsp;<span class="badge">8</span>--></a></li>
-                            <li><a href="#">Espiados</a></li>
                         </ul>
-                        <form class="navbar-search pull-left" action="">
-                            <input type="text" id="searchContent" oninput="Buscar()" class="search-query span3" placeholder="Buscar" />
-                        </form>
+
+                        <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar" />
+                        <button id="searchElem" class="btn btn-primary" >Busca</button>
                         <ul class="nav pull-right">
                             <li>
                                 <a href="crear.php">Crear</a>
@@ -115,41 +147,15 @@ if (isset($_GET['cerrar'])) {
             </nav>
         </header>
         <script>
-            function Buscar(){
-                var ele = $("#searchContent").val();
-                $("#searchResult").empty();
-                $("#loader").show();
-                $("#container-serch-result").removeClass("searchResultOculto");
-                if (ele) {
-                    $.ajax().abort();
-                    $.ajax({
-                        type: "POST",
-                        url: 'php/controlador/SearchController.php',
-                        data: 'data=' + ele,
-                        success: responseElements,
-                        error: errorElements
-                    });
-                }else{
-                    $("#searchContent").val("");
-                    $("#searchResult").empty(); 
-                    $("#container-serch-result").addClass("searchResultOculto");
-                }
-            }
-            /*$("#searchContent").bind("blur", function(){
-                $("#searchContent").val("");
-                $("#searchResult").empty(); 
-                $("#container-serch-result").addClass("searchResultOculto");
-            });*/
-            /*$("#searchContent").onblur = function(){
-                alert("Ha hecho blur");
-                $("#searchResult").empty();
-                $("#container-serch-result").addClass("searchResultOculto");
-            }*/
-            /*$("#searchElem").click(function() {
+            $("#searchElem").click(function() {
+                
+                
                 var ele = $("#searchContent").val();
                 $("#searchResult").empty();
                 //$("#searchResult").empty()
                 if (ele) {
+                    $("#container-serch-result").append("<img class=\"imageLoading\" id=\"loader\" src=\"img/ajax-loader.gif\" alt=\"Loader\">");
+                    $("#container-serch-result").removeClass("searchResultOculto");
                     $.ajax({
                         type: "POST",
                         url: 'php/controlador/SearchController.php',
@@ -161,11 +167,11 @@ if (isset($_GET['cerrar'])) {
                 else {
                     alert("tiene que introducir algun texto para buscar algo");
                 }
-            });*/
+            });
 
             function responseElements(e) {
                 //*console.log(e);
-                $("#loader").hide();
+                $("#loader").remove();
                 //$("#container-serch-result").removeClass("searchResultOculto");
                 var obj = JSON.parse(e);
                 //console.log(obj);
@@ -226,14 +232,14 @@ if (isset($_GET['cerrar'])) {
                 }else $("#searchResult").append("<h5>No se han encontrado grupos</h5>");
 
             }
+            
             function errorElements(e) {
+                alert('liada');
                 console.log(e);
                 var obj = JSON.parse(e);
                 console.log(obj);
             }
             function hideSearch(){
-                $("#searchContent").val("");
-                $("#searchResult").empty(); 
                 $("#container-serch-result").addClass("searchResultOculto");
             }
             var idAction=null;
@@ -277,6 +283,7 @@ if (isset($_GET['cerrar'])) {
                     $(idboton).addClass('btn-success');
                 }
             }
+
             function verMas(elemento){
                 $("#tituloGrupo").contents().filter(function(){ return this.nodeType != 1;}).remove();
                 $("#descripcionModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
@@ -358,30 +365,141 @@ if (isset($_GET['cerrar'])) {
         <div class="container" id="wrapper">
             <div id="container-serch-result" class="searchResultOculto">
                 <div id="searchResult">
-                    
+                     
                 </div>
-                <img class="imageLoading" id="loader" src="img/ajax-loader.gif" alt="Loader">
+                
                 <button onclick="hideSearch();" class="position-cerrar-search">cerrar</button>
             </div>
+
             <div class="modal hide fade" id="nuevoRumor">
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal">x</a>
                     <h3>Nuevo rumor</h3>
                 </div>
-                <div class="modal-body">
+
+
+                <div id="dropModal" class="modal-body">
                     <select name="grupos" id="grupos">
-                        <option value="1">Público</option>
-                        <option value="2">Grupo1</option>
-                    </select><br>
+                        <option value="0">elige un grupo</option>
+                        <?php
+                        foreach($g_array as $key=>$value) {
+                            echo "<option value=\"$key\">$value</option>";
+                        }
+                        ?>
+                    </select>
+                    <input type="text" name="modalSearchText" id="modalSearchText" placeholder="busca tu presa">
+                    <button class="btn btn-primary" id="modalSearchButton">buscar</button>
+
+                    <select name="modalSearchUser" id="modalSearchUser" class="searchResultOculto">
+                        <option value="0">elige uno</option>
+                    </select>
+                    <div id="fotosModal" class="not-drop-files-generic">
+                        <div id="fotosModalContent" class="drop-files-generic">
+                            Arrastra una imagen
+                        </div>
+                    </div>
+
+                    <br>
                     <textarea name="contenido" id="contenido" cols="30" rows="10" placeholder="Contenido"></textarea><br>
                     <input type="text" name="lugar" id="lugar" placeholder="Lugar"><br>
-                    <input type="url" name="enlace" id="enlace" placeholder="Enlace">
+                    <input type="text" name="enlace" id="enlace" placeholder="Enlace"><br>
                 </div>
+
                 <div class="modal-footer">
                     <a href="#" class="btn" data-dismiss="modal">Cerrar</a>
                     <button onclick="nuevoRumor();" class="btn btn-primary" data-dismiss="modal">Enviar rumor</button>
                 </div>
             </div>
+            <script>
+                document.getElementById("dropModal").ondragover = notDrop;
+                document.getElementById("fotosModalContent").ondragover = over;
+                document.getElementById("fotosModalContent").ondragleave = leave;
+
+                var imageModal = null;
+                var imageNameModal = null;
+                // var imgBool=false;
+
+                function dropImageModal(e) {//script para controlar el drag and drop de la imagen
+                    e.stopPropagation(); // para la propagacion
+                    e.preventDefault();
+                    //aciones al arrastrar la imagen
+                    //imagen
+                    var files = e.dataTransfer.files;
+                    if (!files[0].type.match('image.*')) {//si no ess una imegen
+                        $("#fotosModalContent").html("tienes que arrastrar una imagen");
+                        return false;
+                    }
+                    else {//si es una imagen
+                        var reader = new FileReader();
+                        reader.onload = (function(theFile) {//le asignamos un clouster a la carga de la iamgen
+                            return function(e) {
+                                imageModal = this.result;
+
+                                $("#fotosModalContent").empty();
+
+                                $("#fotosModalContent").append("<img class=\"imagen\" src=\"" + e.target.result + "\" alt=\"" + theFile.name + "\">");
+
+                            };
+
+                        })(files[0]);//parametros para el clouster autoinvocado
+                        imageNameModal = files[0].name;//obtenemos el nombre de la imagen
+                        reader.readAsDataURL(files[0]);
+                    }
+                    $(".drop-files-generic").css("background-color", "#cccccc");
+                    $(".drop-files-generic").css("color", "black");
+                    document.getElementById("dropModal").ondragover = notDrop;
+                }
+                document.getElementById("fotosModalContent").ondrop = dropImageModal;
+
+                /****************************************************/
+                $("#modalSearchButton").click(function() {
+                    var ele = $("#modalSearchText").val();
+                    var group=$("#grupos").val();
+                    if (ele && group!=0){
+                        if($(".modalResultSearchUser")){
+
+                            $(".modalResultSearchUser").remove();
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: 'php/controlador/SearchInAnillosController.php',
+                            data: 'data=' + ele+'&group='+group,
+                            success: responseSearch,
+                            error: errorSearch
+                        });
+                    }
+                    else {
+                        alert("tiene que introducir algun texto para buscar algo o selecciona un grupos");
+                    }
+                });
+                function errorSearch(e){
+                    alert('upss ha ocurrido algo inesperado');
+                    console.log(e);
+                }
+                function responseSearch(e){
+
+                    $('#modalSearchUser').removeClass('searchResultOculto');
+                    var obj = JSON.parse(e);
+                    var v_personajes = obj.personajes;
+                    //console.log(v_personajes);
+
+                    var v_usuarios = obj.usuarios;
+                    //console.log(v_usuarios);
+                    if(v_personajes){
+                        for (var i in v_personajes){
+                            $("#modalSearchUser").append("<option class='modalResultSearchUser' value=\""+i+"\">"+v_personajes[i]+"</option>");
+                        }
+                    }
+
+                    if(v_usuarios){
+                        for (var i in v_usuarios){
+                            $("#modalSearchUser").append("<option class='modalResultSearchUser' value=\""+i+"\">"+v_usuarios[i]+"</option>")
+                        }
+                    }
+
+                }
+
+            </script>
 
             <div class="modal hide fade" id="contenidoModal">
                 <div class="modal-header">
@@ -402,7 +520,7 @@ if (isset($_GET['cerrar'])) {
 
             <div class="modal hide fade" id="contenidoModalRumor">
                 <div class="modal-header">
-                    <a class="close" data-dismiss="modal" onclick="reiniciarModal()M">x</a>
+                    <a class="close" data-dismiss="modal" onclick="reiniciarModal();">x</a>
                     <h3 id="tituloRumor"></h3>
                 </div>
                 <div class="modal-body">

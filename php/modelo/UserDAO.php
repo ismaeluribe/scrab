@@ -87,7 +87,6 @@ class UserDAO {
         $this->userName->close();
         return $bool;
     }
-
     function getUserInfo($id){
         $this->getUserInfo->bind_param("i", $id);
         $this->getUserInfo->execute();
@@ -96,7 +95,6 @@ class UserDAO {
         return array("nombre"=>$nombre,"mail"=>$mail);
         $this->getUserInfo->free_result();
     }
-
     public function emailUser($email) {
         $bool = false;
         $this->email->bind_param("s", $email);
@@ -109,7 +107,6 @@ class UserDAO {
         $this->email->close();
         return $bool;
     }
-
     public function conexion($id) {
         $bool = false;
         $datos = $this->getDatos();
@@ -120,7 +117,6 @@ class UserDAO {
         return $bool;
         // echo $this->db->error;
     }
-
     function formPrivacidad($id){
         $this->getPrivacidad->bind_param("i",$id);
         $this->getPrivacidad->execute();
@@ -133,12 +129,10 @@ class UserDAO {
         }
         $this->getPrivacidad->free_result();
     }
-
     private function dropUser($user) {
         $this->dropUsuario->bind_param("i", $user);
         $this->dropUsuario->execute();
     }
-
     function getDatos() {
         $temp = array();
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -164,7 +158,6 @@ class UserDAO {
             array_push($temp, "Navegador desconocido");
         return $temp;
     }
-
     function modificaMail($mail, $id, $privacidad){
         if($mail != ""){
             $query = "UPDATE usuarios SET email = \"$mail\" WHERE personas_idpersonas = $id";
@@ -174,7 +167,6 @@ class UserDAO {
         $queryPrivacidad = "UPDATE usuarios SET privacidad = \"$privacidad\" WHERE personas_idpersonas = $id";
         $this->db->query($queryPrivacidad);
     }
-
     private function getConnById($id) {
         $query1 = "SELECT MAX(idconexiones) AS \"last\" FROM conexiones";
         $result1 = $this->db->query($query1);
@@ -184,7 +176,6 @@ class UserDAO {
         $result1->close();
         return $id;
     }
-
     //funcion para la busqueda de los datos de un usuaario por una parte de la cadena de su nombre
     //el usuario no se ha podido seleccionar como privado
     public function getUserDataByString($name) {
@@ -205,6 +196,56 @@ class UserDAO {
             return $userArray;
         } else
             return FALSE;
+    }
+    public function getUserPerfilDataById($id){
+
+        $var = null;
+        $query1 = "SELECT p.fechaNac, p.sexo, IFNULL(u.estado,'no tienes estado')AS estado
+              FROM personas p, usuarios u
+	            WHERE p.idpersonas=u.personas_idpersonas
+                AND u.personas_idpersonas=?";
+        $stm = $this->db->prepare($query1);
+        if (1 != ($stm->bind_param("i", $id))) {
+            throw new PersonasException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($fechaNac, $sexo, $estado);
+        if ($stm->fetch()) {
+            if(isset($sexo)){
+                if($sexo=='h'){
+                    $sexo='hombre';
+
+                }elseif($sexo=='m'){
+                    $sexo='mujer';
+                }else{
+                    $sexo='incierto';
+                }
+            }
+            $var = array('nac' => $fechaNac, 'sexo' => $sexo, 'estado' => $estado);
+        } else {
+            throw new UserExceptionException("errores en el formato de los parametros");
+        }
+        $stm->close();
+        return $var;
+
+
+
+    }
+
+    public function setEstadoByUserId($id,$estado){
+        $query="UPDATE usuarios SET estado = ?
+                  WHERE personas_idpersonas=?";
+
+        $stm=$this->db->prepare($query);
+
+        if (1 != $stm->bind_param("si", $estado, $id)) {
+            throw new \UserException('error en la asignacion de parametros');
+        }
+        $stm->execute();
+        if (1 != $stm->affected_rows) {
+            throw new \UserException('error en la en la inserccion en la bd');
+        }
+        //$this->registroUsuario->close()
     }
 }
 

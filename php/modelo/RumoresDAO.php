@@ -1,8 +1,8 @@
 <?php
 
-$base_dir = realpath(dirname(__FILE__) . '/..');
+$base_dir_Rumores = realpath(dirname(__FILE__) . '/..');
 //definimos como directorio base el directorio en el que estamos en este caso es /php
-require_once("{$base_dir}/commons/bd.php");
+require_once("{$base_dir_Rumores}/commons/bd.php");
 
 class rumoresDAO{
 
@@ -34,6 +34,47 @@ class rumoresDAO{
 		$result = $this->db->query($query);
 		return $result;
 	}
+
+    private function getNumRumByUserId($id){
+        $var = null;
+        $query1 =  "SELECT COUNT(idrumores)as 'lanzados' FROM rumores WHERE anillos_usuarios_idpersonas=? GROUP BY anillos_usuarios_idpersonas";
+        $stm = $this->db->prepare($query1);
+        if (1 != ($stm->bind_param("i", $id))) {
+            throw new PersonasException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($nom);
+        if ($stm->fetch()) {
+            $var = $nom;
+        } else {
+            throw new ModeloException("errores en el formato de los parametros");
+        }
+        $stm->close();
+        return $var;
+    }
+
+    private function getNumRumoresLanzadosByUserId($id){
+        $var = null;
+        $query1 =  "SELECT COUNT(idrumores) FROM rumores WHERE personas_idpersonas=? GROUP BY personas_idpersonas";
+        $stm = $this->db->prepare($query1);
+        if (1 != ($stm->bind_param("i", $id))) {
+            throw new PersonasException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($nom);
+        if ($stm->fetch()) {
+            $var = $nom;
+        } else {
+            throw new ModeloException("errores en el formato de los parametros");
+        }
+        $stm->close();
+        return $var;
+    }
+    public function  getNumRumoresAllByUserId($id){
+        $lanzados=$this->getNumRumByUserId($id);
+        $sobreMi=$this->getNumRumoresLanzadosByUserId($id);
+        return array('lanzados'=>$lanzados,'sobreMi'=>$sobreMi);
+    }
 }
 
 ?>
