@@ -70,6 +70,14 @@ if (isset($_GET['cerrar'])) {
         <script src="js/libs/bootstrap/bootstrap-typeahead.js"></script>
         <script type="text/javascript">
             function nuevoRumor(){
+                alert('se envia');
+                $("#fotosModalContent").val('');
+                $("#contenido").val('');
+                $("#lugar").val('');
+                $("#enlace").val('');
+                $("#modalSearchText").val('');
+                $(".modalResultSearchUser").remove();
+                $("#modalSearchUser").addClass('searchResultOculto');
                 $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val(),tratade:$("#modalSearchUser").val(),imageFileM : imageModal,imageNameM : imageNameModal});
             }
 
@@ -100,168 +108,6 @@ if (isset($_GET['cerrar'])) {
                     document.getElementById("dropModal").ondragover = notDrop;
                 }
 
-                function Buscar(){
-                var ele = $("#searchContent").val();
-                $("#searchResult").empty();
-                $("#loader").show();
-                $("#container-serch-result").removeClass("searchResultOculto");
-                if (ele) {
-                    $.ajax().abort();
-                    $.ajax({
-                        type: "POST",
-                        url: 'php/controlador/SearchController.php',
-                        data: 'data=' + ele,
-                        success: responseElements,
-                        error: errorElements
-                    });
-                }else{
-                    $("#searchContent").val("");
-                    $("#searchResult").empty(); 
-                    $("#container-serch-result").addClass("searchResultOculto");
-                }
-            }
-            /*$("#searchContent").bind("blur", function(){
-                $("#searchContent").val("");
-                $("#searchResult").empty(); 
-                $("#container-serch-result").addClass("searchResultOculto");
-            });*/
-            /*$("#searchContent").onblur = function(){
-                alert("Ha hecho blur");
-                $("#searchResult").empty();
-                $("#container-serch-result").addClass("searchResultOculto");
-            }*/
-            /*$("#searchElem").click(function() {
-                var ele = $("#searchContent").val();
-                $("#searchResult").empty();
-                //$("#searchResult").empty()
-                if (ele) {
-                    $.ajax({
-                        type: "POST",
-                        url: 'php/controlador/SearchController.php',
-                        data: 'data=' + ele,
-                        success: responseElements,
-                        error: errorElements
-                    });
-                }
-                else {
-                    alert("tiene que introducir algun texto para buscar algo");
-                }
-            });*/
-
-            function responseElements(e) {
-                //*console.log(e);
-                $("#loader").hide();
-                //$("#container-serch-result").removeClass("searchResultOculto");
-                var obj = JSON.parse(e);
-                //console.log(obj);
-                var v_grupos = obj.grupos;
-                //console.log(v_grupos);
-                var v_personajes = obj.personajes;
-                //console.log(v_personajes);
-                var v_usuarios = obj.usuarios;
-                //console.log(v_usuarios);
-                //escribimos los personajes
-                $("#searchResult").append("<h5>personajes</h5>");
-                if (v_personajes) {
-                    //console.log(v_personajes);
-                
-                    //$("#searchResult").append("<h5>personajes</h5>");
-                    for (var i in v_personajes) {
-                        $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultPersonajes\"></div>");
-                        $("#" + i + "p").append("<img src=\"image/personaje/"+v_personajes[i][2]+"\" class=\"search-image\">");
-                        $("#" + i + "p").append("<span>" + v_personajes[i][0] + "</span>");
-                        $("#" + i + "p").append("<p>" + v_personajes[i][1] + "</p>");
-                        if(v_personajes[i][3]!=0){
-                           // console.log('entra '+ v_personajes[i][3]);
-                            $("#" + i + "p").append("<button id=\"" + i + "p0boton\" value=\"" + i + "p0\" onclick=\"spyPeople(this.value);\" class=\"btn btn-success\">No espiar</button>");
-                        }else {
-                            $("#" + i + "p").append("<button id=\"" + i + "p1boton\" value=\"" + i + "p1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
-                        }
-                        
-                    }
-                } else $("#searchResult").append("<h5>No se han encontrado personaajes</h5>");
-                ////////////////////////////////////////////
-                $("#searchResult").append("<h5>usuarios</h5>");
-                if (v_usuarios) {
-                    //$("#searchResult").append("<h5>usuarios</h5>");
-                    for (var i in v_usuarios) {
-                        $("#searchResult").append("<div id=\"" + i + "u\" class=\"searchResultUser\"></div>");
-                        $("#" + i + "u").append("<img src=\"image/usuario/"+v_usuarios[i][2]+"\" class=\"search-image\">");
-                        $("#" + i + "u").append("<span>" + v_usuarios[i][0] + "</span>");
-                        $("#" + i + "u").append("<p>" + v_usuarios[i][1] + "</p>");
-                        if(v_usuarios[i][3]!=0){
-                            $("#" + i + "u").append("<button id=\"" + i + "u0boton\" value=\"" + i + "u0\" onclick=\"spyPeople(this.value);\" class=\"btn btn-success\">No espiar</button>");
-                        }else {
-                            $("#" + i + "u").append("<button id=\"" + i + "u1boton\" value=\"" + i + "u1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
-                        }
-                        
-                    }
-                }else $("#searchResult").append("<h5>No se han encontrado usuarios</h5>");
-                ///////////////////////////////////////////////
-                $("#searchResult").append("<h5>grupos</h5>");
-                if (v_grupos) {
-                    
-                    for (var i in v_grupos) {
-                        $("#searchResult").append("<div id=\"" + i + "g\" class=\"searchResultGrupos\"></div>");
-                        $("#" + i + "g").append("<img src=\"image/grupo/"+v_grupos[i][2]+"\" class=\"search-image\">");
-                        $("#" + i + "g").append("<span>" + v_grupos[i][0] + "</span>");
-                        $("#" + i + "g").append("<p>" + v_grupos[i][1] + "</p>");
-                        $("#" + i + "g").append("<button id=\"" + i + "gboton\" value=\"" + i + "g\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">auto invitarme</button>");
-                    }
-                }else $("#searchResult").append("<h5>No se han encontrado grupos</h5>");
-
-            }
-            function errorElements(e) {
-                console.log(e);
-                var obj = JSON.parse(e);
-                console.log(obj);
-            }
-            function hideSearch(){
-                $("#searchContent").val("");
-                $("#searchResult").empty(); 
-                $("#container-serch-result").addClass("searchResultOculto");
-            }
-            var idAction=null;
-            function spyPeople(e){
-                //console.log(e);
-                idAction=e;
-                var num=e.charAt(0);
-                var controlador=e.charAt(1);
-                var action=null;
-                if(controlador == 'p' || controlador=='u'){
-                    var action=e.charAt(2);
-                    controlador='spyPeopleController.php';
-                }else{
-                    controlador='addGroupController.php';
-                }
-                
-                //alert(action);
-                //var tabla=e.charAt(1);
-                $.ajax({
-                        type: "POST",
-                        url: 'php/controlador/'+controlador,
-                        data: 'data=' + num+"&action="+action,
-                        success: spyReport,
-                        error: errorElements
-                    });
-            }
-            function spyReport(e){
-                var obj=JSON.parse(e);
-                //console.log(e);
-                //var r=parseInt(e);
-                //console.log(r);
-                var idboton="#"+idAction+'boton';
-                $(idboton).removeAttr('onclick');
-                $(idboton).bind("click", hideSearch);
-                $(idboton).removeClass('btn-primary');
-                if(obj=="1"){
-                    $(idboton).html('Hecho');
-                    $(idboton).addClass('btn-success');
-                }else{
-                    $(idboton).html('Listo');
-                    $(idboton).addClass('btn-success');
-                }
-            }
 
             function successfullAjaxResponse() {//respuesta a la creacion del grupo
                     $("#responseG").append("<div class=\"alert alert-success\">Se ha guardado la configuración</div>");
@@ -279,60 +125,189 @@ if (isset($_GET['cerrar'])) {
     </head>
     <body>
 
-        <!-- Barra de navegación -->
+    <header class="navbar navbar-fixed-top">
+        <nav class="navbar-inner" style="margin:auto;">
+            <div class="container fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse">
+                </a>
+                <a class="brand" href="index.php">Scrab</a>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li><a href="inicio.php"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
+                        <li><a href="perfil.php">Perfil</a></li>
+                        <li><a href="#">Grupos<!--&nbsp;<span class="badge">8</span>--></a></li>
+                    </ul>
 
-        <header class="navbar navbar-fixed-top">
-            <nav class="navbar-inner" style="margin:auto;">
-                <div class="container fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse">
-                    </a>
-                    <a class="brand" href="index.php">Scrab</a>
-                    <div class="nav-collapse">
-                        <ul class="nav">
-                            <li><a href="inicio.php"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
-                            <li><a href="#">Perfil</a></li>
-                            <li><a href="#">Grupos&nbsp;<span class="badge">8</span></a></li>
-                            <li><a href="#">Espiados</a></li>
-                        </ul>
-                        <form class="navbar-search pull-left" action="">
-                            <input type="text" id="searchContent" oninput="Buscar()" class="search-query span3" placeholder="Buscar" />
-                        </form>
-                        <ul class="nav pull-right">
-                            <li class="active">
-                                <a href="crear.php">Crear</a>
-                            </li>
-                            <li>
-                                <a href="#nuevoRumor" data-toggle="modal" title="Nuevo rumor" class="btn-primary">
-                                    <img src="img/scrab.png" style="height:17px;" />
-                                </a>
-
-                            </li>
-
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="fperfil" src="image/usuario/<?php echo $arrayPersonas['imagen']; ?>">&nbsp;&nbsp;<?php echo $_SESSION['user']; ?></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Ayuda</a></li>
-                                    <li><a href="configuracion.php">Configuración</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="inicio.php?cerrar=1" name="cerrar">Cerrar sesión</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar" />
+                    <button id="searchElem" class="btn btn-primary" >Busca</button>
+                    <ul class="nav pull-right">
+                        <li  class="active">
+                            <a href="crear.php">Crear</a>
+                        </li>
+                        <li>
+                            <a href="#nuevoRumor" data-toggle="modal" title="Nuevo rumor" class="btn-primary">
+                                <img src="img/scrab.png" style="height:17px;" />
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="fperfil" src="image/usuario/<?php echo $arrayPersonas['imagen']; ?>">&nbsp;&nbsp;<?php echo $_SESSION['user']; ?></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Ayuda</a></li>
+                                <li><a href="configuracion.php">Configuración</a></li>
+                                <li class="divider"></li>
+                                <li><a href="inicio.php?cerrar=1" name="cerrar">Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-        </header>
+            </div>
+        </nav>
+    </header>
+    <script>
+    $("#searchElem").click(function() {
 
-        <!-- /Barra de navegación -->
 
-        <br/>
+        var ele = $("#searchContent").val();
+        $("#searchResult").empty();
+        //$("#searchResult").empty()
+        if (ele) {
+            $("#container-serch-result").append("<img class=\"imageLoading\" id=\"loader\" src=\"img/ajax-loader.gif\" alt=\"Loader\">");
+            $("#container-serch-result").removeClass("searchResultOculto");
+            $.ajax({
+                type: "POST",
+                url: 'php/controlador/SearchController.php',
+                data: 'data=' + ele,
+                success: responseElements,
+                error: errorElements
+            });
+        }
+        else {
+            alert("tiene que introducir algun texto para buscar algo");
+        }
+    });
+
+    function responseElements(e) {
+        //*console.log(e);
+        $("#loader").remove();
+        //$("#container-serch-result").removeClass("searchResultOculto");
+        var obj = JSON.parse(e);
+        //console.log(obj);
+        var v_grupos = obj.grupos;
+        //console.log(v_grupos);
+        var v_personajes = obj.personajes;
+        //console.log(v_personajes);
+        var v_usuarios = obj.usuarios;
+        //console.log(v_usuarios);
+        //escribimos los personajes
+        $("#searchResult").append("<h5>personajes</h5>");
+        if (v_personajes) {
+            //console.log(v_personajes);
+
+            //$("#searchResult").append("<h5>personajes</h5>");
+            for (var i in v_personajes) {
+                $("#searchResult").append("<div id=\"" + i + "p\" class=\"searchResultPersonajes\"></div>");
+                $("#" + i + "p").append("<img src=\"image/personaje/"+v_personajes[i][2]+"\" class=\"search-image\">");
+                $("#" + i + "p").append("<span>" + v_personajes[i][0] + "</span>");
+                $("#" + i + "p").append("<p>" + v_personajes[i][1] + "</p>");
+                if(v_personajes[i][3]!=0){
+                    // console.log('entra '+ v_personajes[i][3]);
+                    $("#" + i + "p").append("<button id=\"" + i + "p0boton\" value=\"" + i + "p0\" onclick=\"spyPeople(this.value);\" class=\"btn btn-success\">No espiar</button>");
+                }else {
+                    $("#" + i + "p").append("<button id=\"" + i + "p1boton\" value=\"" + i + "p1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                }
+
+            }
+        } else $("#searchResult").append("<h5>No se han encontrado personaajes</h5>");
+        ////////////////////////////////////////////
+        $("#searchResult").append("<h5>usuarios</h5>");
+        if (v_usuarios) {
+            //$("#searchResult").append("<h5>usuarios</h5>");
+            for (var i in v_usuarios) {
+                $("#searchResult").append("<div id=\"" + i + "u\" class=\"searchResultUser\"></div>");
+                $("#" + i + "u").append("<img src=\"image/usuario/"+v_usuarios[i][2]+"\" class=\"search-image\">");
+                $("#" + i + "u").append("<span>" + v_usuarios[i][0] + "</span>");
+                $("#" + i + "u").append("<p>" + v_usuarios[i][1] + "</p>");
+                if(v_usuarios[i][3]!=0){
+                    $("#" + i + "u").append("<button id=\"" + i + "u0boton\" value=\"" + i + "u0\" onclick=\"spyPeople(this.value);\" class=\"btn btn-success\">No espiar</button>");
+                }else {
+                    $("#" + i + "u").append("<button id=\"" + i + "u1boton\" value=\"" + i + "u1\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">espiar</button>");
+                }
+
+            }
+        }else $("#searchResult").append("<h5>No se han encontrado usuarios</h5>");
+        ///////////////////////////////////////////////
+        $("#searchResult").append("<h5>grupos</h5>");
+        if (v_grupos) {
+
+            for (var i in v_grupos) {
+                $("#searchResult").append("<div id=\"" + i + "g\" class=\"searchResultGrupos\"></div>");
+                $("#" + i + "g").append("<img src=\"image/grupo/"+v_grupos[i][2]+"\" class=\"search-image\">");
+                $("#" + i + "g").append("<span>" + v_grupos[i][0] + "</span>");
+                $("#" + i + "g").append("<p>" + v_grupos[i][1] + "</p>");
+                $("#" + i + "g").append("<button id=\"" + i + "gboton\" value=\"" + i + "g\" onclick=\"spyPeople(this.value);\" class=\"btn btn-primary\">auto invitarme</button>");
+            }
+        }else $("#searchResult").append("<h5>No se han encontrado grupos</h5>");
+
+    }
+    function errorElements(e) {
+        alert('liada');
+        console.log(e);
+        var obj = JSON.parse(e);
+        console.log(obj);
+    }
+    function hideSearch(){
+        $("#container-serch-result").addClass("searchResultOculto");
+    }
+    var idAction=null;
+    function spyPeople(e){
+        //console.log(e);
+        idAction=e;
+        var num=e.charAt(0);
+        var controlador=e.charAt(1);
+        var action=null;
+        if(controlador == 'p' || controlador=='u'){
+            var action=e.charAt(2);
+            controlador='spyPeopleController.php';
+        }else{
+            controlador='addGroupController.php';
+        }
+
+        //alert(action);
+        //var tabla=e.charAt(1);
+        $.ajax({
+            type: "POST",
+            url: 'php/controlador/'+controlador,
+            data: 'data=' + num+"&action="+action,
+            success: spyReport,
+            error: errorElements
+        });
+    }
+    function spyReport(e){
+        var obj=JSON.parse(e);
+        //console.log(e);
+        //var r=parseInt(e);
+        //console.log(r);
+        var idboton="#"+idAction+'boton';
+        $(idboton).removeAttr('onclick');
+        $(idboton).bind("click", hideSearch);
+        $(idboton).removeClass('btn-primary');
+        if(obj=="1"){
+            $(idboton).html('Hecho');
+            $(idboton).addClass('btn-success');
+        }else{
+            $(idboton).html('Listo');
+            $(idboton).addClass('btn-success');
+        }
+    }
+
+</script>
+    <br/>
         <br/>
         <div class="container" id="wrapper">
             <div id="container-serch-result" class="searchResultOculto">
                 <div id="searchResult">
                     
                 </div>
-                <img class="imageLoading" id="loader" src="img/ajax-loader.gif" alt="Loader">
                 <button onclick="hideSearch();" class="position-cerrar-search">cerrar</button>
             </div>
             <div class="modal hide fade" id="nuevoRumor">
@@ -422,7 +397,7 @@ if (isset($_GET['cerrar'])) {
                     if (ele && group!=0){
                        if($(".modalResultSearchUser")){
 
-                       $(".modalResultSearchUser").empty();
+                       $(".modalResultSearchUser").remove();
                        }
                         $.ajax({
                             type: "POST",

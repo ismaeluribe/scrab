@@ -134,6 +134,24 @@ class GruposDAO {
             return $fecha;
         else return 0;
     }
+    public function getNumGroupsByUserId($id){
+        $var = null;
+        $query1 =  "SELECT COUNT(*) FROM grupos WHERE usuarios_personas_idpersonas = ? AND eliminado = 0";
+        $stm = $this->bd->prepare($query1);
+        if (1 != ($stm->bind_param("i", $id))) {
+            throw new PersonasException("errores en el formato de los parametros");
+        }
+        $stm->execute();
+        $stm->bind_result($nom);
+        if ($stm->fetch()) {
+            $var = $nom;
+        } else {
+            throw new GruposException("errores en el formato de los parametros");
+        }
+        $stm->close();
+        return $var;
+    }
+
 
 
 }

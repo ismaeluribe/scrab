@@ -48,7 +48,7 @@ class PersonajesDAO {
                                                 WHERE f.personas_idpersonas = p.idpersonas 
                                                         AND f.mote LIKE ? 
                                                         AND f.anillos_grupos_idgrupos = 1
-                                        ORDER BY f.mote DESC LIMIT 3");
+                                        ORDER BY p.idpersonas DESC LIMIT 3");
 
 //concatenamos los valores
         $name=$this->db->real_escape_string($name);
