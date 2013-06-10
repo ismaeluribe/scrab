@@ -35,6 +35,12 @@ class GruposDAO {
         $this->bd = $obj->getDB();
     }
 
+    public function getNombreFromRumor($id){
+        $query = "SELECT nombre FROM grupos WHERE idgrupos = (SELECT anillos_grupos_idgrupos FROM rumores WHERE idrumores = $id)";
+        $result = $this->bd->query($query);
+        return $result->fetch_object();
+    }
+
     public function insert_datos($id, $idUser, $name, $description, $nameFoto, $privacidad) {
         $query = "INSERT INTO " . self::tablaGrupos . " (idgrupos,usuarios_personas_idpersonas,nombre,fecha,descripcion,foto,privacidad)
                  VALUES ($id,$idUser,'" . $name . "',NOW(),'" . $description . "','$nameFoto','$privacidad')";

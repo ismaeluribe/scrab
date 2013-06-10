@@ -117,12 +117,12 @@ if (isset($_GET['cerrar'])) {
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li class="active"><a href="inicio.php"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
-                            <li><a href="perfil.php">Perfil</a></li>
-                            <li><a href="grupos.php">Grupos</a></li>
+                            <li><a href="perfil.php"><i class="icon-user icon-white"></i>&nbsp;Perfil</a></li>
+                            <li><a href="grupos.php"><i class="icon-bookmark icon-white"></i>&nbsp;Grupos</a></li>
                         </ul>
 
                         <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar" />
-                        <button id="searchElem" class="btn btn-primary" >Busca</button>
+                        <button id="searchElem" class="btn btn-primary" ><i class="icon-search icon-white"></i>&nbsp;Buscar</button>
                         <ul class="nav pull-right">
                             <li>
                                 <a href="crear.php">Crear</a>
