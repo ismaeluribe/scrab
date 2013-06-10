@@ -26,6 +26,9 @@ $imageName=$_POST['imageNameM'];
 $rumor = new rumoresDAO();
 $idR=$rumor->getLastId();
 $slug='imageRumor_id';
+echo $imageFile;
+echo '<br>';
+echo $imageName;
 
 if ($imageName!='null'&& $imageFile!='null') {
 

@@ -65,6 +65,8 @@ if (isset($_GET['cerrar'])) {
                 }, 250);
             }
             function nuevoRumor() {
+
+                $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val(),tratade:$("#modalSearchUser").val(),imageFileM : imageModal,imageNameM : imageNameModal});
                 $("#fotosModalContent").val('');
                 $("#contenido").val('');
                 $("#lugar").val('');
@@ -72,7 +74,7 @@ if (isset($_GET['cerrar'])) {
                 $("#modalSearchText").val('');
                 $(".modalResultSearchUser").remove();
                 $("#modalSearchUser").addClass('searchResultOculto');
-                $.post("php/controlador/RumoresController.php",{grupo:$("#grupos").val(),contenido:$("#contenido").val(),lugar:$("#lugar").val(),enlace:$("#enlace").val(),tratade:$("#modalSearchUser").val(),imageFileM : imageModal,imageNameM : imageNameModal});
+
             }
 
                 function notDrop(e) {//funcion que impide el arrastre en el cuadro interno
@@ -415,8 +417,8 @@ if (isset($_GET['cerrar'])) {
                 document.getElementById("fotosModalContent").ondragover = over;
                 document.getElementById("fotosModalContent").ondragleave = leave;
 
-                var imageModal = null;
-                var imageNameModal = null;
+                imageModal = null;
+                imageNameModal = null;
                 // var imgBool=false;
 
                 function dropImageModal(e) {//script para controlar el drag and drop de la imagen
