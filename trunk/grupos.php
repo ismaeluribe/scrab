@@ -116,9 +116,9 @@ if (isset($_GET['cerrar'])) {
                     <a class="brand" href="index.php">Scrab</a>
                     <div class="nav-collapse">
                         <ul class="nav">
-                            <li class="active"><a href="inicio.php"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
+                            <li><a href="inicio.php"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
                             <li><a href="perfil.php">Perfil</a></li>
-                            <li><a href="grupos.php">Grupos</a></li>
+                            <li class="active"><a href="grupos.php">Grupos</a></li>
                         </ul>
 
                         <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar" />
@@ -287,14 +287,18 @@ if (isset($_GET['cerrar'])) {
             function verMas(elemento){
                 $("#tituloGrupo").contents().filter(function(){ return this.nodeType != 1;}).remove();
                 $("#descripcionModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
+                $("#enlaceGrupo").contents().filter(function(){ return this.nodeType != 1;}).remove();
                 var padre = elemento.parentNode;
                 var nombre = padre.childNodes[1];
                 var imagen = padre.childNodes[3];
                 var descripcion = padre.childNodes[5];
-                var spanNombre = nombre.childNodes[0];
+                var enlace = nombre.childNodes[0].href;
+                var textoEnlaceGrupo = nombre.childNodes[0].childNodes[0];
                 var srcImage = imagen.childNodes[1].src;
                 var spanDescripcion = descripcion.childNodes[1].childNodes[0];
-                $("#tituloGrupo").append(document.createTextNode(spanNombre.nodeValue));
+                $("#tituloGrupo").append(document.createTextNode(textoEnlaceGrupo.nodeValue));
+                $("#enlaceGrupo").attr("href",enlace);
+                $("#enlaceGrupo").append(document.createTextNode(textoEnlaceGrupo.nodeValue));
                 $(".fotoModal").attr("src",srcImage);
                 $("#descripcionModal").append(document.createTextNode(spanDescripcion.nodeValue));
             }
@@ -314,15 +318,12 @@ if (isset($_GET['cerrar'])) {
                 var id = padre.childNodes[11].value;
                 var apoyo = padre.childNodes[13].value;
                 if(apoyo == 0){
-                    console.log("estamos en 0");
                     $("#desmentir").addClass('disabled');
                     $("#apoyar").removeClass('disabled');
                 }else if(apoyo == 1){
-                    console.log("estamos en 1");
                     $("#desmentir").removeClass('disabled');
                     $("#apoyar").addClass('disabled');
                 }else{
-                    console.log("estamos en default");
                     $("#desmentir").removeClass('disabled');
                     $("#apoyar").removeClass('disabled');
                 }
@@ -503,45 +504,28 @@ if (isset($_GET['cerrar'])) {
 
             <div class="modal hide fade" id="contenidoModal">
                 <div class="modal-header">
-                    <a class="close" data-dismiss="modal" onclick="reiniciarModal()">x</a>
+                    <a class="close" data-dismiss="modal">x</a>
                     <h3 id="tituloGrupo">Grupo</h3>
                 </div>
                 <div class="modal-body">
                     <div><span id="nombreModal"></span></div>
-                    <div class="fotoCajaGrupo">
+                    <div class="fotoCajaGrupoModal">
                         <img class="fotoModal"/>
+                    </div>
+                    <div class="CajaEnlaceGrupo">
+                        <h3>Acceder:</h3><br>
+                        <a href="" id="enlaceGrupo"></a>
                     </div>
                     <div><span id="descripcionModal"></span></div>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn pointer" data-dismiss="modal" onclick="reiniciarModal();">Cerrar</a>
-                </div>
-            </div>
-
-            <div class="modal hide fade" id="contenidoModalRumor">
-                <div class="modal-header">
-                    <a class="close" data-dismiss="modal" onclick="reiniciarModal();">x</a>
-                    <h3 id="tituloRumor"></h3>
-                </div>
-                <div class="modal-body">
-                    <div class="fotoCajaRumor">
-                        <img class="fotoModalRumor"/>
-                    </div>
-                    <div class="enlaceLugar">
-                        <span>Enlace:</span><span id="enlaceRumor"><a id="enlaceRumorModal" target="_blank"></a></span><br>
-                        <span>Lugar:</span><span id="lugarRumor" class="lugarRumor"></span>
-                    </div>
-                    <div><span id="descripcionModalRumor"></span></div>
-                    <input type="hidden" id="idRumorModal">
-                </div>
-                <div class="modal-footer">
-                    <a id="apoyar" class="btn btn-success pointer disabled" data-dismiss="modal" onclick="apoyar(this)">Apoyar</a>
-                    <a id="desmentir" class="btn btn-danger pointer" data-dismiss="modal" onclick="desmentir(this)">Desmentir</a>
                     <a class="btn pointer" data-dismiss="modal">Cerrar</a>
                 </div>
             </div>
-            <?php
-                require_once 'php/controlador/MuestraRumoresPorGruposController.php';
-            ?>
+            <div>
+                <?php
+                    require_once 'php/controlador/MuestraGruposController.php';
+                ?>
+            </div>
     </body>
 </html>

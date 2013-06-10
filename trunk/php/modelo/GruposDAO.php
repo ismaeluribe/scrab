@@ -87,6 +87,18 @@ class GruposDAO {
         return $result;
     }
 
+    public function getInfoGrupo($id){
+        $query = "SELECT nombre, descripcion, foto FROM grupos where idgrupos = $id";
+        $result = $this->bd->query($query);
+        return $result;
+    }
+
+    public function getNombre($id){
+        $query = "SELECT nombre FROM grupos WHERE idgrupos = $id";
+        $result = $this->db->query($query);
+        return $result->fetch_object();
+    }
+
     //metodo para buscar los grupos que sean publicos en funcion de que su nombre este contenido en una cadena
     public function getGroupDataByString($name, $id) {
         $stm = $this->bd->prepare("SELECT idgrupos, nombre, descripcion, foto FROM grupos WHERE nombre LIKE ? AND privacidad LIKE 'publico' AND idgrupos NOT IN (SELECT grupos_idgrupos FROM anillos WHERE usuarios_personas_idpersonas = ?) ORDER BY idgrupos DESC limit 3");
