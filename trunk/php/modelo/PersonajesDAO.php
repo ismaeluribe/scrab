@@ -70,10 +70,13 @@ class PersonajesDAO {
         else
             return FALSE;
 
-        /* echo '<meta charset="UTF-8">';
-          echo '<pre>';
-          print_r($userArray);
-          echo '</pre>'; */
+    }
+    public function deletePersonajeByGroupId($id){
+        $stm = $this->db->prepare("DELETE FROM personajes WHERE anillos_grupos_idgrupos = ?");
+        $stm->bind_param('i',$id);
+        $stm->execute();
+        $stm->close();
+
     }
 
 }

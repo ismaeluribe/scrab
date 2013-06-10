@@ -195,6 +195,12 @@ class GruposDAO {
         } else
             return FALSE;
     }
+    public function deleteGroup($id){
+        $stm = $this->bd->prepare("DELETE FROM grupos WHERE idgrupos = ?");
+        $stm->bind_param('i',$id);
+        $stm->execute();
+        $stm->close();
+    }
 
 }
 

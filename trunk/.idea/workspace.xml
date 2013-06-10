@@ -2,27 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="0b9311c8-48f6-469f-9a92-11aa9c70015f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/image/rumor/imageRumor_id_18.jpg" afterPath="$PROJECT_DIR$/image/rumor/imageRumor_id_18.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/controlador/RumoresController.php" afterPath="$PROJECT_DIR$/php/controlador/RumoresController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crear.php" afterPath="$PROJECT_DIR$/crear.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inicio.php" afterPath="$PROJECT_DIR$/inicio.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/php/controlador/EliminaGroupController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/modelo/AnillosDAO.php" afterPath="$PROJECT_DIR$/php/modelo/AnillosDAO.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/modelo/GruposDAO.php" afterPath="$PROJECT_DIR$/php/modelo/GruposDAO.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/modelo/PersonajesDAO.php" afterPath="$PROJECT_DIR$/php/modelo/PersonajesDAO.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/modelo/RumoresDAO.php" afterPath="$PROJECT_DIR$/php/modelo/RumoresDAO.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/perfil.php" afterPath="$PROJECT_DIR$/perfil.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="scrab.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/inicio.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370717402886" ignored="false" />
     <file path="/crear.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370902887213" ignored="false" />
     <file path="/configuracion.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370717483355" ignored="false" />
-    <file path="/perfil.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370819881314" ignored="false" />
+    <file path="/perfil.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370904441657" ignored="false" />
     <file path="/style.css" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370820112503" ignored="false" />
     <file path="/UserDAO.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370806514424" ignored="false" />
-    <file path="/RumoresDAO.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370738083608" ignored="false" />
+    <file path="/RumoresDAO.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370906981419" ignored="false" />
     <file path="/EspiarDAO.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370790444089" ignored="false" />
-    <file path="/GruposDAO.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370815719289" ignored="false" />
+    <file path="/GruposDAO.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370907006097" ignored="false" />
     <file path="/ActualizaUserController.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370807976587" ignored="false" />
     <file path="/PersonasDAO.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370806529057" ignored="false" />
     <file path="/RumoresController.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370903040783" ignored="false" />
+    <file path="/EliminaGroupController.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370907069180" ignored="false" />
+    <file path="/AnillosDAO.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370906828137" ignored="false" />
+    <file path="/PersonajesDAO.php" changelist="0b9311c8-48f6-469f-9a92-11aa9c70015f" time="1370905514957" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,35 +49,37 @@
       <file leaf-file-name="perfil.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/perfil.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="386" column="3" selection-start="15614" selection-end="15614" vertical-scroll-proportion="-9.076923">
+            <state line="653" column="31" selection-start="26820" selection-end="26820" vertical-scroll-proportion="-4.6538463">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="configuracion.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configuracion.php">
+      <file leaf-file-name="inicio.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/inicio.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="283" column="93" selection-start="13234" selection-end="13234" vertical-scroll-proportion="3.4615386">
+            <state line="419" column="16" selection-start="20857" selection-end="20857" vertical-scroll-proportion="0.25862068">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/css/style.css">
+      <file leaf-file-name="RumoresDAO.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/php/modelo/RumoresDAO.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="525" column="13" selection-start="9139" selection-end="9139" vertical-scroll-proportion="0.06822612">
+            <state line="100" column="22" selection-start="3949" selection-end="3949" vertical-scroll-proportion="-14.230769">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RumoresController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/php/controlador/RumoresController.php">
+      <file leaf-file-name="GruposDAO.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/php/modelo/GruposDAO.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="16" selection-start="905" selection-end="905" vertical-scroll-proportion="-13.307693">
-              <folding />
+            <state line="198" column="24" selection-start="7433" selection-end="7433" vertical-scroll-proportion="-17.192308">
+              <folding>
+                <element signature="n#getNumGroupsByUserId#0;n#GruposDAO#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,17 +95,20 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/configuracion.php" />
-        <option value="$PROJECT_DIR$/php/modelo/RumoresDAO.php" />
         <option value="$PROJECT_DIR$/php/modelo/EspiarDAO.php" />
         <option value="$PROJECT_DIR$/php/modelo/UserDAO.php" />
         <option value="$PROJECT_DIR$/php/modelo/PersonasDAO.php" />
         <option value="$PROJECT_DIR$/php/controlador/ActualizaUserController.php" />
-        <option value="$PROJECT_DIR$/php/modelo/GruposDAO.php" />
         <option value="$PROJECT_DIR$/php/controlador/RumoresController.php" />
         <option value="$PROJECT_DIR$/crear.php" />
         <option value="$PROJECT_DIR$/inicio.php" />
-        <option value="$PROJECT_DIR$/perfil.php" />
         <option value="$PROJECT_DIR$/css/style.css" />
+        <option value="$PROJECT_DIR$/perfil.php" />
+        <option value="$PROJECT_DIR$/php/modelo/PersonajesDAO.php" />
+        <option value="$PROJECT_DIR$/php/modelo/AnillosDAO.php" />
+        <option value="$PROJECT_DIR$/php/modelo/RumoresDAO.php" />
+        <option value="$PROJECT_DIR$/php/modelo/GruposDAO.php" />
+        <option value="$PROJECT_DIR$/php/controlador/EliminaGroupController.php" />
       </list>
     </option>
   </component>
@@ -382,31 +391,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/prueba.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/modelo/RumoresDAO.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="0" selection-start="1610" selection-end="2227" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/modelo/EspiarDAO.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="20" selection-start="2947" selection-end="3825" vertical-scroll-proportion="-14.692307" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/controlador/GruposController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="0" selection-start="0" selection-end="2390" vertical-scroll-proportion="-19.26923" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/php/modelo/PersonajesDAO.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.10536399" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/image/usuario/nicoqb.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -421,7 +405,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/php/controlador/ActualizaUserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="0" selection-start="2543" selection-end="2543" vertical-scroll-proportion="2.6373832" />
+        <state line="83" column="0" selection-start="2543" selection-end="2543" vertical-scroll-proportion="2.6373832">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/php/modelo/UserDAO.php">
@@ -429,21 +415,9 @@
         <state line="243" column="24" selection-start="10614" selection-end="10614" vertical-scroll-proportion="0.33716476" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/php/modelo/GruposDAO.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="37" selection-start="6383" selection-end="6563" vertical-scroll-proportion="-11.692307" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crear.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="361" column="16" selection-start="15949" selection-end="15949" vertical-scroll-proportion="12.839663">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/inicio.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="419" column="16" selection-start="20857" selection-end="20857" vertical-scroll-proportion="0.2461832">
           <folding />
         </state>
       </provider>
@@ -455,23 +429,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/perfil.php">
+    <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="386" column="3" selection-start="15614" selection-end="15614" vertical-scroll-proportion="-9.076923">
+        <state line="525" column="13" selection-start="9139" selection-end="9139" vertical-scroll-proportion="0.06822612">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/configuracion.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="283" column="93" selection-start="13234" selection-end="13234" vertical-scroll-proportion="3.4615386">
+        <state line="283" column="93" selection-start="13234" selection-end="13234" vertical-scroll-proportion="-0.17175573">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.css">
+    <entry file="file://$PROJECT_DIR$/php/controlador/addGroupController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="525" column="13" selection-start="9139" selection-end="9139" vertical-scroll-proportion="0.06822612">
+        <state line="39" column="8" selection-start="6" selection-end="1144" vertical-scroll-proportion="-17.961538">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/modelo/AnillosDAO.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="73" selection-start="2940" selection-end="2940" vertical-scroll-proportion="0.8093458">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/modelo/PersonajesDAO.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="0" selection-start="2782" selection-end="2959" vertical-scroll-proportion="0.59770113">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/modelo/RumoresDAO.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="100" column="22" selection-start="3949" selection-end="3949" vertical-scroll-proportion="-14.230769">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/modelo/GruposDAO.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="198" column="24" selection-start="7433" selection-end="7433" vertical-scroll-proportion="-17.192308">
+          <folding>
+            <element signature="n#getNumGroupsByUserId#0;n#GruposDAO#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/controlador/EliminaGroupController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="29" selection-start="255" selection-end="255" vertical-scroll-proportion="-0.62056077">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/perfil.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="653" column="31" selection-start="26820" selection-end="26820" vertical-scroll-proportion="-4.6538463">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inicio.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="419" column="16" selection-start="20857" selection-end="20857" vertical-scroll-proportion="0.25862068">
           <folding />
         </state>
       </provider>
