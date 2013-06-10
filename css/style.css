@@ -56,21 +56,41 @@ body{
     height: 342px;
     width:200px;
     padding-bottom: 20px;
-    margin-left: 66px;
-    margin-top: 70px;
+    margin-left: 30px;
+    margin-top: 30px;
 }
 
 .cajaUser{
     margin-bottom: 100px;
 }
 
+.tituloGrupos{
+    text-align: center;
+}
+
 .cajaGrupo{
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    margin-left: 100px;
+}
+
+.cajaGrupo #nombre,.descripcionGrupo, .descripcionGrupo span{
+    padding-left:5px;
+    padding-right:8px;
+}
+
+.descripcionGrupo{
+    text-overflow: ellipsis;
 }
 
 .fotoCajaUser{
     height: 200px;
     width:200px;
+}
+
+.CajaEnlaceGrupo{
+    float:left;
+    width:50%;
+    height:200px;
 }
 
 .fotoCajaGrupoImg{
@@ -96,8 +116,39 @@ body{
 }
 
 .fotoCajaGrupo{
-    height: 200px;
     width:200px;
+}
+
+.fotoCajaGrupoModal{
+    height: 200px;
+    float:left;
+    width:50%;
+}
+
+.fotoCajaGrupoModal img{
+    height:200px;
+    max-width:90%;
+}
+
+.datosGrupo{
+    border-right-color:#ddd;
+    border-right-width: 1px;
+    border-right-style: solid;
+    float:left;
+    text-align: center;
+    min-height: 600px;
+    width:25%;
+}
+
+.contenidoGrupo .tabbable{
+    float:none;
+    margin-top:5px;
+}
+
+.contenidoGrupo{
+    min-height: 600px;
+    width:74.9%;
+    float:left;
 }
 
 .fotoCajaUserImg{
@@ -402,11 +453,20 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     border-width: 1px;
     border-color:black;
     margin-bottom: 20px;
+    margin-left:65px;
 }
 
 .cajaRumor p{
     margin-left: 10px;
     text-align: left;
+}
+
+.tab-pane{
+    overflow:hidden;
+}
+
+.rumorGrupo{
+    margin-left: 20px;
 }
 
 .lugarRumor{
@@ -420,15 +480,23 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     z-index:10;
 }
 
+.grupoPerfil img{
+    margin-top:15px;
+}
+
 .fotoRumor{
     height: 150px;
+    width:200px;
 }
 
 .descripcionRumor{
     height:100px;
     padding:1px;
     overflow:hidden;
-    text-overflow: ellipsis;
+}
+
+.fotoModal{
+    height:200px;
 }
 
 .fotoModalRumor{

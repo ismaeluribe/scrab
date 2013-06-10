@@ -25,6 +25,12 @@ class UserDAO {
         $this->getPrivacidad = $this->db->prepare("SELECT privacidad FROM usuarios WHERE personas_idpersonas = ?");
     }
 
+    public function getPorAnillo($id){
+        $query = "SELECT nombre, apellido,apellido2, foto, estado FROM usuarios, personas, anillos WHERE usuarios.personas_idpersonas = personas.idpersonas AND usuarios.personas_idpersonas = anillos.usuarios_personas_idpersonas AND anillos.grupos_idgrupos = $id";
+        $result = $this->db->query($query);
+        return $result;
+    }
+
     function getEstado($id){
         $query = "SELECT personas.nombre, personas.apellido, personas.apellido2, usuarios.estado, personas.foto FROM personas, usuarios, usuarios_has_personas WHERE usuarios_has_personas.personas_idpersonas = usuarios.personas_idpersonas AND usuarios_has_personas.usuarios_personas_idpersonas = $id AND usuarios.personas_idpersonas = personas.idpersonas AND usuarios_has_personas.espiar = 1 AND usuarios_has_personas.fecha IN (SELECT MAX(fecha) FROM usuarios_has_personas GROUP BY personas_idpersonas)";
         $result = $this->db->query($query);

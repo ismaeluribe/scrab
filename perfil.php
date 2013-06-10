@@ -158,7 +158,7 @@ if (isset($_GET['cerrar'])) {
                 <ul class="nav">
                     <li><a href="inicio.php"><i class="icon-home icon-white"></i>&nbsp;Inicio</a></li>
                     <li class="active"><a href="perfil.php">Perfil</a></li>
-                    <li><a href="#">Grupos<!--&nbsp;<span class="badge">8</span>--></a></li>
+                    <li><a href="grupos.php">Grupos<!--&nbsp;<span class="badge">8</span>--></a></li>
                 </ul>
 
                 <input type="text" id="searchContent" class="search-query span3" placeholder="Buscar"/>
