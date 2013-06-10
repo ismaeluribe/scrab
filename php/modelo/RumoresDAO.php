@@ -75,6 +75,44 @@ class rumoresDAO{
         $sobreMi=$this->getNumRumoresLanzadosByUserId($id);
         return array('lanzados'=>$lanzados,'sobreMi'=>$sobreMi);
     }
+
+    /*****************************/
+
+    public function deleteRumorByGroupId($id){
+        $ids=$this->getRumorIdByGroup($id);
+        $stm = $this->db->prepare("DELETE FROM apoyos WHERE rumores_idrumores = ?");
+        if($ids){
+            foreach($ids as $value){
+                $stm->bind_param('i',$value);
+                $stm->execute();
+            }
+            $stm->close();
+            $stm2 = $this->db->prepare("DELETE FROM rumores WHERE anillos_grupos_idgrupos = ?");
+            $stm2->bind_param('i',$id);
+            $stm2->execute();
+            $stm2->close();
+        }
+
+
+    }
+    private  function getRumorIdByGroup($idg){
+        //metodo paara la obtencion de todos los datos que tiene el usuario
+        $query= "SELECT idrumores FROM rumores WHERE anillos_grupos_idgrupos = ?";
+        $stm=$this->db->prepare($query);
+        $stm->bind_param('i',$idg);
+        $stm->execute();
+        $stm->bind_result($idrumores);
+        $groupArray = array();
+        while ($stm->fetch()) {
+            $groupArray[] =$idrumores;
+        }
+        $stm->close();
+        if (count($groupArray)) {
+            return $groupArray;
+        } else
+            return FALSE;
+    }
+
 }
 
 ?>

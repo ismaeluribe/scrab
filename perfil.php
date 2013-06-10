@@ -633,12 +633,39 @@ if (isset($_GET['cerrar'])) {
                     echo "<p>".$value['fecha']."</p>";
                     echo "<h4>Descripcion</h4>";
                     echo "<p class=\"p-description\">".$value['description']."</p>";
-                    echo "<button value='b".$key1."' onclick='eliminaGroup(this.value);' class='btn btn-danger group-btn-eli'>eliminar</button>";
+                    echo "<button id=\"btn".$key1."\" value='".$key1."' onclick='eliminaGroup(this.value);' class='btn btn-danger group-btn-eli'>eliminar</button>";
                 echo "</div>";
             }
             ?>
         </div>
+        <script>
+            var eli=null;
+            function eliminaGroup(para){
+                eli=para;
+                $.ajax({
+                    type: "POST",
+                    url: 'php/controlador/EliminaGroupController.php',
+                    data: 'grupo=' + eli,
+                    success: responseElimina,
+                    error: errorElimina
+                });
+            }
+            function responseElimina(e){
+                console.log(e);
+                if(e==true){
+                    $("#g"+eli).remove();
+                }
+                else{
+                    alert ('no puedes eeliminar este grupo');
+                }
 
+            }
+            function errorElimina(){
+                alert('liada parda en algun sitio');
+                console.log(e);
+            }
+
+        </script>
 
         <!--*********************************************-->
 

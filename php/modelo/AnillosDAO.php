@@ -86,4 +86,10 @@ class AnillosDAO {
             return false;
 
     }
+    public function deleteDataByGroupId($id){
+        $stm = $this->db->prepare("DELETE FROM " . self::tablaAnillos . " WHERE grupos_idgrupos = ?");
+        $stm->bind_param('i',$id);
+        $stm->execute();
+        $stm->close();
+    }
 }
