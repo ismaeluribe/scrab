@@ -490,13 +490,13 @@ if (isset($_GET['cerrar'])) {
             <h2>Perfil</h2>
 
             <div id="datos-perfil">
-                <h2><?php echo $arrayPersonas['nombre']; ?></h2>
+                <h3><?php echo $arrayPersonas['nombre'].' '; echo $arrayPersonas['apellido'] . ' ' . $arrayPersonas['apellido2']; ?></h3>
 
-                <h3><?php echo $arrayPersonas['apellido'] . ' ' . $arrayPersonas['apellido2']; ?></h3>
+                <h3><?php  ?></h3>
                 <img src="image/usuario/<?php echo $arrayPersonas['imagen']; ?>" alt="foto user"/>
                 <h5> <?php echo $arrayUserPerfil['nac']; ?></h5>
                 <br>
-                <h5>sexo: <?php echo $arrayUserPerfil['sexo']; ?></h5>
+                <h5>Sexo: <?php echo $arrayUserPerfil['sexo']; ?></h5>
                 <br>
                 <h5>Rumores lanzados: <?php echo $arrayRumores['lanzados']; ?> </h5>
                 <br>
