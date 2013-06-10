@@ -548,6 +548,28 @@ if (isset($_GET['cerrar'])) {
                     <a class="btn pointer" data-dismiss="modal">Cerrar</a>
                 </div>
             </div>
+            <div class="modal hide fade" id="contenidoModalRumor">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal" onclick="reiniciarModal();">x</a>
+                    <h3 id="tituloRumor"></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="fotoCajaRumor">
+                        <img class="fotoModalRumor"/>
+                    </div>
+                    <div class="enlaceLugar">
+                        <span>Enlace:</span><span id="enlaceRumor"><a id="enlaceRumorModal" target="_blank"></a></span><br>
+                        <span>Lugar:</span><span id="lugarRumor" class="lugarRumor"></span>
+                    </div>
+                    <div><span id="descripcionModalRumor"></span></div>
+                    <input type="hidden" id="idRumorModal">
+                </div>
+                <div class="modal-footer">
+                    <a id="apoyar" class="btn btn-success pointer disabled" data-dismiss="modal" onclick="apoyar(this)">Apoyar</a>
+                    <a id="desmentir" class="btn btn-danger pointer" data-dismiss="modal" onclick="desmentir(this)">Desmentir</a>
+                    <a class="btn pointer" data-dismiss="modal">Cerrar</a>
+                </div>
+            </div>
             <?php
                 if(isset($id)){
                     require_once 'php/controlador/MuestraGrupoController.php';
