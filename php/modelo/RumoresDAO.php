@@ -30,7 +30,12 @@ class rumoresDAO{
 	}
 
 	public function getRumoresFromGrupos($idUser, $idGrupo){
-		$query = "SELECT idrumores, anillos_grupos_idgrupos, anillos_usuarios_idpersonas, contenido, rumores.foto AS foto, lugar, enlace, rumores.personas_idpersonas AS persona, nombre FROM rumores, personas WHERE personas.idpersonas = rumores.anillos_usuarios_idpersonas AND anillos_usuarios_idpersonas != $idUser AND anillos_grupos_idgrupos = $idGrupo";
+		$query = "SELECT idrumores, anillos_grupos_idgrupos, anillos_usuarios_idpersonas, contenido, rumores.foto
+		                AS foto, lugar, enlace, rumores.personas_idpersonas AS persona, nombre
+		                        FROM rumores, personas
+		                        WHERE personas.idpersonas = rumores.anillos_usuarios_idpersonas
+		                        AND anillos_usuarios_idpersonas != $idUser
+		                        AND anillos_grupos_idgrupos = $idGrupo";
 		$result = $this->db->query($query);
 		return $result;
 	}
@@ -111,6 +116,16 @@ class rumoresDAO{
             return $groupArray;
         } else
             return FALSE;
+    }
+
+    public function getRumoresByUserId($id){
+        $query = "SELECT idrumores, anillos_grupos_idgrupos, anillos_usuarios_idpersonas, contenido, rumores.foto
+		                AS foto, lugar, enlace, rumores.personas_idpersonas AS persona, nombre
+		                        FROM rumores, personas
+		                        WHERE personas.idpersonas = rumores.anillos_usuarios_idpersonas
+		                        AND anillos_usuarios_idpersonas = $id";
+        $result = $this->db->query($query);
+        return $result;
     }
 
 }

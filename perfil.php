@@ -8,6 +8,7 @@
 require_once 'php/modelo/UserDAO.php';
 require_once 'php/modelo/PersonasDAO.php';
 require_once 'php/modelo/RumoresDAO.php';
+require_once 'php/modelo/ApoyosDAO.php';
 require_once 'php/modelo/modeloException/UserException.php';
 require_once 'php/modelo/modeloException/ModeloException.php';
 require_once 'php/modelo/GruposDAO.php';
@@ -27,6 +28,7 @@ try {
     $objUser= new UserDAO();
     $objEspiar=new EspiarDAO();
     $objGrupos=new GruposDAO();
+    $apoyos = new ApoyosDAO();
 
     $arrayPersonas = $objPersonas->getDataById($_SESSION['id']);
     $arrayUserPerfil=$objUser->getUserPerfilDataById($_SESSION['id']);
@@ -671,8 +673,95 @@ if (isset($_GET['cerrar'])) {
 
         <div class="tab-pane" id="misRumores">
             <h1>Mis Rumores</h1>
+            <?php
+
+            $rumors = $objRumores->getRumoresByUserId($_SESSION['id']);
+            while ($rum = $rumors->fetch_object()){
+                $apoyar = $apoyos->checkApoyadoDesmentido($rum->idrumores,$_SESSION['id']);
+                echo "<div class=\"cajaRumor caja\">\n<div id=\"nombreRumor\">\n<p>$rum->nombre</p>\n</div>\n<div class=\"fotoRumorCaja\">\n<img class=\"fotoRumor\" src=\"image/rumor/$rum->foto\" alt=\"$rum->foto\">\n<br><a href=\"http://$rum->enlace\" target=\"_blank\">$rum->enlace</a>\n</div>\n<div class=\"descripcionRumor\">\n<span>$rum->contenido</span>\n</div>\n<div class=\"lugarRumor\">\n<p>$rum->lugar</p>\n</div>\n<a href=\"#contenidoModalRumor\" data-toggle=\"modal\" title=\"Ver mas\" class=\"btn btn-small btn-primary verMasRumor\" onclick=\"verMasRumor(this)\">Ver más</a>\n<input type=\"hidden\" id=\"idRumor\" value=\"$rum->idrumores\">\n<input id=\"$rum->idrumores\" type=\"hidden\" id=\"apoyado\" value=\"$apoyar\">\n</div>\n";
+            }
+            if($rumors->num_rows == 0){
+                echo "<h3>No hay rumores en este grupo</h3>";
+            }
+
+
+            ?>
 
         </div>
+    <script>
+        function verMas(elemento){
+            $("#tituloGrupo").contents().filter(function(){ return this.nodeType != 1;}).remove();
+            $("#descripcionModal").contents().filter(function(){ return this.nodeType != 1;}).remove();
+            var padre = elemento.parentNode;
+            var nombre = padre.childNodes[1];
+            var imagen = padre.childNodes[3];
+            var descripcion = padre.childNodes[5];
+            var spanNombre = nombre.childNodes[0];
+            var srcImage = imagen.childNodes[1].src;
+            var spanDescripcion = descripcion.childNodes[1].childNodes[0];
+            $("#tituloGrupo").append(document.createTextNode(spanNombre.nodeValue));
+            $(".fotoModal").attr("src",srcImage);
+            $("#descripcionModal").append(document.createTextNode(spanDescripcion.nodeValue));
+        }
+        function verMasRumor(elemento){
+            $("#tituloRumor").contents().filter(function(){return this.nodeType != 1;}).remove();
+            $("#enlaceRumorModal").contents().filter(function(){return this.nodeType != 1;}).remove();
+            $("#lugarRumor").contents().filter(function(){return this.nodeType != 1;}).remove();
+            $("#descripcionModalRumor").contents().filter(function(){return this.nodeType != 1;}).remove();
+            var padre = elemento.parentNode;
+            var usuario = padre.childNodes[1].childNodes[1].childNodes[0];
+            //var grupo = padre.childNodes[1].childNodes[3].childNodes[0];
+            var image = padre.childNodes[3].childNodes[1].src;
+            var enlace = padre.childNodes[3].childNodes[4];
+            var url = enlace.childNodes[0];
+            var descripcion = padre.childNodes[5].childNodes[1].childNodes[0];
+            var lugar = padre.childNodes[7].childNodes[1].childNodes[0];
+            var id = padre.childNodes[11].value;
+            var apoyo = padre.childNodes[13].value;
+            if(apoyo == 0){
+                console.log("estamos en 0");
+                $("#desmentir").addClass('disabled');
+                $("#apoyar").removeClass('disabled');
+            }else if(apoyo == 1){
+                console.log("estamos en 1");
+                $("#desmentir").removeClass('disabled');
+                $("#apoyar").addClass('disabled');
+            }else{
+                console.log("estamos en default");
+                $("#desmentir").removeClass('disabled');
+                $("#apoyar").removeClass('disabled');
+            }
+            $("#tituloRumor").append(document.createTextNode(usuario.nodeValue ));
+            $(".fotoModalRumor").attr("src",image);
+            $("#enlaceRumorModal").attr("href",enlace.href);
+            $("#idRumorModal").attr("value",id);
+            $("#enlaceRumorModal").append(document.createTextNode(url.nodeValue))
+            $("#lugarRumor").append(document.createTextNode(lugar.nodeValue));
+            $("#descripcionModalRumor").append(document.createTextNode(descripcion.nodeValue));
+        }
+        function apoyar(elemento){
+            var id = elemento.parentNode.parentNode.childNodes[3].childNodes[7].value;
+            $("#"+id).attr("value",1);
+            $("#desmentir").removeClass('disabled');
+            $("#apoyar").addClass('disabled');
+            $.ajax({
+                type: "POST",
+                url: 'php/controlador/apoyarController.php',
+                data: 'id=' + id
+            });
+        }
+        function desmentir(elemento){
+            var id = elemento.parentNode.parentNode.childNodes[3].childNodes[7].value;
+            $("#"+id).attr("value",0);
+            $("#desmentir").addClass('disabled');
+            $("#apoyar").removeClass('disabled');
+            $.ajax({
+                type: "POST",
+                url: 'php/controlador/desmentirController.php',
+                data: 'id=' + id
+            });
+        }
+    </script>
 
     </div>
 </div>
