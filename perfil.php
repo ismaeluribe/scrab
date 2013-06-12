@@ -30,12 +30,25 @@ try {
     $objGrupos=new GruposDAO();
     $apoyos = new ApoyosDAO();
 
+   // echo '<br>';
+   // echo '<br>';
+  //  echo '<br>';
+  //  echo '<pre>';
+    //var_dump($arrayNumEspio);
+
+
+
+   // echo "<h1>".$_SESSION['id']."</h1>";
+
     $arrayPersonas = $objPersonas->getDataById($_SESSION['id']);
+    //var_dump($arrayPersonas);
     $arrayUserPerfil=$objUser->getUserPerfilDataById($_SESSION['id']);
+   // var_dump($arrayUserPerfil);
     $arrayRumores=$objRumores->getNumRumoresAllByUserId($_SESSION['id']);
+    //var_dump($arrayRumores);
     $arrayNumEspio=$objEspiar->getNumEspiarById($_SESSION['id']);
     $arrayAllDataGroup=$objGrupos->getGroupAllDataByUserId($_SESSION['id']);
-
+    //echo '</pre>';
     //si el array esta vacio salta esta exepcion
     /*echo '<pre>';
 
@@ -51,6 +64,7 @@ try {
     /********************************************************/
     //$objG=new GruposDAO();
     //$g_array = $objG->getGroupDataByUserId($_SESSION['id']);
+
 
     /*******************************************************/
     if (!$arrayPersonas)
@@ -491,6 +505,7 @@ if (isset($_GET['cerrar'])) {
     <div class="tab-content centroInicio" id="centroInicioJs">
         <div class="tab-pane active" id="perfil">
             <h2>Perfil</h2>
+
 
             <div id="datos-perfil">
                 <h3><?php echo $arrayPersonas['nombre'].' '; echo $arrayPersonas['apellido'] . ' ' . $arrayPersonas['apellido2']; ?></h3>

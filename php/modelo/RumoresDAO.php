@@ -52,7 +52,8 @@ class rumoresDAO{
         if ($stm->fetch()) {
             $var = $nom;
         } else {
-            throw new ModeloException("errores en el formato de los parametros");
+            $var=0;
+           // throw new ModeloException("errores en el formato de los parametros");
         }
         $stm->close();
         return $var;
@@ -70,7 +71,8 @@ class rumoresDAO{
         if ($stm->fetch()) {
             $var = $nom;
         } else {
-            throw new ModeloException("errores en el formato de los parametros");
+            $var=0;
+           // throw new ModeloException("errores en el formato de los parametros");
         }
         $stm->close();
         return $var;
