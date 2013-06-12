@@ -79,12 +79,14 @@ class EspiarDAO {
         if ($stm->fetch()) {
             $var = $nom;
         } else {
-            throw new ModeloException("errores en el formato de los parametros");
+            //throw new ModeloException("errores en el formato de los parametros");
+            $var=0;
         }
         $stm->close();
         return $var;
     }
     private function getNumEspioById($id){
+
         $var = null;
         $query1 =  "SELECT COUNT(*) FROM usuarios_has_personas
                             WHERE espiar=1
@@ -101,13 +103,15 @@ class EspiarDAO {
         if ($stm->fetch()) {
             $var = $nom;
         } else {
-            throw new ModeloException("errores en el formato de los parametros");
+            //throw new ModeloException("errores en el formato de los parametros");
+            $var=0;
         }
         $stm->close();
         return $var;
     }
 
     public function getNumEspiarById($id){
+
         $espio=$this->getNumEspioById($id);
         $meEspian=$this->getNumMeEspianById($id);
         return array('espio'=> $espio, 'meEspian'=>$meEspian);
