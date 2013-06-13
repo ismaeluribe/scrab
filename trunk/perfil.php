@@ -509,20 +509,17 @@ if (isset($_GET['cerrar'])) {
 
             <div id="datos-perfil">
                 <h3><?php echo $arrayPersonas['nombre'].' '; echo $arrayPersonas['apellido'] . ' ' . $arrayPersonas['apellido2']; ?></h3>
-
-                <h3><?php  ?></h3>
                 <img src="image/usuario/<?php echo $arrayPersonas['imagen']; ?>" alt="foto user"/>
-                <h5> <?php echo $arrayUserPerfil['nac']; ?></h5>
+                <h5><?php echo $arrayUserPerfil['nac']; ?></h5>
                 <br>
-                <h5>Sexo: <?php echo $arrayUserPerfil['sexo']; ?></h5>
+                <h5>Sexo: <?php echo $arrayUserPerfil['sexo']; ?>&nbsp;&nbsp;</h5>
                 <br>
-                <h5>Rumores lanzados: <?php echo $arrayRumores['lanzados']; ?> </h5>
+                <h5>Rumores lanzados: <?php echo $arrayRumores['lanzados']; ?></h5>
                 <br>
-                <h5>Rumores sobre mi: <?php echo $arrayRumores['sobreMi']; ?> </h5>
+                <h5>Rumores sobre mi: <?php echo $arrayRumores['sobreMi']; ?></h5>
                 <br>
-                <h5>Espio: <?php echo $arrayNumEspio['espio']; ?> </h5>
-                <br>
-                <h5>Me espia: <?php echo $arrayNumEspio['meEspian']; ?> </h5>
+                <h5>Espio: <?php echo $arrayNumEspio['espio']; ?></h5>
+                <h5>Me espia: <?php echo $arrayNumEspio['meEspian']; ?></h5>
                 <br>
                 <h5>Tengo <?php echo $objGrupos->getNumGroupsByUserId($_SESSION['id']); ?> grupos</h5>
                 <br>
@@ -661,7 +658,7 @@ if (isset($_GET['cerrar'])) {
         <div class="tab-pane" id="misGrupos">
             <h1>Mis Grupos</h1>
             <?php
-            foreach($arrayAllDataGroup as $key1=>$value){
+            foreach($arrayAllDataGroup as $key1 => $value){
                 echo "<div id='g".$key1."' class='groups-user' >";
                     echo "<h2>".$value['nombre']."</h2>";
                 echo'<div class="content-img">';

@@ -531,7 +531,7 @@ box-shadow:0px 0px 10px 3px rgba(119, 119, 119, 0.4);*/
     padding: 10px;
     text-align: left;
 }
-#datos-perfil >h2, #datos-perfil >h4, #datos-perfil >h5{
+#datos-perfil h2, #datos-perfil h4, #datos-perfil h5{
     display: inline-block;
     margin: 0;
     float: left;
