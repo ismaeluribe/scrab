@@ -25,7 +25,7 @@ body{background-color:#f7e4c7}.todoInicio{width:1000px;overflow:hidden;padding-b
 .cajaRumor p{margin-left:10px;text-align:left}.tab-pane{overflow:hidden}.rumorGrupo{margin-left:20px}.lugarRumor{margin-top:5px;color:#dd4814}.verMasRumor{margin-left:125px;margin-top:-25px;z-index:10}
 .grupoPerfil img{margin-top:15px}.fotoRumor{height:150px;width:200px}.descripcionRumor{height:100px;padding:1px;overflow:hidden}.fotoModal{height:200px}
 .fotoModalRumor{float:left;height:200px}.enlaceLugar span{margin-left:50px}.enlaceLugar{width:50%;float:left;height:200px;margin-top:30px}.fotoCajaRumor{height:200px;width:49%;float:left;margin:0 auto}
-#datos-perfil{width:35%;margin-left:10px;margin-top:20px;display:inline-block;vertical-align:top;padding:10px;text-align:left}#datos-perfil>h2,#datos-perfil>h4,#datos-perfil>h5{display:inline-block;margin:0;float:left;color:#a5360f}
+#datos-perfil{width:40%;margin-left:10px;margin-top:20px;display:inline-block;vertical-align:top;padding:10px;text-align:left}#datos-perfil h2,#datos-perfil h4,#datos-perfil h5{display:inline-block;margin:0;float:left;color:#a5360f}
 #datos-perfil>h3{margin:0;color:#a5360f}#datos-perfil>h4,#datos-perfil>h5{background-color:#d54513;border-radius:3px 3px 3px 3px;clear:right;color:white;font-weight:normal;left:-10px;margin:1px;padding:2px;position:relative;top:5px}
 #datos-perfil>p{clear:both}#datos-perfil>img{width:50%;float:left;margin:5px}#actualizacion-perfil{width:100%;display:inline-block;text-align:center;height:auto;overflow:hidden;vertical-align:top;margin-top:20px;padding-bottom:20px;margin-top:20px}
 #actualizacion-perfil>textarea{float:right;margin-top:55px;margin-right:45px}#actualizacion-perfil>div{margin-left:45px;float:left}#actualizacion-perfil>label{font-weight:bold}
