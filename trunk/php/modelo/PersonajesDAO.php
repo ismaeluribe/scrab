@@ -40,6 +40,12 @@ class PersonajesDAO {
         $stm->close();
     }
 
+    public function getPersonajesFromGrupos($idGrupo){
+        $query = "SELECT personas.nombre AS nombre, personas.apellido AS apellido, personas.apellido2 AS apellido2, personas.foto AS foto, personajes.mote AS mote, personajes.descripcion AS descripcion FROM personajes, personas WHERE personas.idpersonas = personajes.personas_idpersonas AND personajes.anillos_grupos_idgrupos = $idGrupo";
+        $return = $this->db->query($query);
+        return $return;
+    }
+
     //funcion para busccar los personajes pertenecienetes al grupo publico
     //en funcion de que su mote este contenido dentro de una cadena
     public function getPersonajeDataByString($name) {
