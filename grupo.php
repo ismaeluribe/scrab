@@ -5,6 +5,7 @@ require_once '/php/modelo/UserDAO.php';
 require_once '/php/modelo/ApoyosDAO.php';
 require_once '/php/modelo/RumoresDAO.php';
 require_once '/php/modelo/PersonasDAO.php';
+require_once '/php/modelo/PersonajesDAO.php';
 require_once '/php/modelo/GruposDAO.php';
 //iniciamos secion
 session_start();
