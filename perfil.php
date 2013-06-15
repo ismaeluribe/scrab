@@ -62,8 +62,8 @@ try {
 
     echo '</pre>';*/
     /********************************************************/
-    //$objG=new GruposDAO();
-    //$g_array = $objG->getGroupDataByUserId($_SESSION['id']);
+    $objG=new GruposDAO();
+    $g_array = $objG->getGroupDataByUserId($_SESSION['id']);
 
 
     /*******************************************************/
@@ -546,8 +546,6 @@ if (isset($_GET['cerrar'])) {
                     <input type="hidden" id="idRumorModal">
                 </div>
                 <div class="modal-footer">
-                    <a id="apoyar" class="btn btn-success pointer disabled" data-dismiss="modal" onclick="apoyar(this)">Apoyar</a>
-                    <a id="desmentir" class="btn btn-danger pointer" data-dismiss="modal" onclick="desmentir(this)">Desmentir</a>
                     <a class="btn pointer" data-dismiss="modal">Cerrar</a>
                 </div>
             </div>
@@ -658,6 +656,7 @@ if (isset($_GET['cerrar'])) {
         <div class="tab-pane" id="misGrupos">
             <h1>Mis Grupos</h1>
             <?php
+            if($arrayAllDataGroup){
             foreach($arrayAllDataGroup as $key1 => $value){
                 echo "<div id='g".$key1."' class='groups-user' >";
                     echo "<h2>".$value['nombre']."</h2>";
@@ -672,6 +671,9 @@ if (isset($_GET['cerrar'])) {
                     echo "<button id=\"btn".$key1."\" value='".$key1."' onclick='eliminaGroup(this.value);' class='btn btn-danger group-btn-eli'>eliminar</button>";
                 echo "</div>";
             }
+        }else{
+            echo "<h3>No tienes grupos</h3>";
+        }
             ?>
         </div>
         <script>
