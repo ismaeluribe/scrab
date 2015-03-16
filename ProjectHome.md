@@ -1,0 +1,1 @@
+Habla mal de todo el mundo y sal impune
